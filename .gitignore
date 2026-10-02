@@ -1,0 +1,19 @@
+# Zephyr / CMake build folders
+build/
+**/build/
+zephyr/
+modules/
+*.o
+*.elf
+*.bin
+*.hex
+*.map
+*.log
+CMakeCache.txt
+CMakeFiles/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store

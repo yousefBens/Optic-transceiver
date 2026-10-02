@@ -1,0 +1,22 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    chosen {
+        zephyr,console = &usart2;
+    };
+
+    zephyr,user {
+        data-gpios = <&gpioa 9 GPIO_ACTIVE_HIGH>;
+    };
+
+};
+
+
+&usart2 {
+    compatible = "st,stm32-usart", "st,stm32-uart";
+    reg = <0x40004400 0x400>;
+    clocks = <&rcc STM32_CLOCK(APB1, 17)>;
+    resets = <&rctl STM32_RESET(APB1L, 17)>;
+    interrupts = <38 0>;
+    status = "okay";
+};
