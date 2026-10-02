@@ -39,7 +39,7 @@ static void timer_callback(const struct device *dev,
 {
     if (state == PREAMBLE){
 
-        gpio_pin_set_dt(&data, 0);
+        gpio_pin_set_dt(&data, 1);
         count_preamble++;
 
         if (count_preamble >= 6){
