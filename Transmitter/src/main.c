@@ -38,6 +38,7 @@ static void timer_callback(const struct device *dev,
                            void *user_data)
 {
     if (state == PREAMBLE){
+
         gpio_pin_set_dt(&data, 0);
         count_preamble++;
 
@@ -111,21 +112,15 @@ int main(void)
 
     counter_start(timer);
 
-
     counter_get_value(timer, &next_alarm);
 
     next_alarm += half_bit_ticks;
-
     alarm_cfg.ticks = next_alarm;
-
 
     counter_set_channel_alarm(timer, 0, &alarm_cfg);
 
 
-    while (1) {
-
-        k_sleep(K_FOREVER);
-    }
+    k_sleep(K_FOREVER);
 
 
     return 0;
