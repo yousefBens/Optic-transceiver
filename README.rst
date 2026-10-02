@@ -1,33 +1,47 @@
-# Projet de Contrôle GPIO & SPI via UART en Python
+1. Transmitter
+==============
 
-## Description
+The transmitter is implemented on an STM32L476RG using Zephyr RTOS.
 
-Ce projet a pour objectif de **contrôler et configurer les interfaces GPIO et SPI** à l’aide d’un **script Python** communiquant via **UART (Universal Asynchronous Receiver Transmitter)**.  
-Il permet d’activer, de configurer et d’utiliser les broches GPIO et les périphériques SPI pour réaliser diverses tâches spécifiques, comme le pilotage de capteurs, d’actionneurs ou de modules externes.
+The objective is to transmit binary data through a GPIO using Manchester
+encoding. Each bit is divided into two equal half-bit periods:
 
----
+- ``0`` -> LOW then HIGH
+- ``1`` -> HIGH then LOW
 
-## Fonctionnalités principales
+The current implementation uses a half-bit duration of ``500 us``, corresponding
+to a complete bit duration of ``1 ms`` and therefore a data rate of ``1 kbit/s``.
 
-- **Communication UART** : Échange de données entre Python et un microcontrôleur ou un périphérique distant.  
-- **Contrôle des GPIO** :  
-  - Configuration des broches en **entrée** ou **sortie**  
-  - Lecture et écriture d’états logiques  
-  - Activation de fonctions spéciales selon les besoins de l’application  
-- **Communication SPI** :  
-  - Configuration des paramètres SPI (fréquence, mode, polarité, phase)  
-  - Envoi et réception de données avec des périphériques SPI  
-- **Interface Python simple et extensible** : Permet de définir des commandes UART pour interagir dynamiquement avec les interfaces matérielles.  
+A hardware timer is used to generate an interrupt every ``500 us``. The timer
+callback controls the GPIO state and manages the transmission using two states:
 
----
+- ``PREAMBLE``: the output is held LOW for 6 half-bit periods before transmitting data.
+- ``DATA``: the byte is transmitted bit by bit, from MSB to LSB, using Manchester encoding.
 
-## Prérequis
+The current test byte is:
 
-- **Python 3.8+**
-- Bibliothèques Python :
-  - `pyserial` (pour la communication UART)
-  - `spidev` (si exécution sur une plateforme compatible SPI comme Raspberry Pi)
-  - `RPi.GPIO` ou équivalent selon le matériel utilisé
-- Un périphérique matériel disposant de :
-  - UART actif
-  - GPIO et SPI disponibles
+::
+
+    data_tosend = 0x16
+
+which corresponds to:
+
+::
+
+    0x16 = 0001 0110
+
+Transmission sequence:
+
+::
+
+                PREAMBLE                 DATA (Manchester)
+        <--------------------> <-------------------------------->
+    DATA ____ ____ ____ ____    0   0   0   1   0   1   1   0
+                                 ↕   ↕   ↕   ↕   ↕   ↕   ↕   ↕
+                               LH  LH  LH  HL  LH  HL  HL  LH
+
+    L = 0 V
+    H = 3.3 V
+
+After transmitting the complete byte, the state machine returns to the
+``PREAMBLE`` state and the transmission starts again.
