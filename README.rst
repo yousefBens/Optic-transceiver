@@ -1,464 +1,815 @@
-OPV4COM - Optical Transmitter and Receiver
-===========================================
+# OPV4COM - Optical Transmitter and Receiver
 
-This project implements and tests a simple optical communication system based
+This project implements and tests an optical communication system based
 on Manchester encoding using Zephyr RTOS.
 
-The communication is divided into two main parts:
+The communication is divided into three development parts:
 
-- ``Transmitter``: development of the optical transmitter.
-- ``Reciever``: development of the optical receiver.
-- ``T_test``: test transmitter implemented on an nRF52833 DK to validate the
-  receiver independently from the final optical transmitter hardware.
+-   `Transmitter`: final optical transmitter development.
+-   `Reciever`: STM32L476RG receiver development.
+-   `T_test`: digital test transmitter implemented on an nRF52833 DK to
+    validate the receiver before using the complete optical hardware.
 
-The current test setup uses the nRF52833 DK as a known digital transmitter and
-the STM32L476RG Nucleo board as the receiver.
+The current test setup is:
 
-The objective is to validate the complete reception chain:
+``` text
+nRF52833 DK
+    |
+    | T_test
+    | PREAMBLE + SYNC + Manchester DATA
+    v
+STM32L476RG
+    |
+    | Preamble detection
+    | Synchronization detection
+    | Manchester sampling
+    | Manchester decoding
+    v
+Original byte
+```
 
-::
+The current objective is to validate the digital communication and
+synchronization before replacing the direct GPIO connection by the
+optical transmission chain.
 
-    nRF52833 DK
-    Test Transmitter
-         |
-         | Manchester signal
-         |
-         v
-    STM32L476RG
-       Receiver
-         |
-         v
-    Preamble detection
-         |
-         v
-    Manchester decoding
-         |
-         v
-    Original byte
+# 1. Communication Principle
 
+The current frame contains three successive parts:
 
-1. T_test - nRF52833 Test Transmitter
-======================================
+``` text
++------------+------+-----------------------------------+
+| PREAMBLE   | SYNC | DATA                              |
++------------+------+-----------------------------------+
+| 01010101   |  1   | 01 01 01 10 01 10 10 01         |
++------------+------+-----------------------------------+
+```
 
-The ``T_test`` application is implemented on an nRF52833 DK using Zephyr RTOS.
+The half-bit duration is:
 
-Its purpose is to generate a known Manchester signal in order to test and
-validate the STM32L476RG receiver before using the complete optical link.
+``` text
+HALF_BIT_US = 40 us
+```
 
-The transmitter generates the signal on a GPIO using a hardware timer.
+One original Manchester bit therefore takes:
 
-Timing
-------
+``` text
+Tbit = 2 x 40 us = 80 us
+```
 
-The current half-bit duration is:
+The useful data rate is:
 
-::
+``` text
+Data rate = 1 / 80 us = 12.5 kbit/s
+```
 
-    HALF_BIT_US = 40 us
+The protocol uses the Manchester convention:
 
-Therefore, one complete Manchester bit takes:
-
-::
-
-    Tbit = 2 x 40 us = 80 us
-
-The corresponding useful data rate is:
-
-::
-
-    Data rate = 1 / 80 us = 12.5 kbit/s
-
-
-Manchester Encoding
--------------------
-
-Each original data bit is represented by two half-bits.
-
-The convention used in this project is:
-
-::
-
-    Original bit 0  ->  01
-    Original bit 1  ->  10
+``` text
+Original bit 0 -> 01
+Original bit 1 -> 10
+```
 
 Therefore:
 
-::
+``` text
+0 : LOW  -> HIGH
+1 : HIGH -> LOW
+```
 
-    0 : LOW  -> HIGH
-    1 : HIGH -> LOW
+The current test byte is:
 
-
-Test Data
----------
-
-The current transmitted byte is:
-
-::
-
-    data_tosend = 0x16
+``` text
+data_tosend = 0x16
+```
 
 In binary:
 
-::
-
-    0x16 = 00010110
+``` text
+0x16 = 00010110
+```
 
 After Manchester encoding:
 
-::
+``` text
+Original:
+   0    0    0    1    0    1    1    0
 
-    Original:
-       0    0    0    1    0    1    1    0
+Manchester:
+  01   01   01   10   01   10   10   01
+```
 
-    Manchester:
-      01   01   01   10   01   10   10   01
+# 2. T_test - nRF52833 Test Transmitter
 
+The `T_test` application runs on an nRF52833 DK with Zephyr RTOS.
 
-Preamble
---------
+Its purpose is to generate a known digital signal so that the STM32
+receiver can be developed and validated independently from the LED
+driver, optical channel and analog receiver.
 
-Before each byte, the transmitter sends an alternating preamble:
+The transmitter uses a GPIO for the communication signal and a hardware
+timer to control the timing.
 
-::
+The timer generates an event every:
 
-    01010101
+``` text
+40 us
+```
 
-Each preamble level lasts 40 us.
+The transmitter state machine contains three states:
 
-The alternating pattern generates regular edges separated by approximately
-40 us. These edges are used by the receiver to detect the beginning of a
-transmission and synchronize with the transmitter.
+``` text
+              +------------+
+              |  PREAMBLE  |
+              +-----+------+
+                    |
+                    | 8 x 40 us
+                    v
+              +------------+
+              |    SYNC    |
+              +-----+------+
+                    |
+                    | 1 x 40 us
+                    v
+              +------------+
+              |    DATA    |
+              +-----+------+
+                    |
+                    | 8 Manchester bits
+                    v
+              +------------+
+              |  PREAMBLE  |
+              +------------+
+```
 
-The transmitted frame is therefore:
+## 2.1 PREAMBLE
 
-::
+Before each byte, the transmitter sends:
 
-    +------------+-----------------------------------+
-    | PREAMBLE   | DATA                              |
-    +------------+-----------------------------------+
-    | 01010101   | 01 01 01 10 01 10 10 01         |
-    +------------+-----------------------------------+
+``` text
+01010101
+```
 
-                   Manchester encoded 0x16
+Each level lasts 40 us.
 
+This alternating sequence generates regular rising and falling edges.
+The receiver measures the interval between consecutive edges and expects
+approximately:
 
-Transmitter State Machine
--------------------------
+``` text
+40 us
+```
 
-The transmitter uses two states:
+The preamble is therefore used to detect that a new transmission is
+arriving and to establish the timing reference.
 
-::
+## 2.2 SYNC
 
-                +------------+
-                |  PREAMBLE  |
-                +-----+------+
-                      |
-                      | 8 half-bits
-                      v
-                +------------+
-                |    DATA    |
-                +-----+------+
-                      |
-                      | 8 bits transmitted
-                      v
-                +------------+
-                |  PREAMBLE  |
-                +------------+
+Detecting only the alternating preamble is not sufficient.
 
-A hardware timer generates an event every 40 us.
+Manchester DATA can also contain transitions separated by 40 us. For
+example, consecutive original zeros produce:
 
-During ``PREAMBLE``, the GPIO alternates between LOW and HIGH.
+``` text
+0 -> 01
+0 -> 01
+0 -> 01
 
-During ``DATA``, each original bit is converted into its corresponding
-Manchester pair.
+Manchester:
+01 01 01
+```
 
-After the complete byte has been transmitted, the transmitter returns to the
-``PREAMBLE`` state and starts a new frame.
+This can look similar to part of the preamble.
 
+For this reason, a `SYNC` state is inserted between the preamble and the
+DATA.
 
-2. Receiver - STM32L476RG
-==========================
+The preamble finishes at HIGH:
 
-The receiver is implemented on an STM32L476RG Nucleo board using Zephyr RTOS.
+``` text
+01010101
+       ^
+       HIGH
+```
 
-Its objective is to detect the beginning of a frame, synchronize with the
-transmitter, sample the incoming Manchester signal and reconstruct the
-original byte.
+The SYNC keeps the GPIO HIGH for one additional 40 us period:
 
-The receiver operates in two main phases:
+``` text
+PREAMBLE          SYNC
+... 0 | 1 |         1
+        <---- 80 us ---->
+```
 
-::
+The 80 us value is the time between the last preamble transition and the
+next transition at the beginning of DATA for the current test byte
+`0x16`.
 
-    WAIT_PREAMBLE
-          |
-          v
-    Detect regular edges
-          |
-          v
-    RECEIVE_DATA
-          |
-          v
-    Sample Manchester signal
-          |
-          v
-    Decode 8 bits
-          |
-          v
-    Reconstruct original byte
+The first original bit of `0x16` is zero. Its Manchester representation
+starts with LOW:
 
+``` text
+0 -> 01
+```
 
-Preamble Detection
-------------------
+Therefore the beginning of DATA creates a falling edge:
 
-Initially, the receiver is in:
+``` text
+                    DATA
+                     0
+                     |
+HIGH ----------------+
+                     |
+                     +------ LOW
+```
 
-::
+The receiver detects this approximately 80 us interval as the
+synchronization marker.
 
-    WAIT_PREAMBLE
+## 2.3 DATA
 
-The input GPIO is configured with interrupts on both rising and falling edges.
+After synchronization, the transmitter sends the eight original bits
+from MSB to LSB.
 
-For each detected edge, the receiver reads a free-running hardware timer and
-calculates the time difference between two consecutive edges:
+For each original bit:
 
-::
+``` text
+bit = 0
 
-    Edge        Edge        Edge        Edge
-      |           |           |           |
-      +-- 40 us --+-- 40 us --+-- 40 us --+
+first half  = 0
+second half = 1
+```
 
-The expected interval is approximately 40 us.
+and:
 
-A tolerance window is currently used:
+``` text
+bit = 1
 
-::
+first half  = 1
+second half = 0
+```
 
-    PREAMBLE_MIN_US = 30 us
-    PREAMBLE_MAX_US = 50 us
+For `0x16`:
 
-If several consecutive edge intervals are inside this window, the receiver
-recognizes the preamble.
+``` text
+00010110
+```
 
-The receiver then switches from:
+the transmitted Manchester DATA is:
 
-::
+``` text
+01 01 01 10 01 10 10 01
+```
 
-    WAIT_PREAMBLE
+After the last bit, the transmitter returns to `PREAMBLE` and starts
+another frame.
 
-to:
+# 3. Receiver - STM32L476RG
 
-::
+The receiver runs on the STM32L476RG Nucleo board using Zephyr RTOS.
 
-    RECEIVE_DATA
+Its role is to:
 
+``` text
+Detect PREAMBLE
+       |
+       v
+Detect SYNC
+       |
+       v
+Determine DATA start
+       |
+       v
+Sample every 40 us
+       |
+       v
+Group samples by two
+       |
+       v
+Manchester decoding
+       |
+       v
+Reconstruct 8-bit byte
+```
 
-Data Sampling
--------------
+The receiver uses three states:
 
-Once the preamble is detected, GPIO edge interrupts are disabled.
+``` text
+WAIT_PREAMBLE
+      |
+      v
+WAIT_SYNC
+      |
+      v
+RECEIVE_DATA
+      |
+      v
+WAIT_PREAMBLE
+```
 
-The hardware timer is then used to periodically sample the GPIO input.
+# 4. WAIT_PREAMBLE
 
-The objective is to obtain the two levels corresponding to each Manchester
-bit:
+Initially:
 
-::
+``` text
+state = WAIT_PREAMBLE
+```
 
-          first_half       second_half
-               |                |
-               v                v
-          +----------+     +----------+
-          |  40 us   |     |  40 us   |
-          +----------+-----+----------+
-                       |
-                       v
-                Manchester decoder
+The input GPIO is configured as an input with interrupts on both rising
+and falling edges.
 
+For every edge, the receiver reads the free-running hardware timer.
 
-Manchester Decoder
-------------------
+If two edges are detected at:
 
-The receiver uses the same Manchester convention as the transmitter:
+``` text
+t1
+t2
+```
 
-::
+the receiver calculates:
 
-    01 -> original bit 0
-    10 -> original bit 1
+``` text
+delta_t = t2 - t1
+```
+
+During the preamble:
+
+``` text
+Edge        Edge        Edge        Edge
+  |           |           |           |
+  +--40 us----+--40 us----+--40 us----+
+```
+
+A tolerance is used because the measured value does not have to be
+exactly 40 us:
+
+``` text
+PREAMBLE_MIN_US = 30 us
+PREAMBLE_MAX_US = 50 us
+```
+
+If several consecutive intervals are inside this range, the receiver
+considers that the preamble has been detected.
+
+It then changes state:
+
+``` text
+WAIT_PREAMBLE
+      |
+      v
+WAIT_SYNC
+```
+
+# 5. WAIT_SYNC
+
+After the preamble has been recognized, the receiver does not
+immediately start decoding DATA.
+
+It waits for the synchronization interval.
+
+The expected interval is approximately:
+
+``` text
+80 us
+```
+
+with the current tolerance:
+
+``` text
+SYNC_MIN_US = 70 us
+SYNC_MAX_US = 90 us
+```
+
+The expected signal is:
+
+``` text
+last preamble edge
+        |
+        v
+--------+---------------- HIGH
+        |<---- 80 us ---->|
+                         falling edge
+                              |
+                              v
+                         DATA starts
+```
+
+When this interval is detected:
+
+``` text
+70 us <= delta_t <= 90 us
+```
+
+the receiver knows the position of the beginning of DATA and changes to:
+
+``` text
+RECEIVE_DATA
+```
+
+This synchronization stage was added because using the preamble alone
+can produce an ambiguous start position and cause shifted bytes such as:
+
+``` text
+Expected:
+00010110 = 0x16
+
+Shifted:
+00101100 = 0x2C
+```
+
+`0x2C` corresponds to `0x16` shifted by one bit to the left:
+
+``` text
+0x16 << 1 = 0x2C
+```
+
+The separate synchronization marker is intended to remove this
+ambiguity.
+
+# 6. RECEIVE_DATA
+
+When the synchronization edge is detected, this edge corresponds to the
+beginning of the first Manchester half-bit.
+
+Sampling directly on an edge is undesirable because the signal is
+changing at that instant.
+
+The receiver therefore waits half of a half-bit:
+
+``` text
+SAMPLE_OFFSET_US = 20 us
+```
+
+The first sample is placed at the center of the first 40 us half-bit:
+
+``` text
+DATA start
+    |
+    v
+----+----------------
+    |      *
+    |      |
+    |     20 us
+    |
+    +---- first sample
+```
+
+After the first sample, the receiver samples periodically every:
+
+``` text
+40 us
+```
+
+The sequence is therefore:
+
+``` text
+DATA start
+    |
+    |----20 us----*
+                  sample 1
+                   |
+                   |----40 us----*
+                                 sample 2
+                                  |
+                                  |----40 us----*
+                                                sample 3
+```
+
+Two consecutive samples form one Manchester bit:
+
+``` text
+sample 1 + sample 2
+        |
+        v
+Manchester pair
+```
+
+# 7. Manchester Decoder
+
+The receiver uses the same convention as the transmitter:
+
+``` text
+01 -> original bit 0
+10 -> original bit 1
+```
 
 The combinations:
 
-::
+``` text
+00
+11
+```
 
-    00 -> invalid
-    11 -> invalid
+are invalid Manchester symbols.
 
-are considered Manchester decoding errors.
+If one of these combinations is detected, the frame is rejected.
 
-For the current test byte:
+For the current test:
 
-::
+``` text
+Received Manchester:
 
-    Received Manchester:
+01  01  01  10  01  10  10  01
 
-    01  01  01  10  01  10  10  01
+ |   |   |   |   |   |   |   |
+ v   v   v   v   v   v   v   v
 
-     |   |   |   |   |   |   |   |
-     v   v   v   v   v   v   v   v
+ 0   0   0   1   0   1   1   0
+```
 
-     0   0   0   1   0   1   1   0
+The reconstructed byte is:
 
-The reconstructed byte is therefore:
+``` text
+Binary  : 00010110
+HEX     : 0x16
+Decimal : 22
+```
 
-::
+# 8. Complete Receiver State Machine
 
-    Binary  : 00010110
-    HEX     : 0x16
-    Decimal : 22
+The complete reception sequence is:
 
+``` text
+                    +----------------+
+                    | WAIT_PREAMBLE  |
+                    +-------+--------+
+                            |
+                      GPIO edges
+                            |
+                            v
+                    Measure delta_t
+                            |
+                            v
+                 30 us <= dt <= 50 us
+                            |
+                            v
+                 consecutive intervals
+                            |
+                            v
+                    +---------------+
+                    |   WAIT_SYNC   |
+                    +-------+-------+
+                            |
+                     next GPIO edge
+                            |
+                            v
+                 70 us <= dt <= 90 us
+                            |
+                            v
+                     DATA start found
+                            |
+                            v
+                    +---------------+
+                    | RECEIVE_DATA  |
+                    +-------+-------+
+                            |
+                        wait 20 us
+                            |
+                            v
+                      first sample
+                            |
+                            v
+                   sample every 40 us
+                            |
+                            v
+                  first / second half
+                            |
+                            v
+                  Manchester decoding
+                            |
+                 +----------+----------+
+                 |                     |
+              01 -> 0               10 -> 1
+                 |                     |
+                 +----------+----------+
+                            |
+                            v
+                    store decoded bit
+                            |
+                            v
+                     8 bits received
+                            |
+                            v
+                   reconstruct byte
+                            |
+                            v
+                     frame completed
+                            |
+                            v
+                    WAIT_PREAMBLE
+```
 
-Receiver State Machine
-----------------------
+# 9. Current Electrical Test Setup
 
-The receiver operation can be summarized as:
+The current test validates the digital transmitter and receiver without
+the optical hardware.
 
-::
+``` text
++------------------+
+|   nRF52833 DK    |
+|      T_test      |
++--------+---------+
+         |
+         | GPIO
+         | PREAMBLE
+         | SYNC
+         | Manchester DATA
+         |
+         v
++------------------+
+|   STM32L476RG    |
+|     Receiver     |
++--------+---------+
+         |
+         v
+   Preamble detection
+         |
+         v
+    Sync detection
+         |
+         v
+  Manchester sampling
+         |
+         v
+  Manchester decoding
+         |
+         v
+       0x16
+```
 
-                         +----------------+
-                         | WAIT_PREAMBLE  |
-                         +-------+--------+
-                                 |
-                           GPIO edges
-                                 |
-                                 v
-                         Measure delta t
-                                 |
-                                 v
-                      30 us <= dt <= 50 us
-                                 |
-                                 v
-                       Preamble detected
-                                 |
-                                 v
-                         +---------------+
-                         | RECEIVE_DATA  |
-                         +-------+-------+
-                                 |
-                          Timer sampling
-                                 |
-                                 v
-                     +---------------------+
-                     | first / second half |
-                     +----------+----------+
-                                |
-                                v
-                     Manchester decoding
-                                |
-                    +-----------+-----------+
-                    |                       |
-                  01 -> 0                 10 -> 1
-                    |                       |
-                    +-----------+-----------+
-                                |
-                                v
-                         Store decoded bit
-                                |
-                                v
-                           8 bits received
-                                |
-                                v
-                       Reconstruct the byte
-                                |
-                                v
-                         Frame completed
-                                |
-                                v
-                         WAIT_PREAMBLE
+For the direct electrical test, the two boards must share a common
+ground:
 
+``` text
+nRF52833 DK                 STM32L476RG
+------------                ------------
 
-3. Current Test Setup
-=====================
+DATA GPIO  ----------------> DATA INPUT
 
-The current test is intended to validate the receiver without using the final
-optical transmitter.
+GND        ----------------- GND
+```
 
-The setup is:
+The expected output is:
 
-::
+``` text
+Frame received
+Original data : 00010110
+HEX           : 0x16
+Decimal       : 22
+```
 
-    +------------------+
-    |   nRF52833 DK    |
-    |     T_test       |
-    +--------+---------+
-             |
-             | GPIO
-             | Manchester
-             |
-             v
-    +------------------+
-    |   STM32L476RG    |
-    |     Receiver     |
-    +--------+---------+
-             |
-             v
-       Manchester
-         decoder
-             |
-             v
-          0x16
+# 10. Why a Hardware Timer is Used
 
+The communication timing is short:
 
-For a direct electrical test, the two boards must share a common ground:
+``` text
+Half-bit = 40 us
+```
 
-::
+The transmitter therefore uses a hardware timer instead of software
+delays.
 
-    nRF52833 DK                 STM32L476RG
-    ------------                ------------
-    DATA GPIO  ----------------> DATA INPUT
-    GND        ----------------- GND
+This provides a stable timing reference for each transmitted half-bit.
 
+The receiver also uses a hardware timer for two different operations.
 
-The expected receiver output for the current test is:
+During `WAIT_PREAMBLE` and `WAIT_SYNC`, it timestamps GPIO edges.
 
-::
+During `RECEIVE_DATA`, it schedules the sampling instants.
 
-    Frame received
-    Original data : 00010110
-    HEX           : 0x16
-    Decimal       : 22
+The GPIO interrupt and hardware timer therefore have different roles:
 
+``` text
+GPIO interrupt
+      |
+      +---- detect signal transitions
+      |
+      +---- measure PREAMBLE timing
+      |
+      +---- detect SYNC
 
-4. Final Objective
-==================
+Hardware timer
+      |
+      +---- provide timestamp
+      |
+      +---- schedule Manchester samples
+```
 
-The nRF52833 ``T_test`` application is only used to validate the digital
-communication and receiver implementation.
+# 11. Why Sampling is Done at the Center
 
-Once the receiver has been validated, the complete system will use the optical
-communication chain:
+The receiver does not sample exactly at a transition.
 
-::
+For a 40 us half-bit:
 
-    Transmitter
-        |
-        v
-    LED / Lamp
-        |
-        | Light
-        v
-    Optical Receiver
-        |
-        v
-    Analog Front-End
-        |
-        v
-    STM32L476RG
-        |
-        v
-    Preamble Detection
-        |
-        v
-    Manchester Decoder
-        |
-        v
-    Original Data
+``` text
+0 us                20 us                40 us
+ |--------------------|--------------------|
+start               center                end
+                      ^
+                      |
+                   sample
+```
+
+Sampling at approximately 20 us places the reading far from the expected
+transition boundaries.
+
+This gives more timing margin for interrupt latency, clock differences
+and signal propagation delay.
+
+# 12. Current Test Sequence
+
+The complete current test can be represented as:
+
+``` text
+nRF timer
+    |
+    v
+40 us event
+    |
+    v
+PREAMBLE
+01010101
+    |
+    v
+SYNC
+HIGH maintained
+    |
+    v
+80 us edge interval detected by STM32
+    |
+    v
+DATA start
+    |
+    v
+20 us
+    |
+    v
+first sample
+    |
+    v
+samples every 40 us
+    |
+    v
+01 01 01 10 01 10 10 01
+    |
+    v
+0  0  0  1  0  1  1  0
+    |
+    v
+00010110
+    |
+    v
+0x16
+```
+
+# 13. Final Optical Objective
+
+`T_test` is only a digital validation tool.
+
+After the digital protocol and receiver have been validated, the direct
+GPIO link will be replaced by the optical communication chain:
+
+``` text
+STM32 Transmitter
+       |
+       v
+Manchester DATA
+       |
+       v
+LED Driver
+       |
+       v
+LED / Lamp
+       |
+       | Light
+       v
+Photodetector
+       |
+       v
+Analog Front-End
+       |
+       v
+Digital signal
+       |
+       v
+STM32L476RG Receiver
+       |
+       v
+Preamble Detection
+       |
+       v
+Synchronization
+       |
+       v
+Manchester Sampling
+       |
+       v
+Manchester Decoder
+       |
+       v
+Original Data
+```
+
+The current nRF52833-to-STM32 test isolates the digital protocol from
+the optical hardware. This makes it possible to validate timing,
+synchronization and Manchester decoding before adding the LED driver,
+optical channel and analog front-end.
