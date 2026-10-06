@@ -230,28 +230,17 @@ static void data_callback(const struct device *dev,
     uint64_t delta_us;
 
 
-    /*
-     * Une fois synchronisé,
-     * le timer s'occupe de la DATA.
-     */
 
     if (state != WAIT_PREAMBLE) {
         return;
     }
 
 
-    /* ========================================================
-     * TIMESTAMP FRONT
-     * ======================================================== */
-
     if (counter_get_value(timer, &current_ticks) != 0) {
         return;
     }
 
 
-    /* ========================================================
-     * PREMIER FRONT
-     * ======================================================== */
 
     if (first_edge) {
 
@@ -370,14 +359,12 @@ int main(void)
         return -1;
     }
 
-
     ret = gpio_pin_interrupt_configure_dt(&data_arrive, GPIO_INT_EDGE_BOTH);
 
     if (ret < 0) {
         printk("ERROR : GPIO IRQ : %d\n", ret);
         return -1;
     }
-
 
     printk("\nReceiver ready\n");
     printk("Waiting for frame...\n\n");
@@ -396,11 +383,7 @@ int main(void)
 
 
             for (int i = 7; i >= 0; i--) {
-
-                printk(
-                    "%u",
-                    (completed_byte >> i) & 0x01
-                );
+                printk("%u", (completed_byte >> i) & 0x01);
             }
 
 
@@ -422,15 +405,11 @@ int main(void)
 
             first_edge = true;
 
-            gpio_pin_interrupt_configure_dt(
-                &data_arrive,
-                GPIO_INT_EDGE_BOTH
-            );
+            gpio_pin_interrupt_configure_dt(&data_arrive, GPIO_INT_EDGE_BOTH);
         }
 
         k_sleep(K_MSEC(1));
     }
-
 
     return 0;
 }
