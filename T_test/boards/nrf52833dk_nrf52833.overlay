@@ -1,0 +1,27 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    chosen {
+        zephyr,console = &uart0;
+    };
+
+    zephyr,user {
+        data-gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
+    };
+
+};
+
+
+/* UART0 pour la console */
+&uart0 {
+    compatible = "nordic,nrf-uarte";
+    status = "okay";
+    current-speed = <115200>;
+    pinctrl-0 = <&uart0_default>;
+    pinctrl-1 = <&uart0_sleep>;
+    pinctrl-names = "default", "sleep";
+};
+
+&timer1 {
+    status = "okay";
+};

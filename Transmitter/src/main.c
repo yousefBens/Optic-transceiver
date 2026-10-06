@@ -7,67 +7,78 @@
 const uint8_t data_tosend = 0x16;
 
 #define DATA_NODE DT_PATH(zephyr_user)
-static const struct gpio_dt_spec data = GPIO_DT_SPEC_GET(DATA_NODE, data_gpios);
+static const struct gpio_dt_spec data =
+    GPIO_DT_SPEC_GET(DATA_NODE, data_gpios);
 
+#define TIMER_NODE DT_NODELABEL(timer1)
 
-#define TIMER_NODE DT_NODELABEL(t_bit)
-#define HALF_BIT_US 40
+#define HALF_BIT_US 40U
+#define PREAMBLE_LENGTH 8U
 
+static const struct device *timer =
+    DEVICE_DT_GET(TIMER_NODE);
 
-static const struct device *timer = DEVICE_DT_GET(TIMER_NODE);
 static struct counter_alarm_cfg alarm_cfg;
 
-uint32_t half_bit_ticks;
-uint32_t next_alarm;
+static uint32_t half_bit_ticks;
+static uint32_t next_alarm;
 
-uint8_t bit_index = 7;
-uint8_t half = 0;
+static uint8_t bit_index = 7U;
+static uint8_t half = 0U;
+static uint8_t count_preamble = 0U;
 
 enum tx_state {
     PREAMBLE,
     DATA
 };
 
-enum tx_state state = PREAMBLE;
-uint8_t count_preamble = 0;
-
+static enum tx_state state = PREAMBLE;
 
 static void timer_callback(const struct device *dev,
                            uint8_t chan_id,
                            uint32_t ticks,
                            void *user_data)
 {
-    if (state == PREAMBLE){
+    uint8_t current_bit;
 
-        gpio_pin_set_dt(&data, 1);
+    if (state == PREAMBLE) {
+
+        gpio_pin_set_dt(&data, count_preamble & 0x01U);
+
         count_preamble++;
 
-        if (count_preamble >= 6){
+        if (count_preamble >= PREAMBLE_LENGTH) {
 
-            count_preamble = 0;
-            half = 0;
-            bit_index = 7;
+            count_preamble = 0U;
+            half = 0U;
+            bit_index = 7U;
 
             state = DATA;
         }
 
-    } else if (state == DATA){
+    } else {
 
-        if (half == 0){
+        current_bit =
+            (data_tosend >> bit_index) & 0x01U;
 
-            gpio_pin_set_dt(&data, data_tosend >> bit_index & 0x01);
-            half = 1;
+        if (half == 0U) {
 
-        }else if (half == 1){
+            gpio_pin_set_dt(&data, current_bit);
 
-            gpio_pin_set_dt(&data, !(data_tosend >> bit_index & 0x01));
-            half = 0;
+            half = 1U;
 
-            if (bit_index == 0){
+        } else {
 
+            gpio_pin_set_dt(&data, !current_bit);
+
+            half = 0U;
+
+            if (bit_index == 0U) {
+
+                count_preamble = 0U;
                 state = PREAMBLE;
 
-            }else{
+            } else {
 
                 bit_index--;
             }
@@ -75,53 +86,103 @@ static void timer_callback(const struct device *dev,
     }
 
     next_alarm += half_bit_ticks;
+
     alarm_cfg.ticks = next_alarm;
 
-    counter_set_channel_alarm(dev, chan_id, &alarm_cfg);
+    counter_set_channel_alarm(
+        dev,
+        chan_id,
+        &alarm_cfg
+    );
 }
-
 
 int main(void)
 {
+    int ret;
+
     printf("------ Prog Start ------\n");
 
-
     if (!gpio_is_ready_dt(&data)) {
+        printf("GPIO non disponible\n");
         return -1;
     }
 
-    gpio_pin_configure_dt(&data, GPIO_OUTPUT_INACTIVE);
+    ret = gpio_pin_configure_dt(
+        &data,
+        GPIO_OUTPUT_INACTIVE
+    );
 
+    if (ret < 0) {
+        printf("Erreur GPIO : %d\n", ret);
+        return -1;
+    }
 
     if (!device_is_ready(timer)) {
         printf("Timer non disponible\n");
         return -1;
     }
 
+    half_bit_ticks =
+        counter_us_to_ticks(
+            timer,
+            HALF_BIT_US
+        );
 
-    half_bit_ticks = counter_us_to_ticks(timer, HALF_BIT_US);
+    printf(
+        "Frequency = %u Hz\n",
+        counter_get_frequency(timer)
+    );
 
-    printf("Frequency = %u Hz\n", counter_get_frequency(timer));
-    printf("500 us = %u ticks\n", half_bit_ticks);
+    printf(
+        "%u us = %u ticks\n",
+        HALF_BIT_US,
+        half_bit_ticks
+    );
 
+    alarm_cfg.flags =
+        COUNTER_ALARM_CFG_ABSOLUTE;
 
-    alarm_cfg.flags = COUNTER_ALARM_CFG_ABSOLUTE;
-    alarm_cfg.callback = timer_callback;
-    alarm_cfg.user_data = NULL;
+    alarm_cfg.callback =
+        timer_callback;
 
+    alarm_cfg.user_data =
+        NULL;
 
-    counter_start(timer);
+    ret = counter_start(timer);
 
-    counter_get_value(timer, &next_alarm);
+    if (ret < 0) {
+        printf("Erreur start timer : %d\n", ret);
+        return -1;
+    }
+
+    ret = counter_get_value(
+        timer,
+        &next_alarm
+    );
+
+    if (ret < 0) {
+        printf("Erreur lecture timer : %d\n", ret);
+        return -1;
+    }
 
     next_alarm += half_bit_ticks;
+
     alarm_cfg.ticks = next_alarm;
 
-    counter_set_channel_alarm(timer, 0, &alarm_cfg);
+    ret = counter_set_channel_alarm(
+        timer,
+        0,
+        &alarm_cfg
+    );
 
+    if (ret < 0) {
+        printf("Erreur alarm : %d\n", ret);
+        return -1;
+    }
+
+    printf("Transmission de 0x%02X\n", data_tosend);
 
     k_sleep(K_FOREVER);
-
 
     return 0;
 }
