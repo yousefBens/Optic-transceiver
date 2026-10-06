@@ -262,10 +262,6 @@ static void data_callback(const struct device *dev,
     }
 
 
-    /* ========================================================
-     * DELTA ENTRE FRONTS
-     * ======================================================== */
-
     delta_ticks = current_ticks - previous_edge_ticks;
  
     previous_edge_ticks = current_ticks;
@@ -274,9 +270,6 @@ static void data_callback(const struct device *dev,
     delta_us = counter_ticks_to_us(timer, delta_ticks);
 
 
-    /* ========================================================
-     * DETECTION PREAMBULE
-     * ======================================================== */
 
     if ((delta_us >= PREAMBLE_MIN_US) && (delta_us <= PREAMBLE_MAX_US)) {
 
