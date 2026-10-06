@@ -11,7 +11,7 @@ static const struct gpio_dt_spec data = GPIO_DT_SPEC_GET(DATA_NODE, data_gpios);
 
 
 #define TIMER_NODE DT_NODELABEL(t_bit)
-#define HALF_BIT_US 500
+#define HALF_BIT_US 40
 
 
 static const struct device *timer = DEVICE_DT_GET(TIMER_NODE);
