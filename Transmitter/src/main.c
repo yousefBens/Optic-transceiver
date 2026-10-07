@@ -9,7 +9,7 @@
 
 
 #define HALF_BIT_US            40U
-#define PREAMBLE               0xAA
+#define PREAMBLE               0x55
 #define SFD                    0xD3
 #define INTER_FRAME_HALFS      4U
 
@@ -100,7 +100,7 @@ static void timer_callback(const struct device *dev,
 {
     if (state == TX_GAP) {
 
-        gpio_pin_set_dt(&data, 0);
+        gpio_pin_set_dt(&data, 1);
         gap_index++;
 
         if (gap_index >= INTER_FRAME_HALFS) {
@@ -143,7 +143,7 @@ static void timer_callback(const struct device *dev,
             payload_index++;
 
             if (payload_index >= PAYLOAD_SIZE) {
-                gpio_pin_set_dt(&data, 0);
+
                 gap_index = 0;
                 state = TX_GAP;
             }
@@ -171,7 +171,7 @@ int main(void)
     }
 
 
-    ret = gpio_pin_configure_dt(&data, GPIO_OUTPUT_INACTIVE);
+    ret = gpio_pin_configure_dt(&data, GPIO_OUTPUT_ACTIVE);
 
     if (ret < 0) {
         printk("ERROR : GPIO configuration : %d\n", ret);

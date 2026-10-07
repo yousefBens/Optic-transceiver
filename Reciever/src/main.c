@@ -12,7 +12,7 @@
 #define SAMPLES_PER_HALF        4U
 #define GAP_MIN_SAMPLES         12U
 
-#define PREAMBLE                0xAA
+#define PREAMBLE                0x55
 #define SFD                     0xD3
 
 #define PAYLOAD_SIZE            3U
@@ -52,7 +52,7 @@ enum rx_state {
 static enum rx_state state = RX_SEARCH_GAP;
 
 
-static uint16_t low_count = 0;
+static uint16_t high_count_gap = 0;
 
 static uint8_t sample_in_half = 0;
 static uint8_t high_count = 0;
@@ -103,7 +103,7 @@ static void reset_decoder(void)
 {
     state = RX_SEARCH_GAP;
 
-    low_count = 0;
+    high_count_gap = 0;
 
     sample_in_half = 0;
     high_count = 0;
@@ -228,21 +228,21 @@ static void process_sample(uint8_t level)
 {
     if (state == RX_SEARCH_GAP) {
 
-        if (level == 0U) {
+        if (level == 1U) {
 
-            if (low_count < 0xFFFFU) {
-                low_count++;
+            if (high_count_gap < 0xFFFFU) {
+                high_count_gap++;
             }
 
             return;
         }
 
-        if (low_count >= GAP_MIN_SAMPLES) {
+        if (high_count_gap >= GAP_MIN_SAMPLES) {
 
             state = RX_PREAMBLE;
 
             sample_in_half = 1U;
-            high_count = 1U;
+            high_count = 0U;
 
             first_half = 0;
             half_index = 0;
@@ -251,12 +251,12 @@ static void process_sample(uint8_t level)
             bit_count = 0;
 
             payload_index = 0;
-            low_count = 0;
+            high_count_gap = 0;
 
             return;
         }
 
-        low_count = 0;
+        high_count_gap = 0;
 
         return;
     }
@@ -297,7 +297,7 @@ int main(void)
     }
 
 
-    ret = gpio_pin_configure_dt(&data, GPIO_INPUT | GPIO_PULL_DOWN);
+    ret = gpio_pin_configure_dt(&data, GPIO_INPUT | GPIO_PULL_UP);
 
     if (ret < 0) {
         printk("ERROR : GPIO configuration : %d\n", ret);
