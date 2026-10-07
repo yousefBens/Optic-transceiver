@@ -1,984 +1,1446 @@
-OPV4COM - Optical Transmitter and Receiver
-==========================================
+==============================
+OPV4COM - Manchester TX / RX
+==============================
 
-This project implements and tests an optical communication system based
-on Manchester encoding using Zephyr RTOS.
+Introduction
+============
 
-The communication is divided into three development parts:
+Ce projet implémente une communication numérique simple entre un émetteur
+et un récepteur dans le cadre du projet OPV4COM.
 
-- ``Transmitter``: final optical transmitter development.
-- ``Reciever``: STM32L476RG receiver development.
-- ``T_test``: digital test transmitter implemented on an nRF52833 DK to
-  validate the receiver before using the complete optical hardware.
+L'objectif final est de transmettre des données à travers une liaison optique.
+Dans un premier temps, la chaîne numérique est développée et validée avec une
+connexion directe entre la sortie GPIO de l'émetteur et l'entrée GPIO du
+récepteur.
 
-The current test setup is:
+La transmission utilise un codage Manchester.
 
-::
+L'architecture générale est la suivante::
 
-    nRF52833 DK
-         |
-         | T_test
-         | PREAMBLE + SYNC + Manchester DATA
-         |
-         v
-    STM32L476RG
-         |
-         | Preamble detection
-         | Synchronization detection
-         | Manchester sampling
-         | Manchester decoding
-         |
-         v
-    Original byte
+    +-------------+                          +-------------+
+    |             |                          |             |
+    |     TX      |                          |     RX      |
+    |             |                          |             |
+    +------+------+                          +------+------+
+           |                                        |
+           | Payload                                | Payload reçu
+           v                                        ^
+    +-------------+                          +-------------+
+    | Construction|                          | Décodage    |
+    | de la trame |                          | de la trame |
+    +------+------+                          +------+------+
+           |                                        ^
+           v                                        |
+    +-------------+                          +-------------+
+    | Manchester  |                          | Manchester  |
+    | Encoder     |                          | Decoder     |
+    +------+------+                          +------+------+
+           |                                        ^
+           v                                        |
+    +-------------+                          +-------------+
+    | GPIO TX     |------------------------->| GPIO RX     |
+    +-------------+                          +-------------+
 
-The current objective is to validate the digital communication and
-synchronization before replacing the direct GPIO connection by the
-optical transmission chain.
+
+Dans la version finale du système, la connexion GPIO directe sera remplacée
+par la chaîne optique::
+
+    MCU TX
+      |
+      v
+    Driver LED
+      |
+      v
+    LED / Lampe
+      |
+      v
+    Canal optique
+      |
+      v
+    Photodétecteur
+      |
+      v
+    Front-end analogique
+      |
+      v
+    MCU RX
 
 
-1. Communication Principle
-===========================
+Principe du codage Manchester
+=============================
 
-The current communication frame contains three successive parts:
+Le codage Manchester représente chaque bit logique par deux niveaux
+successifs.
 
-::
+La convention utilisée dans ce projet est::
 
-    +------------+--------+-----------------------------------+
-    | PREAMBLE   | SYNC   | DATA                              |
-    +------------+--------+-----------------------------------+
-    | 01010101   |   1    | 01 01 01 10 01 10 10 01         |
-    +------------+--------+-----------------------------------+
+    Bit logique 0  ->  0 1
 
-The half-bit duration is:
+    Bit logique 1  ->  1 0
 
-::
+
+Par exemple, l'octet::
+
+    0xAA = 10101010
+
+devient après codage Manchester::
+
+    1    0    1    0    1    0    1    0
+
+    10   01   10   01   10   01   10   01
+
+
+La séquence physique transmise est donc::
+
+    1001100110011001
+
+
+Le principal intérêt du Manchester est qu'une transition est toujours
+présente au milieu d'un bit.
+
+Cela facilite la récupération temporelle du signal au niveau du récepteur.
+
+
+Paramètres temporels
+====================
+
+La durée d'un demi-bit est fixée à::
 
     HALF_BIT_US = 40 us
 
-One complete Manchester bit therefore takes:
 
-::
+Un bit Manchester contient deux demi-bits.
 
-    Tbit = 2 x 40 us = 80 us
+La durée d'un bit est donc::
 
-The corresponding useful data rate is:
+    Tbit = 2 * 40 us
 
-::
-
-    Data rate = 1 / 80 us = 12.5 kbit/s
+    Tbit = 80 us
 
 
-Manchester Encoding
--------------------
+Le débit logique est donc::
 
-Each original data bit is represented by two half-bits.
-
-The convention used in this project is:
-
-::
-
-    Original bit 0 -> 01
-    Original bit 1 -> 10
-
-Therefore:
-
-::
-
-    0 : LOW  -> HIGH
-    1 : HIGH -> LOW
+                 1
+    Rbit = ---------------
+              80 us
 
 
-Test Data
----------
+soit::
 
-The current transmitted byte is:
-
-::
-
-    data_tosend = 0x16
-
-In binary:
-
-::
-
-    0x16 = 00010110
-
-The original bits are:
-
-::
-
-    0    0    0    1    0    1    1    0
-
-After Manchester encoding:
-
-::
-
-    01   01   01   10   01   10   10   01
+    Rbit = 12.5 kbit/s
 
 
-2. T_test - nRF52833 Test Transmitter
-=====================================
+Il est important de distinguer le débit des niveaux physiques Manchester
+et le débit des données utiles.
 
-The ``T_test`` application is implemented on an nRF52833 DK using
-Zephyr RTOS.
-
-Its purpose is to generate a known digital Manchester signal in order
-to test and validate the STM32L476RG receiver before using the complete
-optical transmission chain.
-
-The transmitter generates the signal on a GPIO using a hardware timer.
-
-The hardware timer generates an event every:
-
-::
-
-    40 us
-
-The transmitter uses three states:
-
-::
-
-              +------------+
-              |  PREAMBLE  |
-              +-----+------+
-                    |
-                    | 8 x 40 us
-                    v
-              +------------+
-              |    SYNC    |
-              +-----+------+
-                    |
-                    | synchronization
-                    v
-              +------------+
-              |    DATA    |
-              +-----+------+
-                    |
-                    | 8 Manchester bits
-                    v
-              +------------+
-              |  PREAMBLE  |
-              +------------+
+Le signal physique change potentiellement toutes les 40 us, tandis qu'un
+bit logique nécessite 80 us.
 
 
-Preamble
+Format de la trame
+==================
+
+Afin de conserver un maximum de débit pour les données utiles, le protocole
+utilisé reste volontairement simple.
+
+La trame est constituée de::
+
+    +-------------+-------------+------------------+
+    | PREAMBLE    | SFD         | PAYLOAD          |
+    +-------------+-------------+------------------+
+    | 0xAA        | 0xD3        | N octets         |
+    +-------------+-------------+------------------+
+
+
+Un court intervalle LOW est également placé entre deux trames successives::
+
+    GAP | PREAMBLE | SFD | PAYLOAD | GAP | PREAMBLE | SFD | PAYLOAD ...
+
+
+Le format complet est donc::
+
+         GAP          PREAMBLE        SFD           PAYLOAD
+
+    +-----------+---------------+-------------+----------------+
+    | LOW       |     0xAA      |    0xD3     |    N octets    |
+    +-----------+---------------+-------------+----------------+
+                      |               |               |
+                      +---------------+---------------+
+                              Manchester
+
+
+Le préambule, le SFD et le payload sont tous encodés en Manchester.
+
+
+GAP
+---
+
+Un court intervalle LOW est inséré entre deux trames.
+
+Dans le TX::
+
+    #define INTER_FRAME_HALFS 4U
+
+
+Un demi-bit dure 40 us.
+
+La durée minimale du GAP généré est donc::
+
+    4 * 40 us = 160 us
+
+
+Le GAP facilite la détection du début d'une nouvelle trame par le récepteur.
+
+Selon le dernier niveau Manchester du payload et le premier niveau de la
+trame suivante, l'intervalle entre deux fronts mesuré sur le signal peut
+être supérieur à 160 us.
+
+
+PREAMBLE
 --------
 
-Before each byte, the transmitter sends the following alternating
-preamble:
+Le préambule utilisé est::
 
-::
+    PREAMBLE = 0xAA
 
-    01010101
 
-Each level lasts 40 us.
+En binaire::
 
-The alternating pattern generates regular rising and falling edges:
+    10101010
 
-::
 
-    0       1       0       1       0       1
-    |       |       |       |       |       |
-    +-------+-------+-------+-------+-------+
-      40 us   40 us   40 us   40 us   40 us
+Il permet au récepteur de vérifier qu'il est correctement synchronisé avec
+le signal reçu.
 
-These regular transitions allow the receiver to detect the presence
-of a transmission and determine the transmitter timing.
+Après décodage Manchester, le premier octet reçu doit être égal à 0xAA.
 
 
-Synchronization
----------------
+SFD
+---
 
-Detecting only the preamble is not sufficient to determine the exact
-beginning of DATA.
+SFD signifie::
 
-Manchester encoded DATA can also generate transitions separated by
-40 us.
+    Start Frame Delimiter
 
-For example, several original zero bits produce:
 
-::
+La valeur choisie est::
 
-    Original:
+    SFD = 0xD3
 
-    0    0    0
 
-    Manchester:
+En binaire::
 
-    01   01   01
+    11010011
 
-Therefore, part of the Manchester DATA can look similar to the
-alternating preamble.
 
-A synchronization section is consequently inserted between PREAMBLE
-and DATA.
+Le SFD permet au récepteur de confirmer que le prochain champ correspond
+au payload.
 
-The transmitter state machine becomes:
+Le récepteur attend donc successivement::
 
-::
+    0xAA -> 0xD3 -> PAYLOAD
 
-    PREAMBLE
-        |
-        v
-       SYNC
-        |
-        v
-       DATA
 
-The preamble ends at HIGH:
+Si le préambule ou le SFD n'est pas correct, la trame n'est pas considérée
+comme valide.
 
-::
 
-    PREAMBLE
+PAYLOAD
+-------
 
-    0 1 0 1 0 1 0 1
-                  |
-                  v
-                 HIGH
+Le payload contient les données utiles.
 
-The SYNC state keeps the output HIGH for one additional 40 us period.
+Côté TX, il est défini sous forme d'un buffer.
 
-For the current test byte ``0x16``, the first original DATA bit is:
+Exemple::
 
-::
+    static const uint8_t payload[] = {
+        0x1F
+    };
 
-    0
 
-Its Manchester representation is:
+Pour envoyer plusieurs octets::
 
-::
+    static const uint8_t payload[] = {
+        0x1F,
+        0x25,
+        0xA7,
+        0x52
+    };
 
-    01
 
-Therefore, the first DATA half-bit is LOW.
+La taille du payload est calculée automatiquement côté TX::
 
-The transition between synchronization and DATA is consequently a
-falling edge.
+    #define PAYLOAD_SIZE sizeof(payload)
 
-The resulting timing is:
 
-::
+La trame devient alors::
 
-    Last preamble edge
-            |
-            v
-            +---------------- HIGH
-            |                 |
-            |<---- 80 us ---->|
-                              |
-                              v
-                         Falling edge
-                              |
-                              v
-                         DATA starts
+    AA | D3 | 1F | 25 | A7 | 52
 
-The receiver uses this approximately 80 us interval to identify the
-exact beginning of DATA.
 
+Comme aucun champ LENGTH n'est transmis, le récepteur doit connaître à
+l'avance la taille du payload.
 
-Data Transmission
------------------
+Par exemple, pour quatre octets::
 
-After synchronization, the transmitter sends the eight original bits
-from the most significant bit to the least significant bit.
+    #define PAYLOAD_SIZE 4U
 
-For an original zero:
 
-::
+Cette solution permet de réduire l'overhead du protocole.
 
-    Original bit = 0
+Si une taille de payload variable doit être supportée ultérieurement, un
+champ LENGTH pourra être ajouté dans la trame.
 
-    first half  = 0
-    second half = 1
 
-For an original one:
+Architecture du TX
+==================
 
-::
+Le TX est basé sur quatre éléments principaux::
 
-    Original bit = 1
+    Payload
+       |
+       v
+    Machine d'états
+       |
+       v
+    Encodeur Manchester
+       |
+       v
+    Timer hardware 40 us
+       |
+       v
+    GPIO
 
-    first half  = 1
-    second half = 0
 
-For the current byte:
+Machine d'états TX
+------------------
 
-::
+La transmission utilise une machine d'états simple::
 
-    0x16 = 00010110
+    TX_GAP
+       |
+       v
+    TX_PREAMBLE
+       |
+       v
+    TX_SFD
+       |
+       v
+    TX_PAYLOAD
+       |
+       v
+    TX_GAP
+       |
+       +----> nouvelle trame
 
-the Manchester sequence is:
 
-::
+Les états sont définis par::
 
-    01 01 01 10 01 10 10 01
+    enum tx_state {
+        TX_GAP,
+        TX_PREAMBLE,
+        TX_SFD,
+        TX_PAYLOAD
+    };
 
-After all eight bits have been transmitted, the transmitter returns
-to the PREAMBLE state and starts a new frame.
 
+TX_GAP
+------
 
-3. Receiver - STM32L476RG
-=========================
+Pendant cet état, la sortie est maintenue à LOW::
 
-The receiver is implemented on an STM32L476RG Nucleo board using
-Zephyr RTOS.
+    gpio_pin_set_dt(
+        &data,
+        0
+    );
 
-Its objective is to:
 
-- detect the preamble,
-- detect the synchronization marker,
-- determine the exact beginning of DATA,
-- sample the Manchester signal,
-- decode each Manchester pair,
-- reconstruct the original byte.
+Le nombre de périodes est compté avec::
 
-The receiver uses three main states:
+    gap_index++;
 
-::
 
-    +----------------+
-    | WAIT_PREAMBLE  |
-    +-------+--------+
-            |
-            v
-    +----------------+
-    |   WAIT_SYNC    |
-    +-------+--------+
-            |
-            v
-    +----------------+
-    | RECEIVE_DATA   |
-    +-------+--------+
-            |
-            v
-    +----------------+
-    | WAIT_PREAMBLE  |
-    +----------------+
+Lorsque le nombre demandé de demi-bits est atteint::
 
+    if (gap_index >= INTER_FRAME_HALFS)
 
-4. Preamble Detection
+
+le préambule est chargé et la transmission commence.
+
+
+TX_PREAMBLE
+-----------
+
+Le premier octet transmis est::
+
+    0xAA
+
+
+Il est chargé avec la fonction::
+
+    load_byte(PREAMBLE);
+
+
+L'octet est ensuite transmis bit par bit et demi-bit par demi-bit en
+Manchester.
+
+
+TX_SFD
+------
+
+Lorsque le préambule est complètement transmis, le TX charge::
+
+    0xD3
+
+
+avec::
+
+    load_byte(SFD);
+
+
+Le SFD est ensuite transmis exactement de la même manière que le préambule.
+
+
+TX_PAYLOAD
+----------
+
+Après le SFD, les octets du payload sont envoyés successivement.
+
+L'index::
+
+    payload_index
+
+
+permet de sélectionner l'octet courant::
+
+    payload[payload_index]
+
+
+Lorsque tous les octets ont été transmis, le TX retourne dans l'état
+TX_GAP.
+
+
+Fonction load_byte()
+====================
+
+La fonction ``load_byte()`` prépare la transmission d'un nouvel octet::
+
+    static void load_byte(uint8_t value)
+    {
+        current_byte = value;
+
+        bit_index = 7;
+
+        half = 0;
+    }
+
+
+``current_byte`` contient l'octet actuellement transmis.
+
+``bit_index`` commence à 7 car la transmission commence par le bit de poids
+fort.
+
+L'ordre de transmission est donc::
+
+    bit7 bit6 bit5 bit4 bit3 bit2 bit1 bit0
+
+
+``half`` indique quelle moitié du bit Manchester doit être générée.
+
+
+Génération Manchester
 =====================
 
-Initially, the receiver is in:
+Pour récupérer le bit actuellement transmis::
 
-::
+    bit =
+        (current_byte >> bit_index) &
+        0x01U;
 
-    WAIT_PREAMBLE
 
-The input GPIO is configured with interrupts on both rising and
-falling edges.
+Pour la première moitié du bit::
 
-Each time an edge is detected, the receiver reads the value of a
-free-running hardware timer.
+    level = bit;
 
-For two consecutive edges:
 
-::
+Pour la seconde moitié::
 
-    Edge 1                         Edge 2
-      |                              |
-      v                              v
-    --+------------------------------+--
-                delta_t
+    level = !bit;
 
-The receiver calculates:
 
-::
+Cela produit directement la convention choisie::
 
-    delta_t = Edge_2_time - Edge_1_time
+    bit = 0
 
-During the preamble, the expected interval is approximately:
+    première moitié = 0
+    deuxième moitié = 1
 
-::
+    résultat = 01
+
+
+et::
+
+    bit = 1
+
+    première moitié = 1
+    deuxième moitié = 0
+
+    résultat = 10
+
+
+La sortie est ensuite appliquée au GPIO::
+
+    gpio_pin_set_dt(
+        &data,
+        level
+    );
+
+
+Timer hardware du TX
+====================
+
+Le timing est un point critique du système.
+
+Une première implémentation utilisait une alarme relative reprogrammée
+depuis le callback du timer.
+
+Le principe était::
+
+    callback
+       |
+       v
+    traitement
+       |
+       v
+    programmation de l'alarme
+       |
+       v
+    attente 40 us
+       |
+       v
+    callback suivant
+
+
+Cette méthode produisait un demi-bit d'environ 55 us alors que 40 us
+étaient demandées.
+
+La durée réelle était approximativement::
+
+    Treal = Tcallback + 40 us
+
+
+Les mesures montraient principalement::
+
+    55 us
+    110 us
+
+
+au lieu de::
 
     40 us
-
-A tolerance window is used:
-
-::
-
-    PREAMBLE_MIN_US = 30 us
-    PREAMBLE_MAX_US = 50 us
-
-Therefore:
-
-::
-
-    30 us <= delta_t <= 50 us
-
-is considered a valid preamble interval.
-
-Several consecutive valid intervals are required before the receiver
-accepts the preamble.
-
-Once the preamble has been detected, the receiver changes from:
-
-::
-
-    WAIT_PREAMBLE
-
-to:
-
-::
-
-    WAIT_SYNC
-
-
-5. Synchronization Detection
-============================
-
-In the ``WAIT_SYNC`` state, the receiver continues measuring the time
-between GPIO edges.
-
-The synchronization interval is expected to be approximately:
-
-::
-
     80 us
 
-The current tolerance is:
 
-::
+La solution retenue consiste à utiliser le timer hardware en mode
+périodique avec::
 
-    SYNC_MIN_US = 70 us
-    SYNC_MAX_US = 90 us
-
-Therefore, synchronization is detected when:
-
-::
-
-    70 us <= delta_t <= 90 us
-
-The expected sequence is:
-
-::
-
-    Preamble edges
-         |
-         | 40 us
-         v
-    -----+------------------------- HIGH
-         |                         |
-         |<------- 80 us --------->|
-                                   |
-                                   v
-                              Falling edge
-                                   |
-                                   v
-                              DATA starts
-
-When this falling edge is detected, the receiver knows the beginning
-of the Manchester DATA.
-
-The receiver then changes to:
-
-::
-
-    RECEIVE_DATA
+    counter_set_top_value()
 
 
-Why SYNC Is Necessary
----------------------
+Le compteur est configuré pour revenir périodiquement à zéro.
 
-Without a synchronization marker, the receiver can detect a sequence
-of 40 us transitions inside the Manchester DATA itself.
+Avec une fréquence timer de::
 
-This can cause the receiver to start decoding at the wrong position.
-
-During previous tests, the expected value was:
-
-::
-
-    00010110 = 0x16
-
-but the receiver sometimes obtained:
-
-::
-
-    00101100 = 0x2C
-
-The two values are related by a one-bit shift:
-
-::
-
-    00010110
-     |
-     v
-    00101100
-
-or:
-
-::
-
-    0x16 << 1 = 0x2C
-
-This showed that the electrical communication was working, but the
-beginning of DATA was not always detected at the correct position.
-
-The separate SYNC section provides a more precise reference for the
-start of DATA.
+    80 MHz
 
 
-6. Data Sampling
-================
-
-Once the synchronization edge has been detected, the receiver knows
-the beginning of the first Manchester half-bit.
-
-The receiver must not sample directly on this transition.
-
-Instead, it waits:
-
-::
-
-    SAMPLE_OFFSET_US = 20 us
-
-Because one half-bit lasts 40 us, waiting 20 us places the sample
-approximately in the center of the half-bit.
-
-::
-
-    0 us                 20 us                 40 us
-     |---------------------|---------------------|
-    start                sample                  end
-                           ^
-                           |
-                      center of
-                       half-bit
-
-The first sample is therefore taken 20 us after DATA starts.
-
-The following samples are taken every:
-
-::
+et une période demandée de::
 
     40 us
 
-The sampling sequence is:
 
-::
+le nombre de ticks est::
 
-    DATA start
-        |
-        |---- 20 us ----*
-                        Sample 1
-                           |
-                           |---- 40 us ----*
-                                           Sample 2
-                                              |
-                                              |---- 40 us ----*
-                                                              Sample 3
-
-The receiver therefore obtains one sample for every Manchester
-half-bit.
+    80 000 000 * 40e-6 = 3200 ticks
 
 
-7. Manchester Decoding
+Le timer fonctionne donc selon le principe::
+
+    0 -------- 3200
+         40 us
+                 |
+                 +--> callback
+
+    0 -------- 3200
+         40 us
+                 |
+                 +--> callback
+
+
+Le temps d'exécution du callback ne vient donc plus s'ajouter à la période
+demandée.
+
+La configuration est réalisée avec::
+
+    half_bit_ticks =
+        counter_us_to_ticks(
+            timer,
+            HALF_BIT_US
+        );
+
+
+puis::
+
+    top_cfg.ticks =
+        half_bit_ticks;
+
+    top_cfg.callback =
+        timer_callback;
+
+    top_cfg.user_data =
+        NULL;
+
+    top_cfg.flags =
+        0;
+
+
+et::
+
+    counter_set_top_value(
+        timer,
+        &top_cfg
+    );
+
+
+Le timer est finalement démarré avec::
+
+    counter_start(timer);
+
+
+Validation du TX
+================
+
+Le signal TX a été contrôlé expérimentalement.
+
+Après correction de la gestion du timer, les intervalles principaux
+observés sont::
+
+    40 us
+    80 us
+
+
+Ces valeurs sont cohérentes avec le codage Manchester.
+
+Une durée de 40 us correspond à un demi-bit.
+
+Une durée de 80 us entre deux fronts peut apparaître lorsque deux demi-bits
+adjacents possèdent le même niveau logique.
+
+Un intervalle plus long, proche de 200 us, peut être observé entre deux
+trames à cause du GAP.
+
+
+Architecture du RX
+==================
+
+Le RX est basé sur une stratégie de suréchantillonnage.
+
+L'architecture est::
+
+    GPIO RX
+       |
+       v
+    Timer hardware 10 us
+       |
+       v
+    Echantillonnage
+       |
+       v
+    Ring buffer
+       |
+       v
+    Détection GAP
+       |
+       v
+    Synchronisation
+       |
+       v
+    Décodage Manchester
+       |
+       v
+    PREAMBLE
+       |
+       v
+    SFD
+       |
+       v
+    PAYLOAD
+
+
+Le RX ne réalise pas le décodage directement dans l'interruption timer.
+
+Le callback du timer reste volontairement très léger.
+
+Il effectue uniquement::
+
+    GPIO -> lecture -> stockage dans le ring buffer
+
+
+Le traitement du protocole est réalisé dans ``main()``.
+
+
+Suréchantillonnage
+==================
+
+Le demi-bit TX dure::
+
+    40 us
+
+
+Le RX échantillonne le signal toutes les::
+
+    SAMPLE_US = 10 us
+
+
+On obtient donc::
+
+    SAMPLES_PER_HALF = 4
+
+
+Représentation::
+
+    TX demi-bit
+
+    |<------------- 40 us ------------->|
+
+         x        x        x        x
+        10       20       30       40 us
+
+              4 échantillons
+
+
+Cette méthode apporte plus de robustesse qu'une seule lecture du GPIO par
+demi-bit.
+
+
+Timer hardware du RX
+====================
+
+Le RX utilise également ``counter_set_top_value()``.
+
+Pour::
+
+    SAMPLE_US = 10 us
+
+
+et une fréquence de timer de::
+
+    80 MHz
+
+
+le nombre de ticks est::
+
+    80 000 000 * 10e-6 = 800 ticks
+
+
+La configuration est donc::
+
+    sample_ticks =
+        counter_us_to_ticks(
+            timer,
+            SAMPLE_US
+        );
+
+
+puis::
+
+    top_cfg.ticks =
+        sample_ticks;
+
+    top_cfg.callback =
+        timer_callback;
+
+    top_cfg.user_data =
+        NULL;
+
+    top_cfg.flags =
+        0;
+
+
+Le timer génère ainsi un événement périodique toutes les 10 us.
+
+
+Callback timer RX
+=================
+
+Le callback RX lit uniquement le GPIO::
+
+    level =
+        gpio_pin_get_dt(
+            &data
+        );
+
+
+L'échantillon est ensuite placé dans un ring buffer.
+
+Le callback ne réalise pas::
+
+    - le décodage Manchester
+    - la recherche du préambule
+    - la recherche du SFD
+    - l'affichage avec printk
+
+
+Cette séparation est importante pour garder une interruption courte et
+prévisible.
+
+
+Ring buffer
+===========
+
+Le ring buffer permet de séparer l'acquisition temps réel du traitement
+du protocole.
+
+Sa taille est::
+
+    #define RING_SIZE 1024U
+
+
+Le timer écrit les échantillons dans le buffer::
+
+    Timer ISR
+       |
+       v
+    sample_buffer[]
+       |
+       v
+    main()
+
+
+Deux index sont utilisés::
+
+    write_index
+    read_index
+
+
+``write_index`` indique la prochaine position utilisée par le producteur,
+c'est-à-dire le callback timer.
+
+``read_index`` indique la prochaine position à traiter par le consommateur,
+c'est-à-dire la boucle principale.
+
+
+Le prochain index est calculé par::
+
+    next =
+        (write_index + 1U) &
+        RING_MASK;
+
+
+Comme la taille du buffer est une puissance de deux::
+
+    RING_SIZE = 1024
+
+
+on peut utiliser::
+
+    RING_MASK = 1023
+
+
+Cette opération évite d'utiliser un modulo classique.
+
+
+Détection du GAP
+================
+
+Lorsque le RX n'est pas synchronisé, il se trouve dans l'état::
+
+    RX_SEARCH_GAP
+
+
+Il compte le nombre d'échantillons LOW consécutifs.
+
+Le seuil utilisé est::
+
+    GAP_MIN_SAMPLES = 12
+
+
+Avec une période d'échantillonnage de 10 us::
+
+    12 * 10 us = 120 us
+
+
+Le TX produit un GAP d'au moins 160 us.
+
+Le seuil de 120 us permet donc de reconnaître cet intervalle tout en
+conservant une marge.
+
+
+Lorsqu'un niveau HIGH apparaît après suffisamment de LOW::
+
+    LOW LOW LOW LOW ... LOW HIGH
+                         |
+                         +--> début de trame
+
+
+le RX considère ce HIGH comme le début du premier demi-bit du préambule.
+
+Cela permet de récupérer la phase du signal.
+
+
+Décision d'un demi-bit
 ======================
 
-Two consecutive samples represent one Manchester symbol.
+Après synchronisation, les échantillons sont regroupés par quatre.
 
-The receiver uses the same convention as the transmitter:
+Pour chaque groupe, le RX compte le nombre de niveaux HIGH.
 
-::
+Si au moins deux échantillons sont HIGH::
 
-    first_half   second_half       Original bit
+    high_count >= 2
 
-        0             1                 0
 
-        1             0                 1
+le demi-bit est considéré comme HIGH.
 
-Therefore:
+Sinon, il est considéré comme LOW.
 
-::
+Le principe est donc::
 
-    01 -> 0
-    10 -> 1
+    Samples          Décision
 
-The combinations:
+    0 0 0 0    ->       0
+    0 0 0 1    ->       0
+    0 0 1 1    ->       1
+    0 1 1 1    ->       1
+    1 1 1 1    ->       1
 
-::
+
+Cette décision majoritaire améliore la tolérance à un échantillon perturbé
+ou placé près d'une transition.
+
+
+Décodage Manchester
+===================
+
+Deux demi-bits sont nécessaires pour reconstruire un bit logique.
+
+Le RX conserve donc::
+
+    first_half
+
+
+puis attend le deuxième demi-bit.
+
+
+Les seules combinaisons Manchester valides sont::
+
+    01 -> bit 0
+
+    10 -> bit 1
+
+
+La fonction de décodage applique::
+
+    if ((first == 0U) &&
+        (second == 1U)) {
+
+        *bit = 0U;
+
+        return true;
+    }
+
+
+et::
+
+    if ((first == 1U) &&
+        (second == 0U)) {
+
+        *bit = 1U;
+
+        return true;
+    }
+
+
+Les combinaisons suivantes sont invalides::
 
     00
     11
 
-are invalid Manchester symbols.
 
-If ``00`` or ``11`` is detected, the current frame is rejected.
-
-For the current test byte:
-
-::
-
-    Manchester:
-
-    01  01  01  10  01  10  10  01
-
-     |   |   |   |   |   |   |   |
-     v   v   v   v   v   v   v   v
-
-     0   0   0   1   0   1   1   0
-
-The reconstructed binary byte is:
-
-::
-
-    00010110
-
-which corresponds to:
-
-::
-
-    HEX     : 0x16
-    Decimal : 22
+Une erreur Manchester provoque une perte de synchronisation et le RX
+retourne à la recherche d'une nouvelle trame.
 
 
-8. Complete Receiver Operation
-==============================
+Reconstruction d'un octet
+==========================
 
-The complete receiver operation can be represented as:
+Chaque bit décodé est ajouté dans ``current_byte``.
 
-::
+L'opération utilisée est::
 
-                        +----------------+
-                        | WAIT_PREAMBLE  |
-                        +-------+--------+
-                                |
-                                | GPIO edges
-                                v
-                         Measure delta_t
-                                |
-                                v
-                     30 us <= dt <= 50 us
-                                |
-                                v
-                    Consecutive valid edges
-                                |
-                                v
-                        +---------------+
-                        |   WAIT_SYNC   |
-                        +-------+-------+
-                                |
-                                | GPIO edge
-                                v
-                         Measure delta_t
-                                |
-                                v
-                     70 us <= dt <= 90 us
-                                |
-                                v
-                         DATA start found
-                                |
-                                v
-                        +---------------+
-                        | RECEIVE_DATA  |
-                        +-------+-------+
-                                |
-                                | 20 us
-                                v
-                           First sample
-                                |
-                                | every 40 us
-                                v
-                     +---------------------+
-                     | first / second half |
-                     +----------+----------+
-                                |
-                                v
-                       Manchester decoding
-                                |
-                    +-----------+-----------+
-                    |                       |
-                  01 -> 0                 10 -> 1
-                    |                       |
-                    +-----------+-----------+
-                                |
-                                v
-                         Store decoded bit
-                                |
-                                v
-                         8 bits received
-                                |
-                                v
-                      Reconstruct the byte
-                                |
-                                v
-                         Frame completed
-                                |
-                                v
-                        WAIT_PREAMBLE
+    current_byte =
+        (current_byte << 1) |
+        bit;
 
 
-9. Role of GPIO Interrupts and Hardware Timer
-=============================================
+Après huit bits::
 
-The GPIO interrupt and the hardware timer have different roles.
-
-During preamble and synchronization detection, GPIO interrupts are
-used to detect signal transitions.
-
-The hardware timer provides the timestamp associated with these
-transitions.
-
-::
-
-    GPIO edge
-        |
-        v
-    GPIO interrupt
-        |
-        v
-    Read timer
-        |
-        v
-    Calculate delta_t
-        |
-        +---------------------+
-        |                     |
-        v                     v
-    approximately          approximately
-       40 us                  80 us
-        |                     |
-        v                     v
-     PREAMBLE                SYNC
-
-During DATA reception, the hardware timer is used to generate the
-sampling instants.
-
-::
-
-    SYNC detected
-         |
-         v
-      wait 20 us
-         |
-         v
-      sample GPIO
-         |
-         v
-      wait 40 us
-         |
-         v
-      sample GPIO
-         |
-         v
-         ...
-
-This avoids using software delays for the communication timing.
+    bit_count == 8
 
 
-10. Current Test Setup
+un octet complet est disponible.
+
+
+Par exemple, si les bits décodés sont::
+
+    1 0 1 0 1 0 1 0
+
+
+le résultat obtenu est::
+
+    0xAA
+
+
+Machine d'états RX
+==================
+
+Le RX utilise la machine d'états suivante::
+
+    RX_SEARCH_GAP
+          |
+          | GAP détecté
+          v
+    RX_PREAMBLE
+          |
+          | 0xAA valide
+          v
+       RX_SFD
+          |
+          | 0xD3 valide
+          v
+     RX_PAYLOAD
+          |
+          | N octets reçus
+          v
+    RX_SEARCH_GAP
+
+
+Les états sont définis par::
+
+    enum rx_state {
+        RX_SEARCH_GAP,
+        RX_PREAMBLE,
+        RX_SFD,
+        RX_PAYLOAD
+    };
+
+
+Validation du préambule
+=======================
+
+Le premier octet reconstruit doit être::
+
+    0xAA
+
+
+Si::
+
+    value != PREAMBLE
+
+
+le RX considère que la synchronisation n'est pas correcte et revient dans
+l'état::
+
+    RX_SEARCH_GAP
+
+
+Validation du SFD
+=================
+
+Après un préambule correct, le deuxième octet doit être::
+
+    0xD3
+
+
+Si la valeur reçue est correcte, le RX passe dans::
+
+    RX_PAYLOAD
+
+
+Sinon la trame est rejetée.
+
+
+Réception du payload
+====================
+
+Une fois le préambule et le SFD validés, chaque octet suivant est placé dans::
+
+    payload[]
+
+
+L'index est incrémenté avec::
+
+    payload_index++;
+
+
+Lorsque::
+
+    payload_index >= PAYLOAD_SIZE
+
+
+le payload complet est disponible.
+
+
+Pour un TX contenant::
+
+    static const uint8_t payload[] = {
+        0x1F
+    };
+
+
+et un RX configuré avec::
+
+    #define PAYLOAD_SIZE 1U
+
+
+la sortie attendue est par exemple::
+
+    Frame 1 : 1F
+    Frame 2 : 1F
+    Frame 3 : 1F
+    Frame 4 : 1F
+
+
+Taille du payload
+=================
+
+Dans la version actuelle du protocole, la taille du payload n'est pas
+transmise.
+
+Le TX et le RX doivent donc utiliser la même taille.
+
+Exemple TX::
+
+    static const uint8_t payload[] = {
+        0x11,
+        0x22,
+        0x33,
+        0x44
+    };
+
+
+Le RX doit alors être configuré avec::
+
+    #define PAYLOAD_SIZE 4U
+
+
+Cette approche minimise le header de la trame.
+
+Le header contient uniquement::
+
+    PREAMBLE = 1 octet
+    SFD      = 1 octet
+
+
+L'overhead fixe est donc de deux octets, sans compter le GAP.
+
+
+Efficacité de la trame
 ======================
 
-The current test validates the digital communication without using the
-final optical hardware.
+Pour un payload de N octets, sans CRC, l'efficacité liée au header est::
 
-The setup is:
-
-::
-
-    +------------------+
-    |   nRF52833 DK    |
-    |      T_test      |
-    +--------+---------+
-             |
-             | GPIO
-             |
-             | PREAMBLE
-             | SYNC
-             | Manchester DATA
-             |
-             v
-    +------------------+
-    |   STM32L476RG    |
-    |     Receiver     |
-    +--------+---------+
-             |
-             v
-       Preamble detection
-             |
-             v
-        Sync detection
-             |
-             v
-      Manchester sampling
-             |
-             v
-      Manchester decoding
-             |
-             v
-           0x16
-
-For a direct electrical test, the two boards must share a common
-ground:
-
-::
-
-    nRF52833 DK                     STM32L476RG
-    ------------                    ------------
-
-    DATA GPIO  -------------------> DATA INPUT
-
-    GND        -------------------- GND
-
-The nRF52833 generates the complete test frame and the STM32 receives
-the digital GPIO signal directly.
+                   N
+    efficiency = -------
+                 N + 2
 
 
-Expected Result
----------------
+Par exemple, pour 1 octet de payload::
 
-For the current test, the transmitted original byte is:
+                   1
+    efficiency = -------
+                   3
 
-::
-
-    0x16
-
-The expected receiver output is:
-
-::
-
-    ------------------------
-    Frame received
-    Original data : 00010110
-    HEX           : 0x16
-    Decimal       : 22
-    ------------------------
+    efficiency = 33.3 %
 
 
-11. Complete Current Communication Chain
-========================================
+Pour 8 octets::
 
-The complete current test can be summarized as:
+                   8
+    efficiency = -------
+                  10
 
-::
-
-    nRF52833 hardware timer
-              |
-              | event every 40 us
-              v
-          PREAMBLE
-          01010101
-              |
-              v
-             SYNC
-              |
-              | approximately 80 us
-              | between relevant edges
-              v
-        DATA start edge
-              |
-              v
-           wait 20 us
-              |
-              v
-          Sample GPIO
-              |
-              | every 40 us
-              v
-    01 01 01 10 01 10 10 01
-              |
-              v
-       Manchester decoder
-              |
-              v
-       0 0 0 1 0 1 1 0
-              |
-              v
-          00010110
-              |
-              v
-            0x16
+    efficiency = 80 %
 
 
-12. Final Optical Objective
-===========================
+Pour 32 octets::
 
-The nRF52833 ``T_test`` application is only used to validate the
-digital communication and receiver implementation.
+                   32
+    efficiency = --------
+                   34
 
-The current direct connection is:
+    efficiency ~= 94.1 %
 
-::
 
-    nRF52833
-        |
-        | GPIO
-        v
-    STM32L476RG
+L'impact du préambule et du SFD devient donc faible lorsque la taille du
+payload augmente.
 
-Once the digital communication has been validated, the final system
-will replace the direct GPIO connection with the optical communication
-chain.
 
-The final architecture is:
+Configuration Device Tree TX
+============================
 
-::
+Sur le nRF52833 DK, la sortie DATA est configurée dans l'overlay.
 
-    STM32 Transmitter
-           |
-           v
-    Manchester Signal
-           |
-           v
-       LED Driver
-           |
-           v
-       LED / Lamp
-           |
-           | Light
-           v
-     Photodetector
-           |
-           v
-    Analog Front-End
-           |
-           v
-      Digital Signal
-           |
-           v
-    STM32L476RG
-       Receiver
-           |
-           v
-    Preamble Detection
-           |
-           v
-    Synchronization
-           |
-           v
-    Manchester Sampling
-           |
-           v
-    Manchester Decoder
-           |
-           v
-      Original Data
+Exemple::
 
-The purpose of the current nRF52833-to-STM32 test is therefore to
-isolate and validate the digital communication protocol before adding
-the optical hardware.
+    #include <zephyr/dt-bindings/gpio/gpio.h>
 
-The development is performed progressively:
+    / {
+        chosen {
+            zephyr,console = &uart0;
+        };
 
-::
+        zephyr,user {
+            data-gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
+        };
+    };
 
-    Step 1
-    Digital TX -> Digital RX
-          |
-          v
-    Validate timing and Manchester decoding
 
-    Step 2
-    Add synchronization
-          |
-          v
-    Validate reliable frame detection
+    &uart0 {
+        compatible = "nordic,nrf-uarte";
+        status = "okay";
+        current-speed = <115200>;
+        pinctrl-0 = <&uart0_default>;
+        pinctrl-1 = <&uart0_sleep>;
+        pinctrl-names = "default", "sleep";
+    };
 
-    Step 3
-    Replace direct GPIO connection
-          |
-          v
-    Add optical transmitter and receiver
 
-    Step 4
-    Complete OPV4COM optical communication
+    &timer1 {
+        status = "okay";
+    };
+
+
+Le GPIO utilisé pour DATA est donc::
+
+    GPIO0 pin 4
+
+
+Le timer utilisé est::
+
+    TIMER1
+
+
+Dans le programme C, ces ressources sont récupérées avec::
+
+    #define DATA_NODE DT_PATH(zephyr_user)
+
+    static const struct gpio_dt_spec data =
+        GPIO_DT_SPEC_GET(DATA_NODE, data_gpios);
+
+
+et::
+
+    #define TIMER_NODE DT_NODELABEL(timer1)
+
+    static const struct device *timer =
+        DEVICE_DT_GET(TIMER_NODE);
+
+
+Validation expérimentale
+========================
+
+La première validation est réalisée avec une connexion électrique directe
+entre le TX et le RX.
+
+La connexion est::
+
+    TX GPIO ---------------- RX GPIO
+
+    TX GND ----------------- RX GND
+
+
+Cette étape permet de valider indépendamment de la chaîne optique::
+
+    - la construction de la trame
+    - le codage Manchester
+    - le timing TX
+    - l'échantillonnage RX
+    - la synchronisation
+    - le décodage Manchester
+    - la détection du préambule
+    - la détection du SFD
+    - la récupération du payload
+
+
+Les mesures réalisées ont montré des intervalles principalement égaux à::
+
+    40 us
+    80 us
+
+
+ce qui correspond au timing Manchester attendu.
+
+
+Architecture finale validée
+============================
+
+La chaîne numérique actuellement validée est::
+
+    TX
+    ===
+
+    Payload buffer
+         |
+         v
+    PREAMBLE + SFD + PAYLOAD
+         |
+         v
+    Manchester encoder
+         |
+         v
+    Timer hardware
+         |
+         | 40 us
+         v
+    GPIO TX
+
+
+    RX
+    ===
+
+    GPIO RX
+         |
+         v
+    Timer hardware
+         |
+         | 10 us
+         v
+    4x oversampling
+         |
+         v
+    Ring buffer
+         |
+         v
+    GAP detection
+         |
+         v
+    Manchester decoder
+         |
+         v
+    0xAA detection
+         |
+         v
+    0xD3 detection
+         |
+         v
+    Payload reconstruction
+
+
+Résultat actuel
+===============
+
+La communication numérique directe TX/RX est fonctionnelle.
+
+Le TX génère correctement une trame Manchester avec un demi-bit de 40 us.
+
+Le RX suréchantillonne le signal toutes les 10 us et utilise quatre
+échantillons par demi-bit.
+
+Le récepteur est capable de::
+
+    - détecter le début d'une trame
+    - se synchroniser sur le signal
+    - décoder le Manchester
+    - vérifier le préambule 0xAA
+    - vérifier le SFD 0xD3
+    - reconstruire le payload
+
+
+Pour un payload TX égal à::
+
+    0x1F
+
+
+le RX récupère::
+
+    0x1F
+
+
+Améliorations futures
+=====================
+
+La version actuelle constitue une première couche de communication
+fonctionnelle.
+
+Les prochaines améliorations possibles sont::
+
+    1. Ajouter un CRC-8 après le payload.
+
+    2. Ajouter éventuellement un champ LENGTH si la taille du payload doit
+       varier dynamiquement d'une trame à l'autre.
+
+    3. Tester différentes tailles de payload.
+
+    4. Mesurer le taux d'erreur de transmission.
+
+    5. Remplacer la connexion GPIO directe par la chaîne optique.
+
+    6. Tester la réception avec différents niveaux de lumière.
+
+    7. Tester la robustesse face au bruit et à la lumière ambiante.
+
+    8. Optimiser le débit en réduisant éventuellement le GAP ou la durée
+       du demi-bit.
+
+
+Une évolution particulièrement importante sera l'ajout d'un CRC.
+
+La trame pourra alors devenir::
+
+    +----------+----------+----------------+---------+
+    | PREAMBLE | SFD      | PAYLOAD        | CRC-8   |
+    +----------+----------+----------------+---------+
+    | 0xAA     | 0xD3     | N octets       | 1 octet |
+    +----------+----------+----------------+---------+
+
+
+Le CRC permettra au récepteur de vérifier que le payload décodé est
+effectivement valide avant de le transmettre à l'application.
+
+
+Résumé
+======
+
+Le protocole OPV4COM actuellement développé utilise une trame volontairement
+courte afin de maximiser le débit utile.
+
+La structure retenue est::
+
+    GAP | 0xAA | 0xD3 | PAYLOAD
+
+
+Le codage Manchester utilisé est::
+
+    0 -> 01
+    1 -> 10
+
+
+Les paramètres temporels sont::
+
+    Demi-bit              : 40 us
+    Bit Manchester        : 80 us
+    Débit logique         : 12.5 kbit/s
+    Echantillonnage RX    : 10 us
+    Oversampling RX       : x4
+
+
+Le TX utilise un timer hardware périodique afin de garantir précisément
+la durée des demi-bits.
+
+Le RX utilise également un timer hardware périodique et un ring buffer
+afin de séparer l'acquisition temps réel du traitement du protocole.
+
+Cette architecture fournit une base simple, efficace et robuste pour
+l'intégration future de la communication optique du projet OPV4COM.
