@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <stdbool.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
@@ -9,31 +9,31 @@
 
 
 
-#define HALF_BIT_US             40U
-#define SAMPLE_OFFSET_US        20U
+#define SAMPLE_US               10U
 
-#define DATA_BITS               8U
+#define SAMPLES_PER_HALF        4U
 
-
-#define PREAMBLE_EDGES          6U
-
-#define PREAMBLE_MIN_US         30U
-#define PREAMBLE_MAX_US         50U
+#define GAP_MIN_SAMPLES         12U
 
 
-#define SYNC_MIN_US             70U
-#define SYNC_MAX_US             90U
+#define PREAMBLE                0xAA
 
+#define SFD                     0xD3
+
+
+#define PAYLOAD_SIZE            3U
+
+
+#define RING_SIZE               1024U
+
+#define RING_MASK               (RING_SIZE - 1U)
 
 
 
 #define DATA_NODE DT_PATH(zephyr_user)
 
-static const struct gpio_dt_spec data_arrive =
+static const struct gpio_dt_spec data =
     GPIO_DT_SPEC_GET(DATA_NODE, data_gpios);
-
-static struct gpio_callback data_cb;
-
 
 
 
@@ -42,89 +42,163 @@ static struct gpio_callback data_cb;
 static const struct device *timer =
     DEVICE_DT_GET(TIMER_NODE);
 
-static struct counter_alarm_cfg alarm_cfg;
 
 
-static uint32_t half_bit_ticks;
+static struct counter_top_cfg top_cfg;
 
-static uint32_t sample_offset_ticks;
 
+static uint32_t sample_ticks;
+
+
+
+static volatile uint8_t sample_buffer[RING_SIZE];
+
+static volatile uint16_t write_index = 0;
+
+static volatile uint16_t read_index = 0;
+
+
+static volatile uint32_t overflow_count = 0;
 
 
 
 enum rx_state {
-    WAIT_PREAMBLE,
-    WAIT_SYNC,
-    RECEIVE_DATA
+    RX_SEARCH_GAP,
+    RX_PREAMBLE,
+    RX_SFD,
+    RX_PAYLOAD
 };
 
 
-static volatile enum rx_state state =
-    WAIT_PREAMBLE;
+static enum rx_state state =
+    RX_SEARCH_GAP;
 
 
 
-
-static uint32_t previous_edge_ticks = 0;
-
-
-static bool first_edge = true;
+static uint16_t low_count = 0;
 
 
-static uint8_t preamble_count = 0;
+static uint8_t sample_in_half = 0;
 
-
-
-
-static uint8_t half_index = 0;
+static uint8_t high_count = 0;
 
 
 static uint8_t first_half = 0;
 
+static uint8_t half_index = 0;
 
-static uint8_t received_byte = 0;
 
+static uint8_t current_byte = 0;
 
 static uint8_t bit_count = 0;
 
 
-
-
-static volatile bool frame_ready = false;
-
-
-static volatile bool frame_error = false;
-
-
-static uint8_t completed_byte = 0;
+static uint8_t payload_index = 0;
 
 
 
+static uint8_t payload[PAYLOAD_SIZE];
 
-static void reset_receiver(void)
+
+
+static uint32_t frame_count = 0;
+
+static uint32_t manchester_errors = 0;
+
+static uint32_t preamble_errors = 0;
+
+static uint32_t sfd_errors = 0;
+
+
+
+static void timer_callback(const struct device *dev,
+                           void *user_data)
 {
+    int level;
 
-    state = WAIT_PREAMBLE;
-
-
-    first_edge = true;
+    uint16_t next;
 
 
-    preamble_count = 0;
+
+    level =
+        gpio_pin_get_dt(
+            &data
+        );
 
 
-    half_index = 0;
+
+    if (level < 0) {
+
+        return;
+    }
 
 
-    first_half = 0;
+
+    next =
+        (write_index + 1U) &
+        RING_MASK;
 
 
-    received_byte = 0;
+
+    if (next ==
+        read_index) {
 
 
-    bit_count = 0;
+        overflow_count++;
+
+
+        return;
+    }
+
+
+
+    sample_buffer[write_index] =
+        (uint8_t)level;
+
+
+    write_index =
+        next;
 }
 
+
+
+static void reset_decoder(void)
+{
+    state =
+        RX_SEARCH_GAP;
+
+
+    low_count =
+        0;
+
+
+    sample_in_half =
+        0;
+
+
+    high_count =
+        0;
+
+
+    first_half =
+        0;
+
+
+    half_index =
+        0;
+
+
+    current_byte =
+        0;
+
+
+    bit_count =
+        0;
+
+
+    payload_index =
+        0;
+}
 
 
 
@@ -132,23 +206,30 @@ static bool decode_manchester(uint8_t first,
                               uint8_t second,
                               uint8_t *bit)
 {
-
     if ((first == 0U) &&
         (second == 1U)) {
 
-        *bit = 0U;
+
+        *bit =
+            0U;
+
 
         return true;
     }
+
 
 
     if ((first == 1U) &&
         (second == 0U)) {
 
-        *bit = 1U;
+
+        *bit =
+            1U;
+
 
         return true;
     }
+
 
 
     return false;
@@ -156,64 +237,20 @@ static bool decode_manchester(uint8_t first,
 
 
 
-
-static void timer_callback(const struct device *dev,
-                           uint8_t chan_id,
-                           uint32_t ticks,
-                           void *user_data)
+static void process_byte(uint8_t value)
 {
-
-    uint8_t current_level;
-
-    uint8_t bit;
-
-    int ret;
+    if (state ==
+        RX_PREAMBLE) {
 
 
-
-    if (state != RECEIVE_DATA) {
-
-        return;
-    }
+        if (value !=
+            PREAMBLE) {
 
 
-
-    current_level =
-        (uint8_t)gpio_pin_get_dt(
-            &data_arrive
-        );
+            preamble_errors++;
 
 
-
-    if (half_index == 0U) {
-
-        first_half =
-            current_level;
-
-
-        half_index = 1U;
-    }
-
-
-    else {
-
-        uint8_t second_half =
-            current_level;
-
-
-        half_index = 0U;
-
-
-
-        if (!decode_manchester(
-                first_half,
-                second_half,
-                &bit)) {
-
-            frame_error = true;
-
-
-            reset_receiver();
+            reset_decoder();
 
 
             return;
@@ -221,129 +258,40 @@ static void timer_callback(const struct device *dev,
 
 
 
-        received_byte <<= 1;
+        state =
+            RX_SFD;
 
 
-        received_byte |= bit;
-
-
-        bit_count++;
+        return;
+    }
 
 
 
-        if (bit_count >= DATA_BITS) {
-
-            completed_byte =
-                received_byte;
+    if (state ==
+        RX_SFD) {
 
 
-            frame_ready = true;
+        if (value !=
+            SFD) {
 
 
-            reset_receiver();
+            sfd_errors++;
+
+
+            reset_decoder();
 
 
             return;
         }
-    }
 
 
 
-    alarm_cfg.ticks =
-        ticks + half_bit_ticks;
+        state =
+            RX_PAYLOAD;
 
 
-
-    ret = counter_set_channel_alarm(
-        dev,
-        chan_id,
-        &alarm_cfg
-    );
-
-
-
-    if (ret < 0) {
-
-        frame_error = true;
-
-
-        reset_receiver();
-    }
-}
-
-
-
-
-static void start_sampling(uint32_t data_start_ticks)
-{
-
-    received_byte = 0;
-
-
-    bit_count = 0;
-
-
-    half_index = 0;
-
-
-    first_half = 0;
-
-
-
-    alarm_cfg.ticks =
-        data_start_ticks +
-        sample_offset_ticks;
-
-
-
-    counter_set_channel_alarm(
-        timer,
-        0,
-        &alarm_cfg
-    );
-}
-
-
-
-
-static void data_callback(const struct device *dev,
-                          struct gpio_callback *cb,
-                          uint32_t pins)
-{
-
-    uint32_t current_ticks;
-
-
-    uint32_t delta_ticks;
-
-
-    uint64_t delta_us;
-
-
-
-    if (state == RECEIVE_DATA) {
-
-        return;
-    }
-
-
-
-    if (counter_get_value(
-            timer,
-            &current_ticks) != 0) {
-
-        return;
-    }
-
-
-
-    if (first_edge) {
-
-        previous_edge_ticks =
-            current_ticks;
-
-
-        first_edge = false;
+        payload_index =
+            0;
 
 
         return;
@@ -351,299 +299,41 @@ static void data_callback(const struct device *dev,
 
 
 
-    delta_ticks =
-        current_ticks -
-        previous_edge_ticks;
+    if (state ==
+        RX_PAYLOAD) {
 
 
-    delta_us =
-        counter_ticks_to_us(
-            timer,
-            delta_ticks
-        );
+        payload[payload_index] =
+            value;
+
+
+        payload_index++;
 
 
 
-    if (state == WAIT_PREAMBLE) {
+        if (payload_index >=
+            PAYLOAD_SIZE) {
 
 
-        if ((delta_us >= PREAMBLE_MIN_US) &&
-            (delta_us <= PREAMBLE_MAX_US)) {
+            frame_count++;
 
 
-            preamble_count++;
 
-
-            if (preamble_count >= PREAMBLE_EDGES) {
-
-                state = WAIT_SYNC;
-            }
-        }
-
-
-        else {
-
-            preamble_count = 0;
-        }
-    }
-
-
-    else if (state == WAIT_SYNC) {
-
-
-        if ((delta_us >= SYNC_MIN_US) &&
-            (delta_us <= SYNC_MAX_US)) {
-
-
-            state = RECEIVE_DATA;
-
-
-            gpio_pin_interrupt_configure_dt(
-                &data_arrive,
-                GPIO_INT_DISABLE
+            printk(
+                "Frame %u : ",
+                frame_count
             );
 
 
-            start_sampling(
-                current_ticks
-            );
-        }
 
+            for (uint8_t i = 0;
+                 i < PAYLOAD_SIZE;
+                 i++) {
 
-        else if ((delta_us >= PREAMBLE_MIN_US) &&
-                 (delta_us <= PREAMBLE_MAX_US)) {
-
-        }
-
-
-        else {
-
-            reset_receiver();
-        }
-    }
-
-
-
-    previous_edge_ticks =
-        current_ticks;
-}
-
-
-
-
-int main(void)
-{
-
-    int ret;
-
-
-
-    printk("\n");
-
-    printk("MANCHESTER RECEIVER\n");
-
-    printk("\n");
-
-
-
-    if (!gpio_is_ready_dt(
-            &data_arrive)) {
-
-        printk(
-            "ERROR : GPIO not ready\n"
-        );
-
-        return -1;
-    }
-
-
-
-    ret = gpio_pin_configure_dt(
-        &data_arrive,
-        GPIO_INPUT | GPIO_PULL_DOWN
-    );
-
-
-
-    if (ret < 0) {
-
-        printk(
-            "ERROR : GPIO config : %d\n",
-            ret
-        );
-
-        return -1;
-    }
-
-
-
-    gpio_init_callback(
-        &data_cb,
-        data_callback,
-        BIT(data_arrive.pin)
-    );
-
-
-
-    ret = gpio_add_callback(
-        data_arrive.port,
-        &data_cb
-    );
-
-
-
-    if (ret < 0) {
-
-        printk(
-            "ERROR : GPIO callback : %d\n",
-            ret
-        );
-
-        return -1;
-    }
-
-
-
-    if (!device_is_ready(timer)) {
-
-        printk(
-            "ERROR : Timer not ready\n"
-        );
-
-        return -1;
-    }
-
-
-
-    printk(
-        "Timer frequency : %u Hz\n",
-        counter_get_frequency(timer)
-    );
-
-
-
-    half_bit_ticks =
-        counter_us_to_ticks(
-            timer,
-            HALF_BIT_US
-        );
-
-
-
-    sample_offset_ticks =
-        counter_us_to_ticks(
-            timer,
-            SAMPLE_OFFSET_US
-        );
-
-
-
-    printk(
-        "Half bit       : %u us\n",
-        HALF_BIT_US
-    );
-
-
-    printk(
-        "Half bit ticks : %u\n",
-        half_bit_ticks
-    );
-
-
-    printk(
-        "Sample offset  : %u us\n",
-        SAMPLE_OFFSET_US
-    );
-
-
-
-    alarm_cfg.flags =
-        COUNTER_ALARM_CFG_ABSOLUTE;
-
-
-    alarm_cfg.callback =
-        timer_callback;
-
-
-    alarm_cfg.user_data =
-        NULL;
-
-
-
-    ret = counter_start(timer);
-
-
-
-    if (ret < 0) {
-
-        printk(
-            "ERROR : Timer start : %d\n",
-            ret
-        );
-
-        return -1;
-    }
-
-
-
-    ret =
-        gpio_pin_interrupt_configure_dt(
-            &data_arrive,
-            GPIO_INT_EDGE_BOTH
-        );
-
-
-
-    if (ret < 0) {
-
-        printk(
-            "ERROR : GPIO IRQ : %d\n",
-            ret
-        );
-
-        return -1;
-    }
-
-
-
-    printk("\n");
-
-    printk("Receiver ready\n");
-
-    printk("Waiting for frame...\n");
-
-    printk("\n");
-
-
-
-    while (1) {
-
-
-        if (frame_ready) {
-
-
-            frame_ready = false;
-
-
-
-            printk("\n");
-
-            printk("------------------------\n");
-
-            printk("Frame received\n");
-
-            printk("Original data : ");
-
-
-
-            for (int i = 7;
-                 i >= 0;
-                 i--) {
 
                 printk(
-                    "%u",
-                    (completed_byte >> i) &
-                    0x01U
+                    "%02X ",
+                    payload[i]
                 );
             }
 
@@ -652,61 +342,417 @@ int main(void)
             printk("\n");
 
 
-            printk(
-                "HEX           : 0x%02X\n",
-                completed_byte
-            );
 
-
-            printk(
-                "Decimal       : %u\n",
-                completed_byte
-            );
-
-
-            printk("------------------------\n");
-
-            printk("\n");
-
-
-
-            first_edge = true;
-
-
-            gpio_pin_interrupt_configure_dt(
-                &data_arrive,
-                GPIO_INT_EDGE_BOTH
-            );
+            reset_decoder();
         }
+    }
+}
 
 
 
-        if (frame_error) {
-
-
-            frame_error = false;
-
-
-            printk(
-                "Manchester error - frame rejected\n"
-            );
+static void process_half(uint8_t level)
+{
+    uint8_t bit;
 
 
 
-            first_edge = true;
+    if (half_index ==
+        0U) {
 
 
-            gpio_pin_interrupt_configure_dt(
-                &data_arrive,
-                GPIO_INT_EDGE_BOTH
-            );
-        }
+        first_half =
+            level;
+
+
+        half_index =
+            1U;
+
+
+        return;
+    }
 
 
 
-        k_sleep(
-            K_MSEC(1)
+    half_index =
+        0U;
+
+
+
+    if (!decode_manchester(
+            first_half,
+            level,
+            &bit)) {
+
+
+        manchester_errors++;
+
+
+        reset_decoder();
+
+
+        return;
+    }
+
+
+
+    current_byte =
+        (current_byte << 1) |
+        bit;
+
+
+    bit_count++;
+
+
+
+    if (bit_count >=
+        8U) {
+
+
+        uint8_t value =
+            current_byte;
+
+
+        current_byte =
+            0;
+
+
+        bit_count =
+            0;
+
+
+
+        process_byte(
+            value
         );
+    }
+}
+
+
+
+static void process_sample(uint8_t level)
+{
+    if (state ==
+        RX_SEARCH_GAP) {
+
+
+        if (level == 0U) {
+
+
+            if (low_count <
+                0xFFFFU) {
+
+
+                low_count++;
+            }
+
+
+            return;
+        }
+
+
+
+        if (low_count >=
+            GAP_MIN_SAMPLES) {
+
+
+            state =
+                RX_PREAMBLE;
+
+
+            sample_in_half =
+                1U;
+
+
+            high_count =
+                1U;
+
+
+            first_half =
+                0;
+
+
+            half_index =
+                0;
+
+
+            current_byte =
+                0;
+
+
+            bit_count =
+                0;
+
+
+            payload_index =
+                0;
+
+
+            low_count =
+                0;
+
+
+            return;
+        }
+
+
+
+        low_count =
+            0;
+
+
+        return;
+    }
+
+
+
+    if (level != 0U) {
+
+        high_count++;
+    }
+
+
+
+    sample_in_half++;
+
+
+
+    if (sample_in_half >=
+        SAMPLES_PER_HALF) {
+
+
+        uint8_t half_level;
+
+
+
+        half_level =
+            (high_count >= 2U) ?
+            1U :
+            0U;
+
+
+
+        sample_in_half =
+            0;
+
+
+        high_count =
+            0;
+
+
+
+        process_half(
+            half_level
+        );
+    }
+}
+
+
+
+int main(void)
+{
+    int ret;
+
+
+
+    printk("\n");
+
+    printk("OPV4COM Manchester RX\n");
+
+    printk("\n");
+
+
+
+    if (!gpio_is_ready_dt(
+            &data)) {
+
+
+        printk(
+            "ERROR : GPIO not ready\n"
+        );
+
+
+        return -1;
+    }
+
+
+
+    ret = gpio_pin_configure_dt(
+        &data,
+        GPIO_INPUT | GPIO_PULL_DOWN
+    );
+
+
+
+    if (ret < 0) {
+
+
+        printk(
+            "ERROR : GPIO configuration : %d\n",
+            ret
+        );
+
+
+        return -1;
+    }
+
+
+
+    if (!device_is_ready(
+            timer)) {
+
+
+        printk(
+            "ERROR : Timer not ready\n"
+        );
+
+
+        return -1;
+    }
+
+
+
+    sample_ticks =
+        counter_us_to_ticks(
+            timer,
+            SAMPLE_US
+        );
+
+
+
+    printk(
+        "Timer frequency = %u Hz\n",
+        counter_get_frequency(
+            timer
+        )
+    );
+
+
+    printk(
+        "Sample period = %u us\n",
+        SAMPLE_US
+    );
+
+
+    printk(
+        "Sample ticks = %u\n",
+        sample_ticks
+    );
+
+
+    printk(
+        "Samples / half bit = %u\n",
+        SAMPLES_PER_HALF
+    );
+
+
+    printk(
+        "Payload size = %u bytes\n",
+        PAYLOAD_SIZE
+    );
+
+
+
+    top_cfg.ticks =
+        sample_ticks;
+
+
+    top_cfg.callback =
+        timer_callback;
+
+
+    top_cfg.user_data =
+        NULL;
+
+
+    top_cfg.flags =
+        0;
+
+
+
+    ret = counter_set_top_value(
+        timer,
+        &top_cfg
+    );
+
+
+
+    if (ret < 0) {
+
+
+        printk(
+            "ERROR : Timer top : %d\n",
+            ret
+        );
+
+
+        return -1;
+    }
+
+
+
+    ret = counter_start(
+        timer
+    );
+
+
+
+    if (ret < 0) {
+
+
+        printk(
+            "ERROR : Timer start : %d\n",
+            ret
+        );
+
+
+        return -1;
+    }
+
+
+
+    printk("\n");
+
+    printk(
+        "Receiver running\n"
+    );
+
+
+    printk(
+        "Waiting for frame...\n"
+    );
+
+    printk("\n");
+
+
+
+    while (1) {
+
+
+        while (read_index !=
+               write_index) {
+
+
+            uint8_t sample;
+
+
+            sample =
+                sample_buffer[read_index];
+
+
+            read_index =
+                (read_index + 1U) &
+                RING_MASK;
+
+
+
+            process_sample(
+                sample
+            );
+        }
+
+
+
+        k_yield();
     }
 
 
