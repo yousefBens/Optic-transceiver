@@ -8,7 +8,7 @@
 #include <zephyr/drivers/counter.h>
 
 
-#define HALF_BIT_US            40U
+#define HALF_BIT_US            24U
 #define PREAMBLE               0x55
 #define SFD                    0xD3
 #define INTER_FRAME_HALFS      4U

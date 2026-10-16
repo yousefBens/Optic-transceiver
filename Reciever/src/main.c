@@ -6,9 +6,9 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/counter.h>
+#include <zephyr/irq.h>
 
-
-#define SAMPLE_US               10U
+#define SAMPLE_US               6U
 #define SAMPLES_PER_HALF        4U
 #define GAP_MIN_SAMPLES         12U
 
@@ -17,29 +17,31 @@
 
 #define PAYLOAD_SIZE            3U
 
-#define RING_SIZE               1024U
+#define RING_SIZE               65536U
 #define RING_MASK               (RING_SIZE - 1U)
 
+#define STATS_PERIOD_MS         1000U
 
 #define DATA_NODE DT_PATH(zephyr_user)
-static const struct gpio_dt_spec data = GPIO_DT_SPEC_GET(DATA_NODE, data_gpios);
 
+static const struct gpio_dt_spec data =
+    GPIO_DT_SPEC_GET(DATA_NODE, data_gpios);
 
 #define TIMER_NODE DT_NODELABEL(t_bit)
-static const struct device *timer = DEVICE_DT_GET(TIMER_NODE);
 
+static const struct device *timer =
+    DEVICE_DT_GET(TIMER_NODE);
 
 static struct counter_top_cfg top_cfg;
 static uint32_t sample_ticks;
 
+static uint8_t sample_buffer[RING_SIZE];
 
-static volatile uint8_t sample_buffer[RING_SIZE];
-
-static volatile uint16_t write_index = 0;
-static volatile uint16_t read_index = 0;
+static volatile uint32_t write_index = 0;
+static volatile uint32_t read_index = 0;
 
 static volatile uint32_t overflow_count = 0;
-
+static volatile bool buffer_overflow = false;
 
 enum rx_state {
     RX_SEARCH_GAP,
@@ -48,9 +50,7 @@ enum rx_state {
     RX_PAYLOAD
 };
 
-
 static enum rx_state state = RX_SEARCH_GAP;
-
 
 static uint16_t high_count_gap = 0;
 
@@ -65,21 +65,19 @@ static uint8_t bit_count = 0;
 
 static uint8_t payload_index = 0;
 
-
 static uint8_t payload[PAYLOAD_SIZE];
-
 
 static uint32_t frame_count = 0;
 static uint32_t manchester_errors = 0;
 static uint32_t preamble_errors = 0;
 static uint32_t sfd_errors = 0;
-
+static uint32_t payload_errors = 0;
 
 static void timer_callback(const struct device *dev,
                            void *user_data)
 {
     int level;
-    uint16_t next;
+    uint32_t next;
 
     level = gpio_pin_get_dt(&data);
 
@@ -87,17 +85,21 @@ static void timer_callback(const struct device *dev,
         return;
     }
 
+    if (buffer_overflow) {
+        return;
+    }
+
     next = (write_index + 1U) & RING_MASK;
 
     if (next == read_index) {
         overflow_count++;
+        buffer_overflow = true;
         return;
     }
 
     sample_buffer[write_index] = (uint8_t)level;
     write_index = next;
 }
-
 
 static void reset_decoder(void)
 {
@@ -117,7 +119,6 @@ static void reset_decoder(void)
     payload_index = 0;
 }
 
-
 static bool decode_manchester(uint8_t first,
                               uint8_t second,
                               uint8_t *bit)
@@ -135,7 +136,6 @@ static bool decode_manchester(uint8_t first,
     return false;
 }
 
-
 static void process_byte(uint8_t value)
 {
     if (state == RX_PREAMBLE) {
@@ -147,10 +147,8 @@ static void process_byte(uint8_t value)
         }
 
         state = RX_SFD;
-
         return;
     }
-
 
     if (state == RX_SFD) {
 
@@ -162,10 +160,8 @@ static void process_byte(uint8_t value)
 
         state = RX_PAYLOAD;
         payload_index = 0;
-
         return;
     }
-
 
     if (state == RX_PAYLOAD) {
 
@@ -176,19 +172,16 @@ static void process_byte(uint8_t value)
 
             frame_count++;
 
-            printk("Frame %u : ", frame_count);
-
-            for (uint8_t i = 0; i < PAYLOAD_SIZE; i++) {
-                printk("%02X ", payload[i]);
+            if ((payload[0] != 0xFFU) ||
+                (payload[1] != 0x16U) ||
+                (payload[2] != 0xC1U)) {
+                payload_errors++;
             }
-
-            printk("\n");
 
             reset_decoder();
         }
     }
 }
-
 
 static void process_half(uint8_t level)
 {
@@ -223,14 +216,13 @@ static void process_half(uint8_t level)
     }
 }
 
-
 static void process_sample(uint8_t level)
 {
     if (state == RX_SEARCH_GAP) {
 
         if (level == 1U) {
 
-            if (high_count_gap < 0xFFFFU) {
+            if (high_count_gap < UINT16_MAX) {
                 high_count_gap++;
             }
 
@@ -244,23 +236,21 @@ static void process_sample(uint8_t level)
             sample_in_half = 1U;
             high_count = 0U;
 
-            first_half = 0;
-            half_index = 0;
+            first_half = 0U;
+            half_index = 0U;
 
-            current_byte = 0;
-            bit_count = 0;
+            current_byte = 0U;
+            bit_count = 0U;
 
-            payload_index = 0;
-            high_count_gap = 0;
+            payload_index = 0U;
+            high_count_gap = 0U;
 
             return;
         }
 
-        high_count_gap = 0;
-
+        high_count_gap = 0U;
         return;
     }
-
 
     if (level != 0U) {
         high_count++;
@@ -274,96 +264,143 @@ static void process_sample(uint8_t level)
 
         half_level = (high_count >= 2U) ? 1U : 0U;
 
-        sample_in_half = 0;
-        high_count = 0;
+        sample_in_half = 0U;
+        high_count = 0U;
 
         process_half(half_level);
     }
 }
 
-
 int main(void)
 {
     int ret;
+    uint32_t last_stats_time;
 
     printk("\n");
     printk("OPV4COM Manchester RX\n");
     printk("\n");
 
-
     if (!gpio_is_ready_dt(&data)) {
-        printk("ERROR : GPIO not ready\n");
+        printk("ERROR: GPIO not ready\n");
         return -1;
     }
 
-
-    ret = gpio_pin_configure_dt(&data, GPIO_INPUT | GPIO_PULL_UP);
+    ret = gpio_pin_configure_dt(
+        &data,
+        GPIO_INPUT | GPIO_PULL_UP
+    );
 
     if (ret < 0) {
-        printk("ERROR : GPIO configuration : %d\n", ret);
+        printk("ERROR: GPIO configuration: %d\n", ret);
         return -1;
     }
-
 
     if (!device_is_ready(timer)) {
-        printk("ERROR : Timer not ready\n");
+        printk("ERROR: Timer not ready\n");
         return -1;
     }
-
 
     sample_ticks = counter_us_to_ticks(timer, SAMPLE_US);
 
+    if (sample_ticks == 0U) {
+        printk("ERROR: Invalid sample ticks\n");
+        return -1;
+    }
 
-    printk("Timer frequency = %u Hz\n", counter_get_frequency(timer));
+    printk("Timer frequency = %u Hz\n",
+           counter_get_frequency(timer));
+
     printk("Sample period = %u us\n", SAMPLE_US);
-    printk("Sample ticks = %u\n", sample_ticks);
-    printk("Samples / half bit = %u\n", SAMPLES_PER_HALF);
-    printk("Payload size = %u bytes\n", PAYLOAD_SIZE);
 
+    printk("Sample ticks = %u\n", sample_ticks);
+
+    printk("Samples / half bit = %u\n",
+           SAMPLES_PER_HALF);
+
+    printk("Half bit = %u us\n",
+           SAMPLE_US * SAMPLES_PER_HALF);
+
+    printk("Bit rate = %u bit/s\n",
+           1000000U / (2U * SAMPLE_US * SAMPLES_PER_HALF));
+
+    printk("Buffer size = %u bytes\n", RING_SIZE);
+
+    printk("Payload size = %u bytes\n", PAYLOAD_SIZE);
 
     top_cfg.ticks = sample_ticks;
     top_cfg.callback = timer_callback;
     top_cfg.user_data = NULL;
     top_cfg.flags = 0;
 
-
     ret = counter_set_top_value(timer, &top_cfg);
 
     if (ret < 0) {
-        printk("ERROR : Timer top : %d\n", ret);
+        printk("ERROR: Timer top configuration: %d\n", ret);
         return -1;
     }
-
 
     ret = counter_start(timer);
 
     if (ret < 0) {
-        printk("ERROR : Timer start : %d\n", ret);
+        printk("ERROR: Timer start: %d\n", ret);
         return -1;
     }
 
-
     printk("\n");
     printk("Receiver running\n");
-    printk("Waiting for frame...\n");
+    printk("Waiting for frames...\n");
     printk("\n");
 
+    last_stats_time = k_uptime_get_32();
 
     while (1) {
 
-        while (read_index != write_index) {
+        if (buffer_overflow) {
+
+            unsigned int key = irq_lock();
+
+            read_index = write_index;
+            buffer_overflow = false;
+
+            irq_unlock(key);
+
+            reset_decoder();
+        }
+
+        while ((read_index != write_index) &&
+               !buffer_overflow) {
 
             uint8_t sample;
 
             sample = sample_buffer[read_index];
+
             read_index = (read_index + 1U) & RING_MASK;
 
             process_sample(sample);
         }
 
+        uint32_t now = k_uptime_get_32();
+
+        if ((uint32_t)(now - last_stats_time) >=
+            STATS_PERIOD_MS) {
+
+            last_stats_time = now;
+
+            printk(
+                "Frames=%u Manchester=%u "
+                "Preamble=%u SFD=%u "
+                "PayloadErr=%u Overflow=%u\n",
+                frame_count,
+                manchester_errors,
+                preamble_errors,
+                sfd_errors,
+                payload_errors,
+                overflow_count
+            );
+        }
+
         k_yield();
     }
-
 
     return 0;
 }
