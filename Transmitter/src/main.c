@@ -1,239 +1,100 @@
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-
 #include <zephyr/kernel.h>
-#include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/counter.h>
+#include <stm32_ll_bus.h>
+#include <stm32_ll_dma.h>
+#include <stm32_ll_gpio.h>
+#include <stm32_ll_rcc.h>
+#include <stm32_ll_tim.h>
 
+#define HALF_BIT_US 3U
+#define GAP_HALFS   4U
+#define DATA_NODE   DT_PATH(zephyr_user)
+#define TIMER_NODE  DT_NODELABEL(t_bit)
+#define DATA_MASK   BIT(DT_GPIO_PIN(DATA_NODE, data_gpios))
+#define DATA_PORT   ((GPIO_TypeDef *)DT_REG_ADDR(DT_GPIO_CTLR(DATA_NODE, data_gpios)))
+#define TX_TIMER    ((TIM_TypeDef *)DT_REG_ADDR(DT_PARENT(TIMER_NODE)))
 
-#define HALF_BIT_US            40U
-#define PREAMBLE               0x55
-#define SFD                    0xD3
-#define INTER_FRAME_HALFS      4U
-
-
-static const uint8_t payload[] = {
-    0xFF,
-    0x16,
-    0xC1
-};
-
-#define PAYLOAD_SIZE           sizeof(payload)
-
-
-#define DATA_NODE DT_PATH(zephyr_user)
 static const struct gpio_dt_spec data = GPIO_DT_SPEC_GET(DATA_NODE, data_gpios);
-
-
-#define TIMER_NODE DT_NODELABEL(t_bit)
 static const struct device *timer = DEVICE_DT_GET(TIMER_NODE);
-
-
-static struct counter_top_cfg top_cfg;
-static uint32_t half_bit_ticks;
-
-
-enum tx_state {
-    TX_GAP,
-    TX_PREAMBLE,
-    TX_SFD,
-    TX_PAYLOAD
+static const uint8_t frame[] = {
+    0x55, 0xD3,
+    0xFF, 0x16, 0xC1, 0xFF, 0x16, 0xC1,
+    0xFF, 0x16, 0xC1, 0xFF, 0x16, 0xC1,
 };
-
-
-static enum tx_state state = TX_GAP;
-
-static uint8_t gap_index = 0;
-
-static uint8_t current_byte = 0;
-static uint8_t bit_index = 7;
-static uint8_t half = 0;
-
-static uint16_t payload_index = 0;
-
-
-static void load_byte(uint8_t value)
-{
-    current_byte = value;
-    bit_index = 7;
-    half = 0;
-}
-
-
-static bool send_manchester_half(void)
-{
-    uint8_t bit;
-    uint8_t level;
-
-    bit = (current_byte >> bit_index) & 0x01U;
-
-    if (half == 0U) {
-        level = bit;
-        half = 1U;
-    }
-
-    else {
-        level = !bit;
-        half = 0U;
-    }
-
-    gpio_pin_set_dt(&data, level);
-
-    if (half != 0U) {
-        return false;
-    }
-
-    if (bit_index == 0U) {
-        return true;
-    }
-
-    bit_index--;
-
-    return false;
-}
-
-
-static void timer_callback(const struct device *dev,
-                           void *user_data)
-{
-    if (state == TX_GAP) {
-
-        gpio_pin_set_dt(&data, 1);
-        gap_index++;
-
-        if (gap_index >= INTER_FRAME_HALFS) {
-            gap_index = 0;
-            load_byte(PREAMBLE);
-            state = TX_PREAMBLE;
-        }
-
-        return;
-    }
-
-
-    if (state == TX_PREAMBLE) {
-
-        if (send_manchester_half()) {
-            load_byte(SFD);
-            state = TX_SFD;
-        }
-
-        return;
-    }
-
-
-    if (state == TX_SFD) {
-
-        if (send_manchester_half()) {
-            payload_index = 0;
-            load_byte(payload[payload_index]);
-            state = TX_PAYLOAD;
-        }
-
-        return;
-    }
-
-
-    if (state == TX_PAYLOAD) {
-
-        if (send_manchester_half()) {
-
-            payload_index++;
-
-            if (payload_index >= PAYLOAD_SIZE) {
-
-                gap_index = 0;
-                state = TX_GAP;
-            }
-
-            else {
-                load_byte(payload[payload_index]);
-            }
-        }
-    }
-}
-
+static uint32_t waveform[GAP_HALFS + sizeof(frame) * 16U];
 
 int main(void)
 {
-    int ret;
-
-    printk("\n");
-    printk("OPV4COM Manchester TX - STM32\n");
-    printk("\n");
-
-
-    if (!gpio_is_ready_dt(&data)) {
-        printk("ERROR : GPIO not ready\n");
-        return -1;
+    BUILD_ASSERT(DT_GPIO_FLAGS(DATA_NODE, data_gpios) == GPIO_ACTIVE_HIGH);
+    BUILD_ASSERT(DT_REG_ADDR(DT_PARENT(TIMER_NODE)) == TIM2_BASE);
+    if (!gpio_is_ready_dt(&data) || !device_is_ready(timer)) {
+        printk("TX: GPIO ou timer indisponible\n");
+        return -ENODEV;
     }
-
-
-    ret = gpio_pin_configure_dt(&data, GPIO_OUTPUT_ACTIVE);
-
+    /* The overlay enables MSI auto-calibration against the external LSE crystal. */
+    if (!LL_RCC_LSE_IsReady() || !LL_RCC_MSI_IsReady() ||
+        (READ_BIT(RCC->CR, RCC_CR_MSIPLLEN) == 0U)) {
+        printk("TX: horloge MSI/LSE non prete\n");
+        return -EIO;
+    }
+    int ret = gpio_pin_configure_dt(&data, GPIO_OUTPUT_HIGH);
     if (ret < 0) {
-        printk("ERROR : GPIO configuration : %d\n", ret);
-        return -1;
+        goto error;
+    }
+    LL_GPIO_SetPinSpeed(DATA_PORT, DATA_MASK, LL_GPIO_SPEED_FREQ_HIGH);
+
+    unsigned int index = 0;
+    for (unsigned int i = 0; i < GAP_HALFS; i++) {
+        waveform[index++] = DATA_MASK;
+    }
+    for (unsigned int i = 0; i < sizeof(frame); i++) {
+        for (int bit = 7; bit >= 0; bit--) {
+            bool high = (frame[i] >> bit) & 1U;
+            /* BSRR: low 16 bits set a pin, high 16 bits reset it. */
+            waveform[index++] = high ? DATA_MASK : DATA_MASK << 16;
+            waveform[index++] = high ? DATA_MASK << 16 : DATA_MASK;
+        }
     }
 
-
-    if (!device_is_ready(timer)) {
-        printk("ERROR : Timer not ready\n");
-        return -1;
+    uint32_t ticks = counter_us_to_ticks(timer, HALF_BIT_US);
+    if (ticks == 0U) {
+        return -EINVAL;
     }
-
-
-    half_bit_ticks = counter_us_to_ticks(timer, HALF_BIT_US);
-
-
-    printk("Timer frequency = %u Hz\n", counter_get_frequency(timer));
-    printk("Half bit = %u us\n", HALF_BIT_US);
-    printk("Half bit ticks = %u\n", half_bit_ticks);
-    printk("Bit period = %u us\n", HALF_BIT_US * 2U);
-    printk("Bit rate = %u bit/s\n", 1000000U / (HALF_BIT_US * 2U));
-    printk("Preamble = 0x%02X\n", PREAMBLE);
-    printk("SFD = 0x%02X\n", SFD);
-    printk("Payload size = %u bytes\n", (unsigned int)PAYLOAD_SIZE);
-
-    printk("Payload = ");
-
-    for (uint16_t i = 0; i < PAYLOAD_SIZE; i++) {
-        printk("%02X ", payload[i]);
-    }
-
-    printk("\n");
-
-
-    top_cfg.ticks = half_bit_ticks;
-    top_cfg.callback = timer_callback;
-    top_cfg.user_data = NULL;
-    top_cfg.flags = 0;
-
-
-    ret = counter_set_top_value(timer, &top_cfg);
-
+    /* STM32 counts 0..ARR inclusive; no timer callback or timer IRQ is needed. */
+    const struct counter_top_cfg cfg = {.ticks = ticks - 1U};
+    ret = counter_set_top_value(timer, &cfg);
     if (ret < 0) {
-        printk("ERROR : Timer top configuration : %d\n", ret);
-        return -1;
+        goto error;
     }
+    LL_TIM_GenerateEvent_UPDATE(TX_TIMER);
+    LL_TIM_ClearFlag_UPDATE(TX_TIMER);
 
+    /* RM0351: TIM2_UP -> DMA1 channel 2, request selection 4. */
+    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_DMA1);
+    LL_DMA_DisableChannel(DMA1, LL_DMA_CHANNEL_2);
+    LL_DMA_ClearFlag_GI2(DMA1);
+    LL_DMA_SetPeriphRequest(DMA1, LL_DMA_CHANNEL_2, LL_DMA_REQUEST_4);
+    LL_DMA_ConfigTransfer(DMA1, LL_DMA_CHANNEL_2,
+        LL_DMA_DIRECTION_MEMORY_TO_PERIPH | LL_DMA_MODE_CIRCULAR |
+        LL_DMA_PERIPH_NOINCREMENT | LL_DMA_MEMORY_INCREMENT |
+        LL_DMA_PDATAALIGN_WORD | LL_DMA_MDATAALIGN_WORD | LL_DMA_PRIORITY_VERYHIGH);
+    LL_DMA_SetMemoryAddress(DMA1, LL_DMA_CHANNEL_2, (uint32_t)waveform);
+    LL_DMA_SetPeriphAddress(DMA1, LL_DMA_CHANNEL_2, (uint32_t)&DATA_PORT->BSRR);
+    LL_DMA_SetDataLength(DMA1, LL_DMA_CHANNEL_2, ARRAY_SIZE(waveform));
 
+    printk("TX STM32: MSI calibre par quartz LSE, TIM2 + DMA circulaire\n"
+           "PA9, demi-bit %u us, payload %u octets, emission continue\n",
+           HALF_BIT_US, (unsigned int)sizeof(frame) - 2U);
+    LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_2);
+    LL_TIM_EnableDMAReq_UPDATE(TX_TIMER);
     ret = counter_start(timer);
-
-    if (ret < 0) {
-        printk("ERROR : Timer start : %d\n", ret);
-        return -1;
+    if (ret == 0) {
+        return 0;
     }
-
-
-    printk("\n");
-    printk("Transmitter running\n");
-    printk("\n");
-
-
-    k_sleep(K_FOREVER);
-
-    return 0;
+    LL_TIM_DisableDMAReq_UPDATE(TX_TIMER);
+    LL_DMA_DisableChannel(DMA1, LL_DMA_CHANNEL_2);
+error:
+    printk("TX: erreur initialisation %d\n", ret);
+    return ret;
 }

@@ -8,44 +8,42 @@
     zephyr,user {
         data-gpios = <&gpioa 9 GPIO_ACTIVE_HIGH>;
     };
-
 };
 
-
-&usart2 {
-    compatible = "st,stm32-usart", "st,stm32-uart";
-    reg = <0x40004400 0x400>;
-    clocks = <&rcc STM32_CLOCK(APB1, 17)>;
-    resets = <&rctl STM32_RESET(APB1L, 17)>;
-    interrupts = <38 0>;
+/* The Nucleo's 32.768 kHz crystal calibrates MSI; no ST-Link HSE/MCO required. */
+&clk_lse {
     status = "okay";
 };
 
+&clk_msi {
+    msi-range = <6>; /* 4 MHz */
+    msi-pll-mode;
+    status = "okay";
+};
+
+&pll {
+    clocks = <&clk_msi>;
+    div-m = <1>;
+    mul-n = <40>;
+    div-r = <2>; /* 4 MHz * 40 / 2 = 80 MHz */
+    div-q = <4>;
+};
+
+/* PA9 is driven as GPIO by DMA, not by USART1's alternate function. */
+&usart1 {
+    status = "disabled";
+};
+
 &timers2 {
-    compatible = "st,stm32-timers";
-    reg = <0x40000000 0x400>;
-    clocks = <&rcc STM32_CLOCK(APB1, 0)>,
-            <&rcc STM32_SRC_TIMPCLK1 NO_SEL>;
-    resets = <&rctl STM32_RESET(APB1L, 0)>;
-    interrupts = <28 0>;
-    interrupt-names = "global";
     st,prescaler = <0>;
     status = "okay";
 
     pwm {
-        compatible = "st,stm32-pwm";
         status = "disabled";
-        #pwm-cells = <3>;
     };
 
     t_bit: counter {
         compatible = "st,stm32-counter";
         status = "okay";
-    };
-
-    qdec {
-        compatible = "st,stm32-qdec";
-        st,input-filter-level = <NO_FILTER>;
-        status = "disabled";
     };
 };

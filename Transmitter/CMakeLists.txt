@@ -1,7 +1,5 @@
-# SPDX-License-Identifier: Apache-2.0
-
 cmake_minimum_required(VERSION 3.20.0)
+set(USER_CACHE_DIR "${CMAKE_CURRENT_BINARY_DIR}/.cache" CACHE PATH "Local Zephyr cache" FORCE)
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
-project(UART_Interrupt)
-
+project(manchester_stm32_tx)
 target_sources(app PRIVATE src/main.c)
