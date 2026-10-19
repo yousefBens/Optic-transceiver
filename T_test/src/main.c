@@ -7,7 +7,7 @@
 #define GAP_HALFS   4U
 #define DATA_PIN    DT_GPIO_PIN(DT_PATH(zephyr_user), data_gpios)
 
-static const uint8_t frame[] = {0x55, 0xD3, 0xFF, 0x16, 0xC1};
+static const uint8_t frame[] = {0x55, 0xD3, 0xFF, 0x16, 0xC1, 0xFF, 0x16, 0xC1, 0xFF, 0x16, 0xC1, 0xFF, 0x16, 0xC1};
 static uint16_t waveform[GAP_HALFS + sizeof(frame) * 16U];
 static const nrfx_pwm_t pwm = NRFX_PWM_INSTANCE(0);
 

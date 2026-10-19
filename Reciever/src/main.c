@@ -18,7 +18,7 @@
 
 static const struct gpio_dt_spec data = GPIO_DT_SPEC_GET(DATA_NODE, data_gpios);
 static const struct device *timer = DEVICE_DT_GET(TIMER_NODE);
-static const uint8_t expected_payload[] = {0xFF, 0x16, 0xC1};
+static const uint8_t expected_payload[] = {0xFF, 0x16, 0xC1, 0xFF, 0x16, 0xC1, 0xFF, 0x16, 0xC1, 0xFF, 0x16, 0xC1};
 
 #define PAYLOAD_SIZE ARRAY_SIZE(expected_payload)
 #define FRAME_HALFS  (4U + (2U + PAYLOAD_SIZE) * 16U)
