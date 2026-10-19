@@ -1,0 +1,278 @@
+T9FBE7740 000:002.152   SEGGER J-Link V8.78 Log File
+T9FBE7740 000:002.255   DLL Compiled: Oct 16 2025 08:35:50
+T9FBE7740 000:002.258   Logging started @ 2026-10-19 09:01
+T9FBE7740 000:002.261   Process: /opt/SEGGER/JLink_V878/JLinkExe
+T9FBE7740 000:002.268 - 2.264ms 
+T9FBE7740 000:002.315 JLINK_EMU_SelectByUSBSN(SerialNo = 685278459)
+T9FBE7740 000:015.856 - 13.540ms returns 0x00
+T9FBE7740 000:015.884 JLINK_SetWarnOutHandler(...)
+T9FBE7740 000:015.888 - 0.004ms 
+T9FBE7740 000:015.940 JLINK_OpenEx(...)
+T9FBE7740 000:018.914   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+T9FBE7740 000:019.244   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+T9FBE7740 000:019.833   Hardware: V1.00
+T9FBE7740 000:019.837   S/N: 685278459
+T9FBE7740 000:019.839   OEM: SEGGER
+T9FBE7740 000:019.841   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+T9FBE7740 000:020.120   Bootloader: 2014 Sep 11
+T9FBE7740 000:020.329   USB speed mode: High speed (480 MBit/s)
+T9FBE7740 000:020.473   TELNET listener socket opened on port 19021
+T9FBE7740 000:020.504   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T9FBE7740 000:020.538   WEBSRV Webserver running on local port 19080
+T9FBE7740 000:020.546   Looking for J-Link GUI Server exe at: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+T9FBE7740 000:020.550   Forking J-Link GUI Server: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+T9FBE7740 000:037.774   J-Link GUI Server info: "J-Link GUI server V8.78 "
+T9FBE7740 000:038.425 - 22.484ms returns "O.K."
+T9FBE7740 000:038.467 JLINK_GetFirmwareString(...)
+T9FBE7740 000:038.471 - 0.004ms 
+T9FBE7740 000:038.490 JLINK_GetHardwareVersion()
+T9FBE7740 000:038.492 - 0.003ms returns 10000
+T9FBE7740 000:038.498 JLINK_GetHWInfo(...)
+T9FBE7740 000:038.613 - 0.116ms returns 0
+T9FBE7740 000:038.619 JLINK_GetSN()
+T9FBE7740 000:038.623 - 0.003ms returns 685278459
+T9FBE7740 000:038.630 JLINK_GetOEMString(...)
+T9FBE7740 000:038.634 JLINK_EMU_GetCurrConnectionInfo()
+T9FBE7740 000:038.738 - 0.105ms returns 0
+T9FBE7740 000:038.744 JLINK_EMU_HasCapEx(0x00000026)
+T9FBE7740 000:038.747 - 0.003ms returns 0
+T9FBE7740 000:038.750 JLINK_GetEmuCaps()
+T9FBE7740 000:038.752 - 0.002ms returns 0xB8EA5A33
+T9FBE7740 000:038.754 JLINK_GetEmuCaps()
+T9FBE7740 000:038.756 - 0.002ms returns 0xB8EA5A33
+T9FBE7740 000:038.759 JLINK_GetHWStatus(...)
+T9FBE7740 000:038.835 - 0.076ms returns 0
+T9FBE7740 000:038.838 JLINK_EMU_HasCapEx(0x00000044)
+T9FBE7740 000:038.840 - 0.002ms returns 0
+T9FBE7740 000:038.857 JLINK_DEVICE_GetIndex(sDeviceName = nRF52833_xxAA)
+T9FBE7740 000:049.503 - 10.645ms returns 4297
+T9FBE7740 000:049.531 JLINK_ExecCommand("device=nRF52833_xxAA", ...). 
+T9FBE7740 000:050.995   Device "NRF52833_XXAA" selected.
+T9FBE7740 000:052.255 - 2.722ms returns 0x00
+T9FBE7740 000:052.264 JLINK_EnableLog(...)
+T9FBE7740 000:052.266 - 0.003ms 
+T9FBE7740 000:052.271 JLINK_GetEmuCaps()
+T9FBE7740 000:052.274 - 0.003ms returns 0xB8EA5A33
+T9FBE7740 000:052.276 JLINK_TIF_GetAvailable(...)
+T9FBE7740 000:052.381 - 0.105ms 
+T9FBE7740 000:052.385 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T9FBE7740 000:052.830 - 0.444ms returns 0x00
+T9FBE7740 000:052.858 JLINK_IsConnected()
+T9FBE7740 000:052.861 - 0.002ms returns FALSE
+T9FBE7740 000:052.864 JLINK_SetSpeed(4000)
+T9FBE7740 000:052.907 - 0.044ms 
+T9FBE7740 000:052.911 JLINK_Connect()
+T9FBE7740 000:053.011   InitTarget() start
+T9FBE7740 000:053.014    J-Link Script File: Executing InitTarget()
+T9FBE7740 000:055.138   InitTarget() end - Took 2.11ms
+T9FBE7740 000:055.640   Found SW-DP with ID 0x2BA01477
+T9FBE7740 000:057.329   DPIDR: 0x2BA01477
+T9FBE7740 000:057.338   CoreSight SoC-400 or earlier
+T9FBE7740 000:057.349   Scanning AP map to find all available APs
+T9FBE7740 000:058.129   AP[2]: Stopped AP scan as end of AP map has been reached
+T9FBE7740 000:058.133   AP[0]: AHB-AP (IDR: 0x24770011, ADDR: 0x00000000)
+T9FBE7740 000:058.137   AP[1]: JTAG-AP (IDR: 0x02880000, ADDR: 0x01000000)
+T9FBE7740 000:058.140   Iterating through AP map to find AHB-AP to use
+T9FBE7740 000:058.918   AP[0]: Core found
+T9FBE7740 000:058.939   AP[0]: AHB-AP ROM base: 0xE00FF000
+T9FBE7740 000:059.346   CPUID register: 0x410FC241. Implementer code: 0x41 (ARM)
+T9FBE7740 000:059.355   Found Cortex-M4 r0p1, Little endian.
+T9FBE7740 000:059.557   -- Max. mem block: 0x00004CC8
+T9FBE7740 000:059.809   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:060.237   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:060.692   CPU_ReadMem(4 bytes @ 0xE0002000)
+T9FBE7740 000:061.111   FPUnit: 6 code (BP) slots and 2 literal slots
+T9FBE7740 000:061.114   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T9FBE7740 000:061.542   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9FBE7740 000:061.982   CPU_ReadMem(4 bytes @ 0xE0001000)
+T9FBE7740 000:062.410   CPU_WriteMem(4 bytes @ 0xE0001000)
+T9FBE7740 000:062.860   CPU_ReadMem(4 bytes @ 0xE000ED88)
+T9FBE7740 000:063.290   CPU_WriteMem(4 bytes @ 0xE000ED88)
+T9FBE7740 000:063.760   CPU_ReadMem(4 bytes @ 0xE000ED88)
+T9FBE7740 000:064.189   CPU_WriteMem(4 bytes @ 0xE000ED88)
+T9FBE7740 000:064.670   CoreSight components:
+T9FBE7740 000:064.680   ROMTbl[0] @ E00FF000
+T9FBE7740 000:064.689   CPU_ReadMem(64 bytes @ 0xE00FF000)
+T9FBE7740 000:065.839   CPU_ReadMem(32 bytes @ 0xE000EFE0)
+T9FBE7740 000:066.610   [0][0]: E000E000 CID B105E00D PID 000BB00C SCS-M7
+T9FBE7740 000:066.612   CPU_ReadMem(32 bytes @ 0xE0001FE0)
+T9FBE7740 000:067.394   [0][1]: E0001000 CID B105E00D PID 003BB002 DWT
+T9FBE7740 000:067.400   CPU_ReadMem(32 bytes @ 0xE0002FE0)
+T9FBE7740 000:068.182   [0][2]: E0002000 CID B105E00D PID 002BB003 FPB
+T9FBE7740 000:068.189   CPU_ReadMem(32 bytes @ 0xE0000FE0)
+T9FBE7740 000:068.993   [0][3]: E0000000 CID B105E00D PID 003BB001 ITM
+T9FBE7740 000:068.997   CPU_ReadMem(32 bytes @ 0xE0040FE0)
+T9FBE7740 000:069.800   [0][4]: E0040000 CID B105900D PID 000BB9A1 TPIU
+T9FBE7740 000:069.804   CPU_ReadMem(32 bytes @ 0xE0041FE0)
+T9FBE7740 000:070.566   [0][5]: E0041000 CID B105900D PID 000BB925 ETM
+T9FBE7740 000:070.586 - 17.675ms returns 0x00
+T9FBE7740 000:070.594 JLINK_GetIdData(pIdData)
+T9FBE7740 000:070.760   pIdData->ScanLen=4
+T9FBE7740 000:070.763   pIdData->NumDevices=1
+T9FBE7740 000:070.765   pIdData->aId[0]=0x2BA01477
+T9FBE7740 000:070.767   pIdData->aIrRead[0]=0
+T9FBE7740 000:070.769   pIdData->aScanLen[0]=0
+T9FBE7740 000:070.771   pIdData->aScanRead[0]=0
+T9FBE7740 000:070.773 - 0.180ms 
+T9FBE7740 000:070.777 JLINK_GetMemZones(...)
+T9FBE7740 000:070.779 - 0.002ms returns 1
+T9FBE7740 000:070.814 JLINK_HasError()
+T9FBE7740 000:070.817 JLINK_CORE_GetFound()
+T9FBE7740 000:070.819 - 0.002ms returns 0xE0000FF
+T9FBE7740 000:070.826 JLINK_SetResetDelay(0)
+T9FBE7740 000:070.828 - 0.002ms 
+T9FBE7740 000:070.830 JLINK_Reset()
+T9FBE7740 000:070.839   JLINK_GetResetTypeDesc
+T9FBE7740 000:070.842   - 0.003ms 
+T9FBE7740 000:070.845   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T9FBE7740 000:070.847   CPU is running
+T9FBE7740 000:070.850   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:071.293   CPU is running
+T9FBE7740 000:071.300   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9FBE7740 000:071.774   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T9FBE7740 000:072.039   Reset: Reset device via AIRCR.SYSRESETREQ.
+T9FBE7740 000:072.043   CPU is running
+T9FBE7740 000:072.045   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T9FBE7740 000:126.598   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:127.113   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:133.373   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9FBE7740 000:138.984   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:145.252   CPU_WriteMem(4 bytes @ 0xE0002000)
+T9FBE7740 000:145.718   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T9FBE7740 000:146.136   CPU_ReadMem(4 bytes @ 0xE0001000)
+T9FBE7740 000:146.605 - 75.772ms 
+T9FBE7740 000:146.676 JLINK_Halt()
+T9FBE7740 000:146.683 - 0.007ms returns 0x00
+T9FBE7740 000:146.688 JLINK_GetDeviceFamily
+T9FBE7740 000:146.692 - 0.003ms returns 14
+T9FBE7740 000:146.694 JLINK_CORE_GetFound()
+T9FBE7740 000:146.697 - 0.002ms returns 0xE0000FF
+T9FBE7740 000:146.700 JLINK_GetDebugInfo(0x01 = Unknown)
+T9FBE7740 000:146.713   Value=0x00000001
+T9FBE7740 000:146.717 - 0.017ms returns 0
+T9FBE7740 000:146.721 JLINK_ReadRegs(NumRegs = 28)
+T9FBE7740 000:146.741   
+  R0 (0)         = 0x00                 R1 (1)         = 0x00                 R2 (2)         = 0x00                 R3 (3)         = 0x00              
+  R4 (4)         = 0x00                 R5 (5)         = 0x00                 R6 (6)         = 0x00                 R7 (7)         = 0x00              
+  R8 (8)         = 0x00                 R9 (9)         = 0x00                 R10 (10)       = 0x00                 R11 (11)       = 0x00              
+  R12 (12)       = 0x00                 R13 (SP) (13)  = 0x20001180           MSP (17)       = 0x20001180           PSP (18)       = 0x00              
+  R14 (14)       = 0xFFFFFFFF           R15 (PC) (15)  = 0xF24                XPSR (16)      = 0x1000000            APSR (21)      = 0x00              
+  EPSR (22)      = 0x1000000            IPSR (23)      = 0x00                 CFBP (20)      = 0x00                 CONTROL (27)   = 0x00              
+  FAULTMASK (26) = 0x00                 BASEPRI (25)   = 0x00                 PRIMASK (24)   = 0x00                 CycleCnt (65)  = 0x00              
+T9FBE7740 000:146.746 - 0.025ms returns 0x00
+T9FBE7740 000:146.760 JLINK_ReadRegs(NumRegs = 33)
+T9FBE7740 000:156.287   
+  FPS0 (33)  = 0x00                 FPS1 (34)  = 0x00                 FPS2 (35)  = 0x00                 FPS3 (36)  = 0x00              
+  FPS4 (37)  = 0x00                 FPS5 (38)  = 0x00                 FPS6 (39)  = 0x00                 FPS7 (40)  = 0x00              
+  FPS8 (41)  = 0x00                 FPS9 (42)  = 0x00                 FPS10 (43) = 0x00                 FPS11 (44) = 0x00              
+  FPS12 (45) = 0x00                 FPS13 (46) = 0x00                 FPS14 (47) = 0x00                 FPS15 (48) = 0x00              
+  FPS16 (49) = 0x00                 FPS17 (50) = 0x00                 FPS18 (51) = 0x00                 FPS19 (52) = 0x00              
+  FPS20 (53) = 0x00                 FPS21 (54) = 0x00                 FPS22 (55) = 0x00                 FPS23 (56) = 0x00              
+  FPS24 (57) = 0x00                 FPS25 (58) = 0x00                 FPS26 (59) = 0x00                 FPS27 (60) = 0x00              
+  FPS28 (61) = 0x00                 FPS29 (62) = 0x00                 FPS30 (63) = 0x00                 FPS31 (64) = 0x00              
+  FPSCR (32) = 0x00              
+T9FBE7740 000:156.319 - 9.559ms returns 0x00
+T9FBE7740 000:156.352 JLINK_Reset()
+T9FBE7740 000:156.363   JLINK_GetResetTypeDesc
+T9FBE7740 000:156.366   - 0.003ms 
+T9FBE7740 000:156.370   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T9FBE7740 000:156.380   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:156.876   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9FBE7740 000:157.456   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T9FBE7740 000:157.927   Reset: Reset device via AIRCR.SYSRESETREQ.
+T9FBE7740 000:157.934   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T9FBE7740 000:211.457   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:212.016   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:212.529   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9FBE7740 000:218.351   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:224.894   CPU_WriteMem(4 bytes @ 0xE0002000)
+T9FBE7740 000:225.444   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T9FBE7740 000:225.983   CPU_ReadMem(4 bytes @ 0xE0001000)
+T9FBE7740 000:226.540 - 70.188ms 
+T9FBE7740 000:226.557 JLINK_Halt()
+T9FBE7740 000:226.562 - 0.005ms returns 0x00
+T9FBE7740 000:226.576 JLINK_ExecCommand("SetVerifyRAMDownload = 1", ...). 
+T9FBE7740 000:226.586 - 0.003ms returns 0x00
+T9FBE7740 000:226.598 JLINK_DownloadFile()
+T9FBE7740 000:227.173   Data:  80 11 00 20 25 0F 00 00 B7 43 00 00 11 0F 00 00 ...
+T9FBE7740 000:227.887   completely In flash
+T9FBE7740 000:227.904   Data:  03 38 FD D8 70 47 00 00 00 00 00 20 00 00 00 00 ...
+T9FBE7740 000:227.914   completely In flash
+T9FBE7740 000:228.120   CPU_ReadMem(4 bytes @ 0xE000ED90)
+T9FBE7740 000:228.642   CPU_ReadMem(4 bytes @ 0xE000ED94)
+T9FBE7740 000:229.117    -- --------------------------------------
+T9FBE7740 000:229.131    -- Flash bank @ 0x00000000: Default: L2 verify disabled because algorithm performs L1 verify
+T9FBE7740 000:229.137    -- Start of determining dirty areas in flash cache
+T9FBE7740 000:229.145    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00000000 if necessary
+T9FBE7740 000:229.151    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00001000 if necessary
+T9FBE7740 000:229.155    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00002000 if necessary
+T9FBE7740 000:229.159    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00003000 if necessary
+T9FBE7740 000:229.164    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00004000 if necessary
+T9FBE7740 000:229.172    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00005000 if necessary
+T9FBE7740 000:229.371    -- End of determining dirty areas
+T9FBE7740 000:229.380    -- Start of preparing flash programming
+T9FBE7740 000:229.385    -- Calculating RAM usage
+T9FBE7740 000:229.407    -- RAM usage = 3732 Bytes
+T9FBE7740 000:229.414    -- Preserving CPU registers
+T9FBE7740 000:229.437    -- Preparing target
+T9FBE7740 000:229.445    -- Preserving target RAM temporarily used for programming
+T9FBE7740 000:274.407    -- Downloading RAMCode
+T9FBE7740 000:304.932    -- Preparing RAMCode
+T9FBE7740 000:314.229    -- End of preparing flash programming
+T9FBE7740 000:323.101    -- CPU speed could not be measured.
+T9FBE7740 000:323.122    -- Start of comparing flash
+T9FBE7740 000:323.126    -- CRC check was estimated as fastest method
+T9FBE7740 000:325.140    -- Comparing range 0x0000 - 0x5FFF (6 Sectors, 24 KB), using multi-block CRC calculation
+T9FBE7740 000:339.887    -- CRC does not match for sector 0
+T9FBE7740 000:340.604    -- Comparing range 0x1000 - 0x5FFF (5 Sectors, 20 KB), using alternative multi-block CRC calculation
+T9FBE7740 000:353.110    -- All CRCs match
+T9FBE7740 000:353.135    -- End of comparing flash
+T9FBE7740 000:353.140    -- Start of erasing sectors
+T9FBE7740 000:353.146    -- Erasing range 0x00000000 - 0x00000FFF (  1 Sector, 4 KB)
+T9FBE7740 000:444.669    -- End of erasing sectors
+T9FBE7740 000:444.704    -- Start of flash programming
+T9FBE7740 000:444.712    -- Programming range 0x00000000 - 0x00000FFF (  1 Sector, 4 KB)
+T9FBE7740 000:496.491    -- End of flash programming
+T9FBE7740 000:496.522    -- 0x0000 - 0x0FFF (  1 Sector, 4 KB)
+T9FBE7740 000:496.526    -- Start of restoring
+T9FBE7740 000:496.530    -- Restoring RAMCode
+T9FBE7740 000:525.391    -- Restoring target memory
+T9FBE7740 000:571.402    -- Restore target
+T9FBE7740 000:571.448    -- Restoring CPU registers
+T9FBE7740 000:571.478    -- End of restoring
+T9FBE7740 000:571.496    -- Bank 0 @ 0x00000000: 1 range affected (4096 bytes)
+T9FBE7740 000:571.504    -- Total: 0.342s (Prepare: 0.093s, Compare: 0.030s, Erase: 0.091s, Program & Verify: 0.072s, Restore: 0.054s)
+T9FBE7740 000:571.509    -- Program & Verify speed: 55 KB/s
+T9FBE7740 000:573.322 - 346.723ms returns 0x00
+T9FBE7740 000:573.348 JLINK_ExecCommand("SetVerifyRAMDownload = 0", ...). 
+T9FBE7740 000:573.356 - 0.003ms returns 0x01
+T9FBE7740 000:573.384 JLINK_SetResetDelay(0)
+T9FBE7740 000:573.387 - 0.003ms 
+T9FBE7740 000:573.390 JLINK_Reset()
+T9FBE7740 000:573.400   JLINK_GetResetTypeDesc
+T9FBE7740 000:573.402   - 0.003ms 
+T9FBE7740 000:573.407   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T9FBE7740 000:573.415   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:573.983   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9FBE7740 000:574.437   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T9FBE7740 000:574.729   Reset: Reset device via AIRCR.SYSRESETREQ.
+T9FBE7740 000:574.734   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T9FBE7740 000:629.526   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:630.110   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:630.633   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9FBE7740 000:639.014   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9FBE7740 000:645.284   CPU_WriteMem(4 bytes @ 0xE0002000)
+T9FBE7740 000:645.732   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T9FBE7740 000:646.181   CPU_ReadMem(4 bytes @ 0xE0001000)
+T9FBE7740 000:646.606 - 73.215ms 
+T9FBE7740 000:646.630 JLINK_GoEx(MaxEmulInsts = 0, Flags = 0x01)
+T9FBE7740 000:646.641   CPU_ReadMem(4 bytes @ 0xE0001000)
+T9FBE7740 000:647.081   CPU_WriteMem(4 bytes @ 0xE0001004)
+T9FBE7740 000:648.285   Memory map 'after startup completion point' is active
+T9FBE7740 000:648.289 - 1.660ms 
+T9FBE7740 000:648.310 JLINK_IsOpen()
+T9FBE7740 000:648.313 - 0.004ms returns 0x01
+T9FBE7740 000:654.906 JLINK_Close()
+T9FBE7740 000:674.340 - 19.433ms
+T9FBE7740 000:674.364   
+T9FBE7740 000:674.366   Closed

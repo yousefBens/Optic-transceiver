@@ -1,0 +1,6 @@
+r
+h
+loadfile /home/yousef/zephyrproject/apps/OPV4COM/T_test/build/zephyr/zephyr.elf
+r
+g
+q

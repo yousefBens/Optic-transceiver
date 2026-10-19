@@ -1,0 +1,24 @@
+Loading Zephyr default modules (Zephyr base (cached)).
+-- Application: /home/yousef/zephyrproject/apps/OPV4COM/T_test
+-- CMake version: 3.28.3
+-- Cache files will be written to: /home/yousef/zephyrproject/apps/OPV4COM/T_test/build/.cache
+-- Zephyr version: 4.2.99 (/home/yousef/zephyrproject/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: nrf52833dk, qualifiers: nrf52833
+-- Found host-tools: zephyr 0.17.4 (/home/yousef/zephyr-sdk-0.17.4)
+-- Found toolchain: zephyr 0.17.4 (/home/yousef/zephyr-sdk-0.17.4)
+-- Found BOARD.dts: /home/yousef/zephyrproject/zephyr/boards/nordic/nrf52833dk/nrf52833dk_nrf52833.dts
+-- Found devicetree overlay: boards/nrf52833dk_nrf52833.overlay
+-- Generated zephyr.dts: /home/yousef/zephyrproject/apps/OPV4COM/T_test/build/zephyr/zephyr.dts
+-- Generated pickled edt: /home/yousef/zephyrproject/apps/OPV4COM/T_test/build/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /home/yousef/zephyrproject/apps/OPV4COM/T_test/build/zephyr/include/generated/zephyr/devicetree_generated.h
+Parsing /home/yousef/zephyrproject/zephyr/Kconfig
+Loaded configuration '/home/yousef/zephyrproject/zephyr/boards/nordic/nrf52833dk/nrf52833dk_nrf52833_defconfig'
+Merged configuration '/home/yousef/zephyrproject/apps/OPV4COM/T_test/prj.conf'
+Configuration saved to '/home/yousef/zephyrproject/apps/OPV4COM/T_test/build/zephyr/.config'
+Kconfig header saved to '/home/yousef/zephyrproject/apps/OPV4COM/T_test/build/zephyr/include/generated/zephyr/autoconf.h'
+-- Using ccache: /usr/bin/ccache
+-- Found gen_kobject_list: /home/yousef/zephyrproject/zephyr/scripts/build/gen_kobject_list.py
+-- Configuring done (3.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/yousef/zephyrproject/apps/OPV4COM/T_test/build

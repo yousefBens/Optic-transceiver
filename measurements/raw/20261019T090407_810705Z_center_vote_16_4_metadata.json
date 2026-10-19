@@ -1,0 +1,25 @@
+{
+  "args": {
+    "half": 16,
+    "sample": 4,
+    "duration": 10000,
+    "fast_gpio": true,
+    "hse": false,
+    "diagnostic": 0,
+    "repeat": 2,
+    "label": "center_vote_16_4",
+    "baseline": false,
+    "keep_tx": true
+  },
+  "timestamp_utc": "20261019T090407_810705Z",
+  "sources": {
+    "Reciever": "7840afcaa6a6438f89b0eb6ab8fc0a951f2025527de5e40d5e51bd3e74f74502",
+    "T_test": "da59b9f2427c9f77a1de2dcbe6c805bfa6402b0932e6d848b16cf84b35fd6041"
+  },
+  "flashed_source_known": true,
+  "note": "",
+  "images": {
+    "Reciever": "1f029b0eb78d717900a9f16695b63dc764aee5b6154c8dcd7a1dea8470cf4044",
+    "T_test": "aeae2c40105bf24cbebebf8397b4b6d61dfa0205ccbd82f4484e1b1721f7b3a0"
+  }
+}

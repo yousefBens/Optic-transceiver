@@ -2,6 +2,13 @@
 Manchester TX / RX
 ==================
 
+.. note::
+
+   Les mesures physiques et le profil optimisé Nordic / STM32 sont documentés
+   dans ``measurements/README.md`` et ``measurements/RESULTS.md``.
+   La description ci-dessous conserve l’architecture initiale à échantillonnage.
+
+
 Introduction
 ============
 

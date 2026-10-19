@@ -6,9 +6,22 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/counter.h>
+#include <hal/nrf_gpio.h>
+#include <nrfx_pwm.h>
+
+#ifndef TX_HW_WAVEFORM
+#define TX_HW_WAVEFORM 1
+#endif
+#include <zephyr/drivers/clock_control.h>
+#include <zephyr/drivers/clock_control/nrf_clock_control.h>
 
 
-#define HALF_BIT_US            24U
+#ifndef HALF_BIT_US
+#define HALF_BIT_US 3U
+#endif
+#ifndef USE_HFXO
+#define USE_HFXO 1
+#endif
 #define PREAMBLE               0x55
 #define SFD                    0xD3
 #define INTER_FRAME_HALFS      4U
@@ -31,6 +44,19 @@ static const struct gpio_dt_spec data = GPIO_DT_SPEC_GET(DATA_NODE, data_gpios);
 #define TIMER_NODE DT_NODELABEL(timer1)
 static const struct device *timer = DEVICE_DT_GET(TIMER_NODE);
 
+
+/* The data GPIO is local and active high on this Nordic board. */
+static inline void write_data(uint8_t level)
+{
+    NRF_GPIO_Type *port =
+        (NRF_GPIO_Type *)DT_REG_ADDR(DT_GPIO_CTLR(DATA_NODE, data_gpios));
+    uint32_t mask = BIT(DT_GPIO_PIN(DATA_NODE, data_gpios));
+    if (level != 0U) {
+        nrf_gpio_port_out_set(port, mask);
+    } else {
+        nrf_gpio_port_out_clear(port, mask);
+    }
+}
 
 static struct counter_top_cfg top_cfg;
 static uint32_t half_bit_ticks;
@@ -86,7 +112,7 @@ static bool send_manchester_half(void)
         half = 0U;
     }
 
-    gpio_pin_set_dt(&data, level);
+    write_data(level);
 
     if (half != 0U) {
         return false;
@@ -109,7 +135,7 @@ static void timer_callback(const struct device *dev,
 {
 
     if (state == TX_GAP) {
-        gpio_pin_set_dt(&data, 1);
+        write_data(1);
 
         gap_index++;
 
@@ -169,6 +195,60 @@ static void timer_callback(const struct device *dev,
 
 
 
+#if TX_HW_WAVEFORM
+#define WAVE_HALFS (INTER_FRAME_HALFS + (2U + PAYLOAD_SIZE) * 16U)
+static uint16_t waveform[WAVE_HALFS];
+static const nrfx_pwm_t waveform_pwm = NRFX_PWM_INSTANCE(0);
+
+static void append_wave_byte(uint8_t value, unsigned int *index)
+{
+    for (int bit = 7; bit >= 0; bit--) {
+        bool high = ((value >> bit) & 1U) != 0U;
+        waveform[(*index)++] = high ? HALF_BIT_US : 0U;
+        waveform[(*index)++] = high ? 0U : HALF_BIT_US;
+    }
+}
+
+static int start_waveform(void)
+{
+    BUILD_ASSERT(HALF_BIT_US > 0U && HALF_BIT_US <= 32767U);
+    unsigned int index = 0;
+    for (unsigned int i = 0; i < INTER_FRAME_HALFS; i++) {
+        waveform[index++] = HALF_BIT_US;
+    }
+    append_wave_byte(PREAMBLE, &index);
+    append_wave_byte(SFD, &index);
+    for (unsigned int i = 0; i < PAYLOAD_SIZE; i++) {
+        append_wave_byte(payload[i], &index);
+    }
+    /* Rising-edge polarity makes compare=0 LOW and compare=TOP HIGH. */
+    for (unsigned int i = 0; i < WAVE_HALFS; i++) {
+        waveform[i] |= 0x8000U;
+    }
+    nrfx_pwm_config_t cfg = NRFX_PWM_DEFAULT_CONFIG(
+        DT_GPIO_PIN(DATA_NODE, data_gpios), NRF_PWM_PIN_NOT_CONNECTED,
+        NRF_PWM_PIN_NOT_CONNECTED, NRF_PWM_PIN_NOT_CONNECTED);
+    cfg.base_clock = NRF_PWM_CLK_1MHz;
+    cfg.count_mode = NRF_PWM_MODE_UP;
+    cfg.top_value = HALF_BIT_US;
+    cfg.load_mode = NRF_PWM_LOAD_COMMON;
+    cfg.step_mode = NRF_PWM_STEP_AUTO;
+    nrfx_err_t err = nrfx_pwm_init(&waveform_pwm, &cfg, NULL, NULL);
+    if (err != NRFX_SUCCESS) {
+        printk("ERROR: PWM initialization: %u\n", (unsigned int)err);
+        return -1;
+    }
+    static nrf_pwm_sequence_t sequence;
+    sequence.values.p_common = waveform;
+    sequence.length = WAVE_HALFS;
+    sequence.repeats = 0;
+    sequence.end_delay = 0;
+    nrfx_pwm_simple_playback(&waveform_pwm, &sequence, 1, NRFX_PWM_FLAG_LOOP);
+    printk("TX waveform: hardware PWM + EasyDMA, %u halves/frame\n", WAVE_HALFS);
+    return 0;
+}
+#endif
+
 int main(void)
 {
     int ret;
@@ -196,6 +276,32 @@ int main(void)
         return -1;
     }
 
+#if USE_HFXO
+    /* Keep the crystal oscillator running: HFINT drift breaks open-loop RX timing. */
+    const struct device *clock = DEVICE_DT_GET(DT_NODELABEL(clock));
+    if (!device_is_ready(clock)) {
+        printk("ERROR: HF clock device not ready\n");
+        return -1;
+    }
+    ret = clock_control_on(clock, CLOCK_CONTROL_NRF_SUBSYS_HF);
+    if (ret < 0) {
+        printk("ERROR: HFXO start: %d\n", ret);
+        return -1;
+    }
+    int64_t deadline = k_uptime_get() + 100;
+    while (clock_control_get_status(clock, CLOCK_CONTROL_NRF_SUBSYS_HF) !=
+           CLOCK_CONTROL_STATUS_ON) {
+        if (k_uptime_get() >= deadline) {
+            printk("ERROR: HFXO startup timeout\n");
+            return -1;
+        }
+        k_sleep(K_MSEC(1));
+    }
+    printk("TX clock: HFXO crystal\n");
+#else
+    printk("TX clock: default HF clock\n");
+#endif
+
     half_bit_ticks = counter_us_to_ticks(timer, HALF_BIT_US);
 
     printk("Timer frequency = %u Hz\n", counter_get_frequency(timer));
@@ -213,6 +319,15 @@ int main(void)
     }
 
     printk("\n");
+
+#if TX_HW_WAVEFORM
+    ret = start_waveform();
+    if (ret < 0) {
+        return ret;
+    }
+    k_sleep(K_FOREVER);
+    return 0;
+#endif
 
     top_cfg.ticks = half_bit_ticks;
     top_cfg.callback = timer_callback;

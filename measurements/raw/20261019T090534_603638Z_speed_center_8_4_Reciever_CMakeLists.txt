@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: Apache-2.0
+
+cmake_minimum_required(VERSION 3.20.0)
+set(USER_CACHE_DIR "${CMAKE_CURRENT_BINARY_DIR}/.cache" CACHE PATH "Local Zephyr cache" FORCE)
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+project(UART_Interrupt)
+
+target_sources(app PRIVATE src/main.c)
+
+# Optional timing overrides for reproducible measurements.
+if(DEFINED HALF_BIT_US)
+  target_compile_definitions(app PRIVATE HALF_BIT_US=${HALF_BIT_US})
+endif()
+if(DEFINED SAMPLE_US)
+  target_compile_definitions(app PRIVATE SAMPLE_US=${SAMPLE_US})
+endif()
+if(DEFINED ACQUISITION_MS)
+  target_compile_definitions(app PRIVATE ACQUISITION_MS=${ACQUISITION_MS})
+endif()
+
+if(DEFINED DIAG_SAMPLE_COUNT)
+  target_compile_definitions(app PRIVATE DIAG_SAMPLE_COUNT=${DIAG_SAMPLE_COUNT})
+endif()
+
+if(DEFINED RX_FAST_GPIO)
+  target_compile_definitions(app PRIVATE RX_FAST_GPIO=${RX_FAST_GPIO})
+endif()

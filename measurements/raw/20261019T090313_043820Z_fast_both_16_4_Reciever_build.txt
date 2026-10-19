@@ -1,0 +1,14 @@
+[1/124] Generating misc/generated/syscalls.json, misc/generated/struct_tags.json
+[2/7] Generating linker_zephyr_pre0.cmd
+[3/7] Linking C executable zephyr/zephyr_pre0.elf
+[4/7] Generating linker.cmd
+[5/7] Generating isr_tables.c, isr_tables_vt.ld, isr_tables_swi.ld
+[6/7] Building C object zephyr/CMakeFiles/zephyr_final.dir/isr_tables.c.obj
+[7/7] Linking C executable zephyr/zephyr.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:       25124 B         1 MB      2.40%
+             RAM:        6720 B        96 KB      6.84%
+           SRAM0:          0 GB        96 KB      0.00%
+           SRAM1:          0 GB        32 KB      0.00%
+        IDT_LIST:          0 GB        32 KB      0.00%
+Generating files from /home/yousef/zephyrproject/apps/OPV4COM/Reciever/build/zephyr/zephyr.elf for board: nucleo_l476rg

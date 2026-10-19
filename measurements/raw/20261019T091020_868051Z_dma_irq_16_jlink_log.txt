@@ -1,0 +1,277 @@
+T4B1D8740 000:001.289   SEGGER J-Link V8.78 Log File
+T4B1D8740 000:001.352   DLL Compiled: Oct 16 2025 08:35:50
+T4B1D8740 000:001.353   Logging started @ 2026-10-19 09:10
+T4B1D8740 000:001.354   Process: /opt/SEGGER/JLink_V878/JLinkExe
+T4B1D8740 000:001.357 - 1.355ms 
+T4B1D8740 000:001.374 JLINK_EMU_SelectByUSBSN(SerialNo = 685278459)
+T4B1D8740 000:008.325 - 6.950ms returns 0x00
+T4B1D8740 000:008.336 JLINK_SetWarnOutHandler(...)
+T4B1D8740 000:008.337 - 0.002ms 
+T4B1D8740 000:008.359 JLINK_OpenEx(...)
+T4B1D8740 000:011.397   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+T4B1D8740 000:011.798   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+T4B1D8740 000:012.324   Hardware: V1.00
+T4B1D8740 000:012.328   S/N: 685278459
+T4B1D8740 000:012.329   OEM: SEGGER
+T4B1D8740 000:012.331   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+T4B1D8740 000:012.622   Bootloader: 2014 Sep 11
+T4B1D8740 000:012.808   USB speed mode: High speed (480 MBit/s)
+T4B1D8740 000:012.964   TELNET listener socket opened on port 19021
+T4B1D8740 000:012.994   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T4B1D8740 000:013.031   WEBSRV Webserver running on local port 19080
+T4B1D8740 000:013.040   Looking for J-Link GUI Server exe at: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+T4B1D8740 000:013.045   Forking J-Link GUI Server: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+T4B1D8740 000:026.468   J-Link GUI Server info: "J-Link GUI server V8.78 "
+T4B1D8740 000:026.843 - 18.484ms returns "O.K."
+T4B1D8740 000:026.864 JLINK_GetFirmwareString(...)
+T4B1D8740 000:026.867 - 0.003ms 
+T4B1D8740 000:026.871 JLINK_GetHardwareVersion()
+T4B1D8740 000:026.874 - 0.002ms returns 10000
+T4B1D8740 000:026.878 JLINK_GetHWInfo(...)
+T4B1D8740 000:026.998 - 0.120ms returns 0
+T4B1D8740 000:027.003 JLINK_GetSN()
+T4B1D8740 000:027.005 - 0.002ms returns 685278459
+T4B1D8740 000:027.020 JLINK_GetOEMString(...)
+T4B1D8740 000:027.024 JLINK_EMU_GetCurrConnectionInfo()
+T4B1D8740 000:027.125 - 0.102ms returns 0
+T4B1D8740 000:027.130 JLINK_EMU_HasCapEx(0x00000026)
+T4B1D8740 000:027.132 - 0.002ms returns 0
+T4B1D8740 000:027.134 JLINK_GetEmuCaps()
+T4B1D8740 000:027.135 - 0.001ms returns 0xB8EA5A33
+T4B1D8740 000:027.137 JLINK_GetEmuCaps()
+T4B1D8740 000:027.138 - 0.001ms returns 0xB8EA5A33
+T4B1D8740 000:027.139 JLINK_GetHWStatus(...)
+T4B1D8740 000:027.245 - 0.106ms returns 0
+T4B1D8740 000:027.248 JLINK_EMU_HasCapEx(0x00000044)
+T4B1D8740 000:027.249 - 0.001ms returns 0
+T4B1D8740 000:027.261 JLINK_DEVICE_GetIndex(sDeviceName = nRF52833_xxAA)
+T4B1D8740 000:036.958 - 9.696ms returns 4297
+T4B1D8740 000:036.993 JLINK_ExecCommand("device=nRF52833_xxAA", ...). 
+T4B1D8740 000:038.456   Device "NRF52833_XXAA" selected.
+T4B1D8740 000:039.679 - 2.684ms returns 0x00
+T4B1D8740 000:039.689 JLINK_EnableLog(...)
+T4B1D8740 000:039.691 - 0.002ms 
+T4B1D8740 000:039.696 JLINK_GetEmuCaps()
+T4B1D8740 000:039.698 - 0.002ms returns 0xB8EA5A33
+T4B1D8740 000:039.701 JLINK_TIF_GetAvailable(...)
+T4B1D8740 000:039.806 - 0.104ms 
+T4B1D8740 000:039.811 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T4B1D8740 000:040.121 - 0.309ms returns 0x00
+T4B1D8740 000:040.128 JLINK_IsConnected()
+T4B1D8740 000:040.130 - 0.002ms returns FALSE
+T4B1D8740 000:040.133 JLINK_SetSpeed(4000)
+T4B1D8740 000:040.165 - 0.032ms 
+T4B1D8740 000:040.171 JLINK_Connect()
+T4B1D8740 000:040.311   InitTarget() start
+T4B1D8740 000:040.319    J-Link Script File: Executing InitTarget()
+T4B1D8740 000:042.506   InitTarget() end - Took 2.15ms
+T4B1D8740 000:042.996   Found SW-DP with ID 0x2BA01477
+T4B1D8740 000:044.683   DPIDR: 0x2BA01477
+T4B1D8740 000:044.704   CoreSight SoC-400 or earlier
+T4B1D8740 000:044.725   Scanning AP map to find all available APs
+T4B1D8740 000:045.548   AP[2]: Stopped AP scan as end of AP map has been reached
+T4B1D8740 000:045.555   AP[0]: AHB-AP (IDR: 0x24770011, ADDR: 0x00000000)
+T4B1D8740 000:045.562   AP[1]: JTAG-AP (IDR: 0x02880000, ADDR: 0x01000000)
+T4B1D8740 000:045.568   Iterating through AP map to find AHB-AP to use
+T4B1D8740 000:046.352   AP[0]: Core found
+T4B1D8740 000:046.385   AP[0]: AHB-AP ROM base: 0xE00FF000
+T4B1D8740 000:046.803   CPUID register: 0x410FC241. Implementer code: 0x41 (ARM)
+T4B1D8740 000:046.825   Found Cortex-M4 r0p1, Little endian.
+T4B1D8740 000:047.000   -- Max. mem block: 0x00004CC8
+T4B1D8740 000:047.251   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 000:047.682   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 000:048.147   CPU_ReadMem(4 bytes @ 0xE0002000)
+T4B1D8740 000:048.601   FPUnit: 6 code (BP) slots and 2 literal slots
+T4B1D8740 000:048.613   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T4B1D8740 000:049.088   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T4B1D8740 000:049.532   CPU_ReadMem(4 bytes @ 0xE0001000)
+T4B1D8740 000:049.986   CPU_WriteMem(4 bytes @ 0xE0001000)
+T4B1D8740 000:050.463   CPU_ReadMem(4 bytes @ 0xE000ED88)
+T4B1D8740 000:050.930   CPU_WriteMem(4 bytes @ 0xE000ED88)
+T4B1D8740 000:051.384   CPU_ReadMem(4 bytes @ 0xE000ED88)
+T4B1D8740 000:051.829   CPU_WriteMem(4 bytes @ 0xE000ED88)
+T4B1D8740 000:052.298   CoreSight components:
+T4B1D8740 000:052.320   ROMTbl[0] @ E00FF000
+T4B1D8740 000:052.332   CPU_ReadMem(64 bytes @ 0xE00FF000)
+T4B1D8740 000:053.486   CPU_ReadMem(32 bytes @ 0xE000EFE0)
+T4B1D8740 000:054.277   [0][0]: E000E000 CID B105E00D PID 000BB00C SCS-M7
+T4B1D8740 000:054.290   CPU_ReadMem(32 bytes @ 0xE0001FE0)
+T4B1D8740 000:055.104   [0][1]: E0001000 CID B105E00D PID 003BB002 DWT
+T4B1D8740 000:055.117   CPU_ReadMem(32 bytes @ 0xE0002FE0)
+T4B1D8740 000:055.913   [0][2]: E0002000 CID B105E00D PID 002BB003 FPB
+T4B1D8740 000:055.918   CPU_ReadMem(32 bytes @ 0xE0000FE0)
+T4B1D8740 000:056.755   [0][3]: E0000000 CID B105E00D PID 003BB001 ITM
+T4B1D8740 000:056.767   CPU_ReadMem(32 bytes @ 0xE0040FE0)
+T4B1D8740 000:057.564   [0][4]: E0040000 CID B105900D PID 000BB9A1 TPIU
+T4B1D8740 000:057.570   CPU_ReadMem(32 bytes @ 0xE0041FE0)
+T4B1D8740 000:058.355   [0][5]: E0041000 CID B105900D PID 000BB925 ETM
+T4B1D8740 000:058.400 - 18.228ms returns 0x00
+T4B1D8740 000:058.408 JLINK_GetIdData(pIdData)
+T4B1D8740 000:058.579   pIdData->ScanLen=4
+T4B1D8740 000:058.585   pIdData->NumDevices=1
+T4B1D8740 000:058.587   pIdData->aId[0]=0x2BA01477
+T4B1D8740 000:058.590   pIdData->aIrRead[0]=0
+T4B1D8740 000:058.592   pIdData->aScanLen[0]=0
+T4B1D8740 000:058.595   pIdData->aScanRead[0]=0
+T4B1D8740 000:058.597 - 0.189ms 
+T4B1D8740 000:058.602 JLINK_GetMemZones(...)
+T4B1D8740 000:058.604 - 0.003ms returns 1
+T4B1D8740 000:058.635 JLINK_HasError()
+T4B1D8740 000:058.642 JLINK_CORE_GetFound()
+T4B1D8740 000:058.645 - 0.002ms returns 0xE0000FF
+T4B1D8740 000:058.656 JLINK_SetResetDelay(0)
+T4B1D8740 000:058.659 - 0.003ms 
+T4B1D8740 000:058.662 JLINK_Reset()
+T4B1D8740 000:058.674   JLINK_GetResetTypeDesc
+T4B1D8740 000:058.680   - 0.006ms 
+T4B1D8740 000:058.686   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T4B1D8740 000:058.691   CPU is running
+T4B1D8740 000:058.696   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 000:059.136   CPU is running
+T4B1D8740 000:059.153   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T4B1D8740 000:059.625   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T4B1D8740 000:059.956   Reset: Reset device via AIRCR.SYSRESETREQ.
+T4B1D8740 000:059.960   CPU is running
+T4B1D8740 000:059.963   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T4B1D8740 000:113.109   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 000:113.550   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 000:119.853   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T4B1D8740 000:125.550   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 000:131.776   CPU_WriteMem(4 bytes @ 0xE0002000)
+T4B1D8740 000:132.255   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T4B1D8740 000:132.675   CPU_ReadMem(4 bytes @ 0xE0001000)
+T4B1D8740 000:133.128 - 74.465ms 
+T4B1D8740 000:133.155 JLINK_Halt()
+T4B1D8740 000:133.158 - 0.003ms returns 0x00
+T4B1D8740 000:133.162 JLINK_GetDeviceFamily
+T4B1D8740 000:133.163 - 0.002ms returns 14
+T4B1D8740 000:133.166 JLINK_CORE_GetFound()
+T4B1D8740 000:133.168 - 0.001ms returns 0xE0000FF
+T4B1D8740 000:133.171 JLINK_GetDebugInfo(0x01 = Unknown)
+T4B1D8740 000:133.183   Value=0x00000001
+T4B1D8740 000:133.185 - 0.015ms returns 0
+T4B1D8740 000:133.188 JLINK_ReadRegs(NumRegs = 28)
+T4B1D8740 000:133.204   
+  R0 (0)         = 0x00                 R1 (1)         = 0x00                 R2 (2)         = 0x00                 R3 (3)         = 0x00              
+  R4 (4)         = 0x00                 R5 (5)         = 0x00                 R6 (6)         = 0x00                 R7 (7)         = 0x00              
+  R8 (8)         = 0x00                 R9 (9)         = 0x00                 R10 (10)       = 0x00                 R11 (11)       = 0x00              
+  R12 (12)       = 0x00                 R13 (SP) (13)  = 0x20001180           MSP (17)       = 0x20001180           PSP (18)       = 0x00              
+  R14 (14)       = 0xFFFFFFFF           R15 (PC) (15)  = 0x1350               XPSR (16)      = 0x1000000            APSR (21)      = 0x00              
+  EPSR (22)      = 0x1000000            IPSR (23)      = 0x00                 CFBP (20)      = 0x00                 CONTROL (27)   = 0x00              
+  FAULTMASK (26) = 0x00                 BASEPRI (25)   = 0x00                 PRIMASK (24)   = 0x00                 CycleCnt (65)  = 0x00              
+T4B1D8740 000:133.207 - 0.019ms returns 0x00
+T4B1D8740 000:133.218 JLINK_ReadRegs(NumRegs = 33)
+T4B1D8740 000:142.615   
+  FPS0 (33)  = 0x00                 FPS1 (34)  = 0x00                 FPS2 (35)  = 0x00                 FPS3 (36)  = 0x00              
+  FPS4 (37)  = 0x00                 FPS5 (38)  = 0x00                 FPS6 (39)  = 0x00                 FPS7 (40)  = 0x00              
+  FPS8 (41)  = 0x00                 FPS9 (42)  = 0x00                 FPS10 (43) = 0x00                 FPS11 (44) = 0x00              
+  FPS12 (45) = 0x00                 FPS13 (46) = 0x00                 FPS14 (47) = 0x00                 FPS15 (48) = 0x00              
+  FPS16 (49) = 0x00                 FPS17 (50) = 0x00                 FPS18 (51) = 0x00                 FPS19 (52) = 0x00              
+  FPS20 (53) = 0x00                 FPS21 (54) = 0x00                 FPS22 (55) = 0x00                 FPS23 (56) = 0x00              
+  FPS24 (57) = 0x00                 FPS25 (58) = 0x00                 FPS26 (59) = 0x00                 FPS27 (60) = 0x00              
+  FPS28 (61) = 0x00                 FPS29 (62) = 0x00                 FPS30 (63) = 0x00                 FPS31 (64) = 0x00              
+  FPSCR (32) = 0x00              
+T4B1D8740 000:142.624 - 9.406ms returns 0x00
+T4B1D8740 000:142.653 JLINK_Reset()
+T4B1D8740 000:142.661   JLINK_GetResetTypeDesc
+T4B1D8740 000:142.664   - 0.003ms 
+T4B1D8740 000:142.667   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T4B1D8740 000:142.673   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 000:143.116   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T4B1D8740 000:143.602   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T4B1D8740 000:143.880   Reset: Reset device via AIRCR.SYSRESETREQ.
+T4B1D8740 000:143.884   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T4B1D8740 000:199.402   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 000:199.864   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 000:200.405   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T4B1D8740 000:207.209   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 000:213.502   CPU_WriteMem(4 bytes @ 0xE0002000)
+T4B1D8740 000:214.038   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T4B1D8740 000:214.490   CPU_ReadMem(4 bytes @ 0xE0001000)
+T4B1D8740 000:215.167 - 72.512ms 
+T4B1D8740 000:215.187 JLINK_Halt()
+T4B1D8740 000:215.199 - 0.012ms returns 0x00
+T4B1D8740 000:215.220 JLINK_ExecCommand("SetVerifyRAMDownload = 1", ...). 
+T4B1D8740 000:215.226 - 0.002ms returns 0x00
+T4B1D8740 000:215.235 JLINK_DownloadFile()
+T4B1D8740 000:215.714   Data:  40 12 00 20 81 12 00 00 65 0D 00 00 6D 12 00 00 ...
+T4B1D8740 000:216.185   completely In flash
+T4B1D8740 000:216.196   Data:  03 38 FD D8 70 47 00 00 4F 50 56 34 43 4F 4D 20 ...
+T4B1D8740 000:216.202   completely In flash
+T4B1D8740 000:217.496   CPU_ReadMem(4 bytes @ 0xE000ED90)
+T4B1D8740 000:218.094   CPU_ReadMem(4 bytes @ 0xE000ED94)
+T4B1D8740 000:218.657    -- --------------------------------------
+T4B1D8740 000:218.686    -- Flash bank @ 0x00000000: Default: L2 verify disabled because algorithm performs L1 verify
+T4B1D8740 000:218.691    -- Start of determining dirty areas in flash cache
+T4B1D8740 000:218.698    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00000000 if necessary
+T4B1D8740 000:218.701    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00001000 if necessary
+T4B1D8740 000:218.705    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00002000 if necessary
+T4B1D8740 000:218.708    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00003000 if necessary
+T4B1D8740 000:218.712    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00004000 if necessary
+T4B1D8740 000:218.715    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00005000 if necessary
+T4B1D8740 000:218.718    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00006000 if necessary
+T4B1D8740 000:218.811    -- End of determining dirty areas
+T4B1D8740 000:218.815    -- Start of preparing flash programming
+T4B1D8740 000:218.818    -- Calculating RAM usage
+T4B1D8740 000:218.831    -- RAM usage = 3732 Bytes
+T4B1D8740 000:218.839    -- Preserving CPU registers
+T4B1D8740 000:218.853    -- Preparing target
+T4B1D8740 000:218.857    -- Preserving target RAM temporarily used for programming
+T4B1D8740 000:263.754    -- Downloading RAMCode
+T4B1D8740 000:293.850    -- Preparing RAMCode
+T4B1D8740 000:303.238    -- End of preparing flash programming
+T4B1D8740 000:312.842    -- CPU speed could not be measured.
+T4B1D8740 000:312.857    -- Start of comparing flash
+T4B1D8740 000:312.862    -- CRC check was estimated as fastest method
+T4B1D8740 000:315.187    -- Comparing range 0x0000 - 0x6FFF (7 Sectors, 28 KB), using multi-block CRC calculation
+T4B1D8740 000:325.167    -- CRC does not match for sectors 0-6
+T4B1D8740 000:325.200    -- End of comparing flash
+T4B1D8740 000:325.205    -- Start of erasing sectors
+T4B1D8740 000:325.212    -- Erasing range 0x00000000 - 0x00006FFF (  7 Sectors, 28 KB)
+T4B1D8740 000:941.590    -- End of erasing sectors
+T4B1D8740 000:941.645    -- Start of flash programming
+T4B1D8740 000:941.658    -- Programming range 0x00000000 - 0x00006FFF (  7 Sectors, 28 KB)
+T4B1D8740 001:363.545    -- End of flash programming
+T4B1D8740 001:363.579    -- 0x0000 - 0x6FFF (  7 Sectors, 28 KB)
+T4B1D8740 001:363.584    -- Start of restoring
+T4B1D8740 001:363.589    -- Restoring RAMCode
+T4B1D8740 001:392.264    -- Restoring target memory
+T4B1D8740 001:438.154    -- Restore target
+T4B1D8740 001:438.178    -- Restoring CPU registers
+T4B1D8740 001:438.205    -- End of restoring
+T4B1D8740 001:438.223    -- Bank 0 @ 0x00000000: 1 range affected (28672 bytes)
+T4B1D8740 001:438.233    -- Total: 1.219s (Prepare: 0.094s, Compare: 0.012s, Erase: 0.616s, Program & Verify: 0.442s, Restore: 0.053s)
+T4B1D8740 001:438.241    -- Program & Verify speed: 63 KB/s
+T4B1D8740 001:439.029 - 1223.793ms returns 0x00
+T4B1D8740 001:439.063 JLINK_ExecCommand("SetVerifyRAMDownload = 0", ...). 
+T4B1D8740 001:439.072 - 0.003ms returns 0x01
+T4B1D8740 001:440.468 JLINK_SetResetDelay(0)
+T4B1D8740 001:440.488 - 0.020ms 
+T4B1D8740 001:440.493 JLINK_Reset()
+T4B1D8740 001:440.505   JLINK_GetResetTypeDesc
+T4B1D8740 001:440.510   - 0.006ms 
+T4B1D8740 001:440.518   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T4B1D8740 001:440.527   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 001:441.186   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T4B1D8740 001:441.771   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T4B1D8740 001:444.369   Reset: Reset device via AIRCR.SYSRESETREQ.
+T4B1D8740 001:444.391   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T4B1D8740 001:498.133   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 001:498.608   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 001:499.541   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T4B1D8740 001:505.166   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T4B1D8740 001:511.455   CPU_WriteMem(4 bytes @ 0xE0002000)
+T4B1D8740 001:511.902   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T4B1D8740 001:512.330   CPU_ReadMem(4 bytes @ 0xE0001000)
+T4B1D8740 001:512.776 - 72.283ms 
+T4B1D8740 001:512.800 JLINK_GoEx(MaxEmulInsts = 0, Flags = 0x01)
+T4B1D8740 001:512.812   CPU_ReadMem(4 bytes @ 0xE0001000)
+T4B1D8740 001:513.262   CPU_WriteMem(4 bytes @ 0xE0001004)
+T4B1D8740 001:514.524   Memory map 'after startup completion point' is active
+T4B1D8740 001:514.530 - 1.730ms 
+T4B1D8740 001:514.540 JLINK_IsOpen()
+T4B1D8740 001:514.543 - 0.003ms returns 0x01
+T4B1D8740 001:522.997 JLINK_Close()
+T4B1D8740 001:539.347 - 16.351ms
+T4B1D8740 001:539.357   
+T4B1D8740 001:539.359   Closed

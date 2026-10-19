@@ -1,0 +1,2 @@
+timestamp_utc,source,label,repeat,port,half_bit_us,sample_us,duration_ms,bitrate_bps,expected_frames,complete_frames,correct_frames,incorrect_frames,gap_detected,manchester_errors,preamble_errors,sfd_errors,gpio_errors,samples_acquired,goodput_bps,success_permille,payload_bit_errors
+20261019T090550_850520Z,hardware,speed_center_12_3,1,/dev/ttyACM0,12,3,5003,41666,4963,0,0,0,4948,4946,1,0,0,1665189,0,0,0

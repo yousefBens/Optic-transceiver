@@ -1,0 +1,22 @@
+{
+  "args": {
+    "half": 48,
+    "sample": 12,
+    "duration": 10000,
+    "repeat": 3,
+    "label": "corrected_timer_48_12",
+    "baseline": false,
+    "keep_tx": false
+  },
+  "timestamp_utc": "20261019T085646_343256Z",
+  "sources": {
+    "Reciever": "8ada9804abf1d17039b08cf0a5fe57e99b11bfff67d10e5d393ff213d62f1f28",
+    "T_test": "c4fa491d6201ee249edbf8fb8e679d87b862ee3f56a52b8868fc971663fc8ac4"
+  },
+  "flashed_source_known": true,
+  "note": "",
+  "images": {
+    "Reciever": "0836b3f69ad4a03da9b51c5f2dd191e35bce989cd93cfdbd6ade1c6748354749",
+    "T_test": "aa1665be74fd1f0121b980dfb59c8a46fd22ea80c07016375ffa3e3b0c2b5a73"
+  }
+}

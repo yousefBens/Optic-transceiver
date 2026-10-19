@@ -1,0 +1,276 @@
+T7A5CF740 000:001.921   SEGGER J-Link V8.78 Log File
+T7A5CF740 000:002.021   DLL Compiled: Oct 16 2025 08:35:50
+T7A5CF740 000:002.024   Logging started @ 2026-10-19 09:03
+T7A5CF740 000:002.026   Process: /opt/SEGGER/JLink_V878/JLinkExe
+T7A5CF740 000:002.031 - 2.028ms 
+T7A5CF740 000:002.063 JLINK_EMU_SelectByUSBSN(SerialNo = 685278459)
+T7A5CF740 000:011.374 - 9.310ms returns 0x00
+T7A5CF740 000:011.394 JLINK_SetWarnOutHandler(...)
+T7A5CF740 000:011.395 - 0.002ms 
+T7A5CF740 000:011.422 JLINK_OpenEx(...)
+T7A5CF740 000:015.573   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+T7A5CF740 000:019.478   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+T7A5CF740 000:020.112   Hardware: V1.00
+T7A5CF740 000:020.116   S/N: 685278459
+T7A5CF740 000:020.118   OEM: SEGGER
+T7A5CF740 000:020.121   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+T7A5CF740 000:020.423   Bootloader: 2014 Sep 11
+T7A5CF740 000:020.647   USB speed mode: High speed (480 MBit/s)
+T7A5CF740 000:020.870   TELNET listener socket opened on port 19021
+T7A5CF740 000:020.944   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T7A5CF740 000:020.989   WEBSRV Webserver running on local port 19080
+T7A5CF740 000:020.998   Looking for J-Link GUI Server exe at: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+T7A5CF740 000:021.003   Forking J-Link GUI Server: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+T7A5CF740 000:035.641   J-Link GUI Server info: "J-Link GUI server V8.78 "
+T7A5CF740 000:036.733 - 25.308ms returns "O.K."
+T7A5CF740 000:036.895 JLINK_GetFirmwareString(...)
+T7A5CF740 000:036.919 - 0.028ms 
+T7A5CF740 000:036.947 JLINK_GetHardwareVersion()
+T7A5CF740 000:036.959 - 0.012ms returns 10000
+T7A5CF740 000:036.981 JLINK_GetHWInfo(...)
+T7A5CF740 000:037.158 - 0.175ms returns 0
+T7A5CF740 000:037.222 JLINK_GetSN()
+T7A5CF740 000:037.231 - 0.008ms returns 685278459
+T7A5CF740 000:037.244 JLINK_GetOEMString(...)
+T7A5CF740 000:037.252 JLINK_EMU_GetCurrConnectionInfo()
+T7A5CF740 000:037.360 - 0.109ms returns 0
+T7A5CF740 000:037.372 JLINK_EMU_HasCapEx(0x00000026)
+T7A5CF740 000:037.377 - 0.005ms returns 0
+T7A5CF740 000:037.382 JLINK_GetEmuCaps()
+T7A5CF740 000:037.387 - 0.004ms returns 0xB8EA5A33
+T7A5CF740 000:037.391 JLINK_GetEmuCaps()
+T7A5CF740 000:037.395 - 0.003ms returns 0xB8EA5A33
+T7A5CF740 000:037.399 JLINK_GetHWStatus(...)
+T7A5CF740 000:037.578 - 0.178ms returns 0
+T7A5CF740 000:037.601 JLINK_EMU_HasCapEx(0x00000044)
+T7A5CF740 000:037.606 - 0.006ms returns 0
+T7A5CF740 000:037.646 JLINK_DEVICE_GetIndex(sDeviceName = nRF52833_xxAA)
+T7A5CF740 000:052.047 - 14.401ms returns 4297
+T7A5CF740 000:052.086 JLINK_ExecCommand("device=nRF52833_xxAA", ...). 
+T7A5CF740 000:053.708   Device "NRF52833_XXAA" selected.
+T7A5CF740 000:055.006 - 2.918ms returns 0x00
+T7A5CF740 000:055.017 JLINK_EnableLog(...)
+T7A5CF740 000:055.019 - 0.002ms 
+T7A5CF740 000:055.026 JLINK_GetEmuCaps()
+T7A5CF740 000:055.028 - 0.002ms returns 0xB8EA5A33
+T7A5CF740 000:055.031 JLINK_TIF_GetAvailable(...)
+T7A5CF740 000:055.145 - 0.115ms 
+T7A5CF740 000:055.149 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T7A5CF740 000:055.461 - 0.311ms returns 0x00
+T7A5CF740 000:055.469 JLINK_IsConnected()
+T7A5CF740 000:055.470 - 0.001ms returns FALSE
+T7A5CF740 000:055.473 JLINK_SetSpeed(4000)
+T7A5CF740 000:055.498 - 0.026ms 
+T7A5CF740 000:055.502 JLINK_Connect()
+T7A5CF740 000:055.605   InitTarget() start
+T7A5CF740 000:055.608    J-Link Script File: Executing InitTarget()
+T7A5CF740 000:057.729   InitTarget() end - Took 2.11ms
+T7A5CF740 000:058.230   Found SW-DP with ID 0x2BA01477
+T7A5CF740 000:059.913   DPIDR: 0x2BA01477
+T7A5CF740 000:059.917   CoreSight SoC-400 or earlier
+T7A5CF740 000:059.921   Scanning AP map to find all available APs
+T7A5CF740 000:060.747   AP[2]: Stopped AP scan as end of AP map has been reached
+T7A5CF740 000:060.751   AP[0]: AHB-AP (IDR: 0x24770011, ADDR: 0x00000000)
+T7A5CF740 000:060.755   AP[1]: JTAG-AP (IDR: 0x02880000, ADDR: 0x01000000)
+T7A5CF740 000:060.758   Iterating through AP map to find AHB-AP to use
+T7A5CF740 000:061.534   AP[0]: Core found
+T7A5CF740 000:061.554   AP[0]: AHB-AP ROM base: 0xE00FF000
+T7A5CF740 000:061.961   CPUID register: 0x410FC241. Implementer code: 0x41 (ARM)
+T7A5CF740 000:061.974   Found Cortex-M4 r0p1, Little endian.
+T7A5CF740 000:062.154   -- Max. mem block: 0x00004CC8
+T7A5CF740 000:062.402   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 000:062.855   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 000:063.331   CPU_ReadMem(4 bytes @ 0xE0002000)
+T7A5CF740 000:063.786   FPUnit: 6 code (BP) slots and 2 literal slots
+T7A5CF740 000:063.793   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T7A5CF740 000:064.225   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T7A5CF740 000:064.677   CPU_ReadMem(4 bytes @ 0xE0001000)
+T7A5CF740 000:065.099   CPU_WriteMem(4 bytes @ 0xE0001000)
+T7A5CF740 000:065.532   CPU_ReadMem(4 bytes @ 0xE000ED88)
+T7A5CF740 000:065.956   CPU_WriteMem(4 bytes @ 0xE000ED88)
+T7A5CF740 000:066.403   CPU_ReadMem(4 bytes @ 0xE000ED88)
+T7A5CF740 000:066.833   CPU_WriteMem(4 bytes @ 0xE000ED88)
+T7A5CF740 000:067.333   CoreSight components:
+T7A5CF740 000:067.354   ROMTbl[0] @ E00FF000
+T7A5CF740 000:067.366   CPU_ReadMem(64 bytes @ 0xE00FF000)
+T7A5CF740 000:068.562   CPU_ReadMem(32 bytes @ 0xE000EFE0)
+T7A5CF740 000:069.350   [0][0]: E000E000 CID B105E00D PID 000BB00C SCS-M7
+T7A5CF740 000:069.357   CPU_ReadMem(32 bytes @ 0xE0001FE0)
+T7A5CF740 000:070.136   [0][1]: E0001000 CID B105E00D PID 003BB002 DWT
+T7A5CF740 000:070.144   CPU_ReadMem(32 bytes @ 0xE0002FE0)
+T7A5CF740 000:070.933   [0][2]: E0002000 CID B105E00D PID 002BB003 FPB
+T7A5CF740 000:070.946   CPU_ReadMem(32 bytes @ 0xE0000FE0)
+T7A5CF740 000:071.746   [0][3]: E0000000 CID B105E00D PID 003BB001 ITM
+T7A5CF740 000:071.759   CPU_ReadMem(32 bytes @ 0xE0040FE0)
+T7A5CF740 000:072.567   [0][4]: E0040000 CID B105900D PID 000BB9A1 TPIU
+T7A5CF740 000:072.573   CPU_ReadMem(32 bytes @ 0xE0041FE0)
+T7A5CF740 000:073.358   [0][5]: E0041000 CID B105900D PID 000BB925 ETM
+T7A5CF740 000:073.423 - 17.921ms returns 0x00
+T7A5CF740 000:073.458 JLINK_GetIdData(pIdData)
+T7A5CF740 000:073.597   pIdData->ScanLen=4
+T7A5CF740 000:073.601   pIdData->NumDevices=1
+T7A5CF740 000:073.604   pIdData->aId[0]=0x2BA01477
+T7A5CF740 000:073.607   pIdData->aIrRead[0]=0
+T7A5CF740 000:073.610   pIdData->aScanLen[0]=0
+T7A5CF740 000:073.612   pIdData->aScanRead[0]=0
+T7A5CF740 000:073.615 - 0.158ms 
+T7A5CF740 000:073.620 JLINK_GetMemZones(...)
+T7A5CF740 000:073.623 - 0.003ms returns 1
+T7A5CF740 000:073.632 JLINK_HasError()
+T7A5CF740 000:073.637 JLINK_CORE_GetFound()
+T7A5CF740 000:073.639 - 0.002ms returns 0xE0000FF
+T7A5CF740 000:073.651 JLINK_SetResetDelay(0)
+T7A5CF740 000:073.653 - 0.003ms 
+T7A5CF740 000:073.657 JLINK_Reset()
+T7A5CF740 000:073.672   JLINK_GetResetTypeDesc
+T7A5CF740 000:073.677   - 0.004ms 
+T7A5CF740 000:073.682   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T7A5CF740 000:073.687   CPU is running
+T7A5CF740 000:073.692   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 000:074.120   CPU is running
+T7A5CF740 000:074.126   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T7A5CF740 000:074.596   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T7A5CF740 000:074.879   Reset: Reset device via AIRCR.SYSRESETREQ.
+T7A5CF740 000:074.883   CPU is running
+T7A5CF740 000:074.887   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T7A5CF740 000:129.598   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 000:130.041   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 000:136.366   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T7A5CF740 000:142.148   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 000:148.642   CPU_WriteMem(4 bytes @ 0xE0002000)
+T7A5CF740 000:149.105   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T7A5CF740 000:149.542   CPU_ReadMem(4 bytes @ 0xE0001000)
+T7A5CF740 000:150.002 - 76.344ms 
+T7A5CF740 000:150.068 JLINK_Halt()
+T7A5CF740 000:150.074 - 0.006ms returns 0x00
+T7A5CF740 000:150.081 JLINK_GetDeviceFamily
+T7A5CF740 000:150.084 - 0.004ms returns 14
+T7A5CF740 000:150.088 JLINK_CORE_GetFound()
+T7A5CF740 000:150.091 - 0.003ms returns 0xE0000FF
+T7A5CF740 000:150.096 JLINK_GetDebugInfo(0x01 = Unknown)
+T7A5CF740 000:150.112   Value=0x00000001
+T7A5CF740 000:150.117 - 0.020ms returns 0
+T7A5CF740 000:150.121 JLINK_ReadRegs(NumRegs = 28)
+T7A5CF740 000:150.145   
+  R0 (0)         = 0x00                 R1 (1)         = 0x00                 R2 (2)         = 0x00                 R3 (3)         = 0x00              
+  R4 (4)         = 0x00                 R5 (5)         = 0x00                 R6 (6)         = 0x00                 R7 (7)         = 0x00              
+  R8 (8)         = 0x00                 R9 (9)         = 0x00                 R10 (10)       = 0x00                 R11 (11)       = 0x00              
+  R12 (12)       = 0x00                 R13 (SP) (13)  = 0x20001180           MSP (17)       = 0x20001180           PSP (18)       = 0x00              
+  R14 (14)       = 0xFFFFFFFF           R15 (PC) (15)  = 0xF24                XPSR (16)      = 0x1000000            APSR (21)      = 0x00              
+  EPSR (22)      = 0x1000000            IPSR (23)      = 0x00                 CFBP (20)      = 0x00                 CONTROL (27)   = 0x00              
+  FAULTMASK (26) = 0x00                 BASEPRI (25)   = 0x00                 PRIMASK (24)   = 0x00                 CycleCnt (65)  = 0x00              
+T7A5CF740 000:150.151 - 0.030ms returns 0x00
+T7A5CF740 000:150.169 JLINK_ReadRegs(NumRegs = 33)
+T7A5CF740 000:159.549   
+  FPS0 (33)  = 0x00                 FPS1 (34)  = 0x00                 FPS2 (35)  = 0x00                 FPS3 (36)  = 0x00              
+  FPS4 (37)  = 0x00                 FPS5 (38)  = 0x00                 FPS6 (39)  = 0x00                 FPS7 (40)  = 0x00              
+  FPS8 (41)  = 0x00                 FPS9 (42)  = 0x00                 FPS10 (43) = 0x00                 FPS11 (44) = 0x00              
+  FPS12 (45) = 0x00                 FPS13 (46) = 0x00                 FPS14 (47) = 0x00                 FPS15 (48) = 0x00              
+  FPS16 (49) = 0x00                 FPS17 (50) = 0x00                 FPS18 (51) = 0x00                 FPS19 (52) = 0x00              
+  FPS20 (53) = 0x00                 FPS21 (54) = 0x00                 FPS22 (55) = 0x00                 FPS23 (56) = 0x00              
+  FPS24 (57) = 0x00                 FPS25 (58) = 0x00                 FPS26 (59) = 0x00                 FPS27 (60) = 0x00              
+  FPS28 (61) = 0x00                 FPS29 (62) = 0x00                 FPS30 (63) = 0x00                 FPS31 (64) = 0x00              
+  FPSCR (32) = 0x00              
+T7A5CF740 000:159.568 - 9.399ms returns 0x00
+T7A5CF740 000:159.602 JLINK_Reset()
+T7A5CF740 000:159.612   JLINK_GetResetTypeDesc
+T7A5CF740 000:159.617   - 0.005ms 
+T7A5CF740 000:159.622   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T7A5CF740 000:159.630   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 000:160.058   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T7A5CF740 000:160.504   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T7A5CF740 000:160.757   Reset: Reset device via AIRCR.SYSRESETREQ.
+T7A5CF740 000:160.762   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T7A5CF740 000:213.418   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 000:213.994   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 000:214.874   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T7A5CF740 000:220.540   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 000:226.839   CPU_WriteMem(4 bytes @ 0xE0002000)
+T7A5CF740 000:227.318   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T7A5CF740 000:227.751   CPU_ReadMem(4 bytes @ 0xE0001000)
+T7A5CF740 000:228.191 - 68.589ms 
+T7A5CF740 000:228.202 JLINK_Halt()
+T7A5CF740 000:228.207 - 0.005ms returns 0x00
+T7A5CF740 000:228.225 JLINK_ExecCommand("SetVerifyRAMDownload = 1", ...). 
+T7A5CF740 000:228.235 - 0.003ms returns 0x00
+T7A5CF740 000:228.248 JLINK_DownloadFile()
+T7A5CF740 000:228.579   Data:  80 11 00 20 31 0F 00 00 A3 43 00 00 1D 0F 00 00 ...
+T7A5CF740 000:228.953   completely In flash
+T7A5CF740 000:228.960   Data:  03 38 FD D8 70 47 00 00 00 00 00 20 00 00 00 00 ...
+T7A5CF740 000:228.963   completely In flash
+T7A5CF740 000:229.061   CPU_ReadMem(4 bytes @ 0xE000ED90)
+T7A5CF740 000:229.481   CPU_ReadMem(4 bytes @ 0xE000ED94)
+T7A5CF740 000:229.937    -- --------------------------------------
+T7A5CF740 000:229.956    -- Flash bank @ 0x00000000: Default: L2 verify disabled because algorithm performs L1 verify
+T7A5CF740 000:229.967    -- Start of determining dirty areas in flash cache
+T7A5CF740 000:229.981    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00000000 if necessary
+T7A5CF740 000:229.989    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00001000 if necessary
+T7A5CF740 000:229.996    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00002000 if necessary
+T7A5CF740 000:230.004    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00003000 if necessary
+T7A5CF740 000:230.007    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00004000 if necessary
+T7A5CF740 000:230.009    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00005000 if necessary
+T7A5CF740 000:230.093    -- End of determining dirty areas
+T7A5CF740 000:230.096    -- Start of preparing flash programming
+T7A5CF740 000:230.099    -- Calculating RAM usage
+T7A5CF740 000:230.108    -- RAM usage = 3732 Bytes
+T7A5CF740 000:230.111    -- Preserving CPU registers
+T7A5CF740 000:230.122    -- Preparing target
+T7A5CF740 000:230.126    -- Preserving target RAM temporarily used for programming
+T7A5CF740 000:274.970    -- Downloading RAMCode
+T7A5CF740 000:304.898    -- Preparing RAMCode
+T7A5CF740 000:314.134    -- End of preparing flash programming
+T7A5CF740 000:322.291    -- CPU speed could not be measured.
+T7A5CF740 000:322.318    -- Start of comparing flash
+T7A5CF740 000:322.326    -- CRC check was estimated as fastest method
+T7A5CF740 000:323.466    -- Comparing range 0x0000 - 0x5FFF (6 Sectors, 24 KB), using multi-block CRC calculation
+T7A5CF740 000:333.326    -- CRC does not match for sectors 0-5
+T7A5CF740 000:333.358    -- End of comparing flash
+T7A5CF740 000:333.363    -- Start of erasing sectors
+T7A5CF740 000:333.368    -- Erasing range 0x00000000 - 0x00005FFF (  6 Sectors, 24 KB)
+T7A5CF740 000:863.825    -- End of erasing sectors
+T7A5CF740 000:863.870    -- Start of flash programming
+T7A5CF740 000:863.878    -- Programming range 0x00000000 - 0x00005FFF (  6 Sectors, 24 KB)
+T7A5CF740 001:255.045    -- End of flash programming
+T7A5CF740 001:255.082    -- 0x0000 - 0x5FFF (  6 Sectors, 24 KB)
+T7A5CF740 001:255.089    -- Start of restoring
+T7A5CF740 001:255.095    -- Restoring RAMCode
+T7A5CF740 001:285.411    -- Restoring target memory
+T7A5CF740 001:331.397    -- Restore target
+T7A5CF740 001:331.421    -- Restoring CPU registers
+T7A5CF740 001:331.442    -- End of restoring
+T7A5CF740 001:331.466    -- Bank 0 @ 0x00000000: 1 range affected (24576 bytes)
+T7A5CF740 001:331.478    -- Total: 1.101s (Prepare: 0.092s, Compare: 0.011s, Erase: 0.530s, Program & Verify: 0.413s, Restore: 0.054s)
+T7A5CF740 001:331.487    -- Program & Verify speed: 58 KB/s
+T7A5CF740 001:332.708 - 1104.459ms returns 0x00
+T7A5CF740 001:332.738 JLINK_ExecCommand("SetVerifyRAMDownload = 0", ...). 
+T7A5CF740 001:332.755 - 0.005ms returns 0x01
+T7A5CF740 001:332.788 JLINK_SetResetDelay(0)
+T7A5CF740 001:332.795 - 0.007ms 
+T7A5CF740 001:332.801 JLINK_Reset()
+T7A5CF740 001:332.811   JLINK_GetResetTypeDesc
+T7A5CF740 001:332.815   - 0.004ms 
+T7A5CF740 001:332.821   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T7A5CF740 001:332.829   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 001:333.478   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T7A5CF740 001:333.972   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T7A5CF740 001:334.263   Reset: Reset device via AIRCR.SYSRESETREQ.
+T7A5CF740 001:334.272   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T7A5CF740 001:387.167   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 001:387.609   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 001:388.564   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T7A5CF740 001:395.371   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T7A5CF740 001:401.922   CPU_WriteMem(4 bytes @ 0xE0002000)
+T7A5CF740 001:402.509   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T7A5CF740 001:403.030   CPU_ReadMem(4 bytes @ 0xE0001000)
+T7A5CF740 001:403.566 - 70.765ms 
+T7A5CF740 001:403.616 JLINK_GoEx(MaxEmulInsts = 0, Flags = 0x01)
+T7A5CF740 001:403.629   CPU_ReadMem(4 bytes @ 0xE0001000)
+T7A5CF740 001:404.136   CPU_WriteMem(4 bytes @ 0xE0001004)
+T7A5CF740 001:405.451   Memory map 'after startup completion point' is active
+T7A5CF740 001:405.457 - 1.841ms 
+T7A5CF740 001:405.623 JLINK_IsOpen()
+T7A5CF740 001:405.628 - 0.006ms returns 0x01
+T7A5CF740 001:410.805 JLINK_Close()
+T7A5CF740 001:422.654 - 11.848ms
+T7A5CF740 001:422.668   
+T7A5CF740 001:422.669   Closed

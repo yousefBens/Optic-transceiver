@@ -1,0 +1,2 @@
+timestamp_utc,source,label,repeat,port,half_bit_us,sample_us,duration_ms,bitrate_bps,expected_frames,complete_frames,correct_frames,incorrect_frames,gap_detected,manchester_errors,preamble_errors,sfd_errors,gpio_errors,samples_acquired,goodput_bps,success_permille,payload_bit_errors,rx_mode,edges_acquired
+20261019T091350_457383Z,hardware,zli_dma_4,1,/dev/ttyACM0,4,0,5000,125000,14880,14835,14835,0,14836,0,0,0,0,0,71208,996,0,1,919840

@@ -1,0 +1,279 @@
+TD57A740 000:001.309   SEGGER J-Link V8.78 Log File
+TD57A740 000:001.376   DLL Compiled: Oct 16 2025 08:35:50
+TD57A740 000:001.377   Logging started @ 2026-10-19 09:05
+TD57A740 000:001.378   Process: /opt/SEGGER/JLink_V878/JLinkExe
+TD57A740 000:001.381 - 1.380ms 
+TD57A740 000:001.399 JLINK_EMU_SelectByUSBSN(SerialNo = 685278459)
+TD57A740 000:008.435 - 7.036ms returns 0x00
+TD57A740 000:008.450 JLINK_SetWarnOutHandler(...)
+TD57A740 000:008.452 - 0.002ms 
+TD57A740 000:008.477 JLINK_OpenEx(...)
+TD57A740 000:010.843   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+TD57A740 000:011.140   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+TD57A740 000:011.683   Hardware: V1.00
+TD57A740 000:011.686   S/N: 685278459
+TD57A740 000:011.688   OEM: SEGGER
+TD57A740 000:011.690   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+TD57A740 000:012.054   Bootloader: 2014 Sep 11
+TD57A740 000:012.261   USB speed mode: High speed (480 MBit/s)
+TD57A740 000:012.398   TELNET listener socket opened on port 19021
+TD57A740 000:012.471   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+TD57A740 000:012.505   WEBSRV Webserver running on local port 19080
+TD57A740 000:012.514   Looking for J-Link GUI Server exe at: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+TD57A740 000:012.518   Forking J-Link GUI Server: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+TD57A740 000:026.631   J-Link GUI Server info: "J-Link GUI server V8.78 "
+TD57A740 000:027.154 - 18.676ms returns "O.K."
+TD57A740 000:027.205 JLINK_GetFirmwareString(...)
+TD57A740 000:027.210 - 0.006ms 
+TD57A740 000:027.221 JLINK_GetHardwareVersion()
+TD57A740 000:027.225 - 0.003ms returns 10000
+TD57A740 000:027.231 JLINK_GetHWInfo(...)
+TD57A740 000:027.354 - 0.123ms returns 0
+TD57A740 000:027.364 JLINK_GetSN()
+TD57A740 000:027.369 - 0.004ms returns 685278459
+TD57A740 000:027.378 JLINK_GetOEMString(...)
+TD57A740 000:027.383 JLINK_EMU_GetCurrConnectionInfo()
+TD57A740 000:027.489 - 0.107ms returns 0
+TD57A740 000:027.496 JLINK_EMU_HasCapEx(0x00000026)
+TD57A740 000:027.500 - 0.003ms returns 0
+TD57A740 000:027.503 JLINK_GetEmuCaps()
+TD57A740 000:027.507 - 0.003ms returns 0xB8EA5A33
+TD57A740 000:027.510 JLINK_GetEmuCaps()
+TD57A740 000:027.513 - 0.003ms returns 0xB8EA5A33
+TD57A740 000:027.517 JLINK_GetHWStatus(...)
+TD57A740 000:027.613 - 0.095ms returns 0
+TD57A740 000:027.617 JLINK_EMU_HasCapEx(0x00000044)
+TD57A740 000:027.620 - 0.003ms returns 0
+TD57A740 000:027.641 JLINK_DEVICE_GetIndex(sDeviceName = nRF52833_xxAA)
+TD57A740 000:039.899 - 12.256ms returns 4297
+TD57A740 000:039.924 JLINK_ExecCommand("device=nRF52833_xxAA", ...). 
+TD57A740 000:041.443   Device "NRF52833_XXAA" selected.
+TD57A740 000:042.695 - 2.769ms returns 0x00
+TD57A740 000:042.707 JLINK_EnableLog(...)
+TD57A740 000:042.709 - 0.002ms 
+TD57A740 000:042.714 JLINK_GetEmuCaps()
+TD57A740 000:042.716 - 0.002ms returns 0xB8EA5A33
+TD57A740 000:042.718 JLINK_TIF_GetAvailable(...)
+TD57A740 000:042.822 - 0.104ms 
+TD57A740 000:042.826 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+TD57A740 000:043.135 - 0.309ms returns 0x00
+TD57A740 000:043.142 JLINK_IsConnected()
+TD57A740 000:043.144 - 0.002ms returns FALSE
+TD57A740 000:043.146 JLINK_SetSpeed(4000)
+TD57A740 000:043.179 - 0.033ms 
+TD57A740 000:043.182 JLINK_Connect()
+TD57A740 000:043.293   InitTarget() start
+TD57A740 000:043.296    J-Link Script File: Executing InitTarget()
+TD57A740 000:045.345   InitTarget() end - Took 2.04ms
+TD57A740 000:045.814   Found SW-DP with ID 0x2BA01477
+TD57A740 000:047.424   DPIDR: 0x2BA01477
+TD57A740 000:047.433   CoreSight SoC-400 or earlier
+TD57A740 000:047.443   Scanning AP map to find all available APs
+TD57A740 000:048.288   AP[2]: Stopped AP scan as end of AP map has been reached
+TD57A740 000:048.292   AP[0]: AHB-AP (IDR: 0x24770011, ADDR: 0x00000000)
+TD57A740 000:048.296   AP[1]: JTAG-AP (IDR: 0x02880000, ADDR: 0x01000000)
+TD57A740 000:048.301   Iterating through AP map to find AHB-AP to use
+TD57A740 000:049.072   AP[0]: Core found
+TD57A740 000:049.081   AP[0]: AHB-AP ROM base: 0xE00FF000
+TD57A740 000:049.501   CPUID register: 0x410FC241. Implementer code: 0x41 (ARM)
+TD57A740 000:049.512   Found Cortex-M4 r0p1, Little endian.
+TD57A740 000:049.695   -- Max. mem block: 0x00004CC8
+TD57A740 000:049.971   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:050.392   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:050.847   CPU_ReadMem(4 bytes @ 0xE0002000)
+TD57A740 000:051.271   FPUnit: 6 code (BP) slots and 2 literal slots
+TD57A740 000:051.277   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TD57A740 000:051.721   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD57A740 000:052.165   CPU_ReadMem(4 bytes @ 0xE0001000)
+TD57A740 000:052.597   CPU_WriteMem(4 bytes @ 0xE0001000)
+TD57A740 000:053.040   CPU_ReadMem(4 bytes @ 0xE000ED88)
+TD57A740 000:053.467   CPU_WriteMem(4 bytes @ 0xE000ED88)
+TD57A740 000:053.890   CPU_ReadMem(4 bytes @ 0xE000ED88)
+TD57A740 000:054.315   CPU_WriteMem(4 bytes @ 0xE000ED88)
+TD57A740 000:054.744   CoreSight components:
+TD57A740 000:054.748   ROMTbl[0] @ E00FF000
+TD57A740 000:054.750   CPU_ReadMem(64 bytes @ 0xE00FF000)
+TD57A740 000:055.896   CPU_ReadMem(32 bytes @ 0xE000EFE0)
+TD57A740 000:056.677   [0][0]: E000E000 CID B105E00D PID 000BB00C SCS-M7
+TD57A740 000:056.683   CPU_ReadMem(32 bytes @ 0xE0001FE0)
+TD57A740 000:057.472   [0][1]: E0001000 CID B105E00D PID 003BB002 DWT
+TD57A740 000:057.475   CPU_ReadMem(32 bytes @ 0xE0002FE0)
+TD57A740 000:058.331   [0][2]: E0002000 CID B105E00D PID 002BB003 FPB
+TD57A740 000:058.342   CPU_ReadMem(32 bytes @ 0xE0000FE0)
+TD57A740 000:059.127   [0][3]: E0000000 CID B105E00D PID 003BB001 ITM
+TD57A740 000:059.131   CPU_ReadMem(32 bytes @ 0xE0040FE0)
+TD57A740 000:059.911   [0][4]: E0040000 CID B105900D PID 000BB9A1 TPIU
+TD57A740 000:059.917   CPU_ReadMem(32 bytes @ 0xE0041FE0)
+TD57A740 000:060.690   [0][5]: E0041000 CID B105900D PID 000BB925 ETM
+TD57A740 000:060.711 - 17.528ms returns 0x00
+TD57A740 000:060.717 JLINK_GetIdData(pIdData)
+TD57A740 000:060.891   pIdData->ScanLen=4
+TD57A740 000:060.896   pIdData->NumDevices=1
+TD57A740 000:060.899   pIdData->aId[0]=0x2BA01477
+TD57A740 000:060.901   pIdData->aIrRead[0]=0
+TD57A740 000:060.904   pIdData->aScanLen[0]=0
+TD57A740 000:060.906   pIdData->aScanRead[0]=0
+TD57A740 000:060.910 - 0.192ms 
+TD57A740 000:060.917 JLINK_GetMemZones(...)
+TD57A740 000:060.920 - 0.003ms returns 1
+TD57A740 000:060.929 JLINK_HasError()
+TD57A740 000:060.934 JLINK_CORE_GetFound()
+TD57A740 000:060.937 - 0.002ms returns 0xE0000FF
+TD57A740 000:060.962 JLINK_SetResetDelay(0)
+TD57A740 000:060.967 - 0.005ms 
+TD57A740 000:060.973 JLINK_Reset()
+TD57A740 000:060.989   JLINK_GetResetTypeDesc
+TD57A740 000:060.994   - 0.005ms 
+TD57A740 000:061.000   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TD57A740 000:061.006   CPU is running
+TD57A740 000:061.013   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:061.468   CPU is running
+TD57A740 000:061.474   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD57A740 000:061.931   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TD57A740 000:062.191   Reset: Reset device via AIRCR.SYSRESETREQ.
+TD57A740 000:062.196   CPU is running
+TD57A740 000:062.199   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TD57A740 000:119.192   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:119.692   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:126.144   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD57A740 000:131.836   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:138.102   CPU_WriteMem(4 bytes @ 0xE0002000)
+TD57A740 000:138.538   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TD57A740 000:138.980   CPU_ReadMem(4 bytes @ 0xE0001000)
+TD57A740 000:139.428 - 78.454ms 
+TD57A740 000:139.477 JLINK_Halt()
+TD57A740 000:139.484 - 0.008ms returns 0x00
+TD57A740 000:139.488 JLINK_GetDeviceFamily
+TD57A740 000:139.490 - 0.002ms returns 14
+TD57A740 000:139.493 JLINK_CORE_GetFound()
+TD57A740 000:139.495 - 0.002ms returns 0xE0000FF
+TD57A740 000:139.499 JLINK_GetDebugInfo(0x01 = Unknown)
+TD57A740 000:139.502   Value=0x00000001
+TD57A740 000:139.504 - 0.006ms returns 0
+TD57A740 000:139.508 JLINK_ReadRegs(NumRegs = 28)
+TD57A740 000:139.534   
+  R0 (0)         = 0x00                 R1 (1)         = 0x00                 R2 (2)         = 0x00                 R3 (3)         = 0x00              
+  R4 (4)         = 0x00                 R5 (5)         = 0x00                 R6 (6)         = 0x00                 R7 (7)         = 0x00              
+  R8 (8)         = 0x00                 R9 (9)         = 0x00                 R10 (10)       = 0x00                 R11 (11)       = 0x00              
+  R12 (12)       = 0x00                 R13 (SP) (13)  = 0x20001180           MSP (17)       = 0x20001180           PSP (18)       = 0x00              
+  R14 (14)       = 0xFFFFFFFF           R15 (PC) (15)  = 0x1350               XPSR (16)      = 0x1000000            APSR (21)      = 0x00              
+  EPSR (22)      = 0x1000000            IPSR (23)      = 0x00                 CFBP (20)      = 0x00                 CONTROL (27)   = 0x00              
+  FAULTMASK (26) = 0x00                 BASEPRI (25)   = 0x00                 PRIMASK (24)   = 0x00                 CycleCnt (65)  = 0x00              
+TD57A740 000:139.539 - 0.031ms returns 0x00
+TD57A740 000:139.551 JLINK_ReadRegs(NumRegs = 33)
+TD57A740 000:148.912   
+  FPS0 (33)  = 0x00                 FPS1 (34)  = 0x00                 FPS2 (35)  = 0x00                 FPS3 (36)  = 0x00              
+  FPS4 (37)  = 0x00                 FPS5 (38)  = 0x00                 FPS6 (39)  = 0x00                 FPS7 (40)  = 0x00              
+  FPS8 (41)  = 0x00                 FPS9 (42)  = 0x00                 FPS10 (43) = 0x00                 FPS11 (44) = 0x00              
+  FPS12 (45) = 0x00                 FPS13 (46) = 0x00                 FPS14 (47) = 0x00                 FPS15 (48) = 0x00              
+  FPS16 (49) = 0x00                 FPS17 (50) = 0x00                 FPS18 (51) = 0x00                 FPS19 (52) = 0x00              
+  FPS20 (53) = 0x00                 FPS21 (54) = 0x00                 FPS22 (55) = 0x00                 FPS23 (56) = 0x00              
+  FPS24 (57) = 0x00                 FPS25 (58) = 0x00                 FPS26 (59) = 0x00                 FPS27 (60) = 0x00              
+  FPS28 (61) = 0x00                 FPS29 (62) = 0x00                 FPS30 (63) = 0x00                 FPS31 (64) = 0x00              
+  FPSCR (32) = 0x00              
+TD57A740 000:148.926 - 9.374ms returns 0x00
+TD57A740 000:148.955 JLINK_Reset()
+TD57A740 000:148.963   JLINK_GetResetTypeDesc
+TD57A740 000:148.966   - 0.003ms 
+TD57A740 000:148.970   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TD57A740 000:148.974   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:149.449   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD57A740 000:149.925   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TD57A740 000:150.247   Reset: Reset device via AIRCR.SYSRESETREQ.
+TD57A740 000:150.252   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TD57A740 000:202.572   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:203.033   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:203.473   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD57A740 000:209.123   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:215.645   CPU_WriteMem(4 bytes @ 0xE0002000)
+TD57A740 000:216.183   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TD57A740 000:216.689   CPU_ReadMem(4 bytes @ 0xE0001000)
+TD57A740 000:217.182 - 68.227ms 
+TD57A740 000:217.200 JLINK_Halt()
+TD57A740 000:217.204 - 0.003ms returns 0x00
+TD57A740 000:217.230 JLINK_ExecCommand("SetVerifyRAMDownload = 1", ...). 
+TD57A740 000:217.244 - 0.003ms returns 0x00
+TD57A740 000:217.256 JLINK_DownloadFile()
+TD57A740 000:217.756   Data:  80 11 00 20 51 13 00 00 35 0E 00 00 3D 13 00 00 ...
+TD57A740 000:218.363   completely In flash
+TD57A740 000:218.387   Data:  03 38 FD D8 70 47 00 00 4F 50 56 34 43 4F 4D 20 ...
+TD57A740 000:218.394   completely In flash
+TD57A740 000:218.527   CPU_ReadMem(4 bytes @ 0xE000ED90)
+TD57A740 000:218.977   CPU_ReadMem(4 bytes @ 0xE000ED94)
+TD57A740 000:219.496    -- --------------------------------------
+TD57A740 000:219.526    -- Flash bank @ 0x00000000: Default: L2 verify disabled because algorithm performs L1 verify
+TD57A740 000:219.543    -- Start of determining dirty areas in flash cache
+TD57A740 000:219.552    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00000000 if necessary
+TD57A740 000:219.559    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00001000 if necessary
+TD57A740 000:219.566    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00002000 if necessary
+TD57A740 000:219.572    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00003000 if necessary
+TD57A740 000:219.578    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00004000 if necessary
+TD57A740 000:219.583    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00005000 if necessary
+TD57A740 000:219.589    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00006000 if necessary
+TD57A740 000:219.756    -- End of determining dirty areas
+TD57A740 000:219.762    -- Start of preparing flash programming
+TD57A740 000:219.767    -- Calculating RAM usage
+TD57A740 000:219.783    -- RAM usage = 3732 Bytes
+TD57A740 000:219.789    -- Preserving CPU registers
+TD57A740 000:219.811    -- Preparing target
+TD57A740 000:219.817    -- Preserving target RAM temporarily used for programming
+TD57A740 000:264.776    -- Downloading RAMCode
+TD57A740 000:294.860    -- Preparing RAMCode
+TD57A740 000:304.273    -- End of preparing flash programming
+TD57A740 000:315.148    -- CPU speed could not be measured.
+TD57A740 000:315.175    -- Start of comparing flash
+TD57A740 000:315.179    -- CRC check was estimated as fastest method
+TD57A740 000:316.953    -- Comparing range 0x0000 - 0x6FFF (7 Sectors, 28 KB), using multi-block CRC calculation
+TD57A740 000:337.798    -- CRC does not match for sector 0
+TD57A740 000:338.567    -- Comparing range 0x1000 - 0x6FFF (6 Sectors, 24 KB), using alternative multi-block CRC calculation
+TD57A740 000:352.170    -- All CRCs match
+TD57A740 000:352.196    -- End of comparing flash
+TD57A740 000:352.201    -- Start of erasing sectors
+TD57A740 000:352.207    -- Erasing range 0x00000000 - 0x00000FFF (  1 Sector, 4 KB)
+TD57A740 000:443.648    -- End of erasing sectors
+TD57A740 000:443.681    -- Start of flash programming
+TD57A740 000:443.688    -- Programming range 0x00000000 - 0x00000FFF (  1 Sector, 4 KB)
+TD57A740 000:495.768    -- End of flash programming
+TD57A740 000:495.800    -- 0x0000 - 0x0FFF (  1 Sector, 4 KB)
+TD57A740 000:495.805    -- Start of restoring
+TD57A740 000:495.811    -- Restoring RAMCode
+TD57A740 000:525.632    -- Restoring target memory
+TD57A740 000:571.559    -- Restore target
+TD57A740 000:571.596    -- Restoring CPU registers
+TD57A740 000:571.618    -- End of restoring
+TD57A740 000:571.630    -- Bank 0 @ 0x00000000: 1 range affected (4096 bytes)
+TD57A740 000:571.635    -- Total: 0.351s (Prepare: 0.095s, Compare: 0.037s, Erase: 0.091s, Program & Verify: 0.073s, Restore: 0.054s)
+TD57A740 000:571.644    -- Program & Verify speed: 55 KB/s
+TD57A740 000:572.287 - 355.031ms returns 0x00
+TD57A740 000:572.306 JLINK_ExecCommand("SetVerifyRAMDownload = 0", ...). 
+TD57A740 000:572.313 - 0.002ms returns 0x01
+TD57A740 000:572.341 JLINK_SetResetDelay(0)
+TD57A740 000:572.345 - 0.003ms 
+TD57A740 000:572.348 JLINK_Reset()
+TD57A740 000:572.357   JLINK_GetResetTypeDesc
+TD57A740 000:572.359   - 0.002ms 
+TD57A740 000:572.363   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TD57A740 000:572.370   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:572.805   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD57A740 000:573.731   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TD57A740 000:574.262   Reset: Reset device via AIRCR.SYSRESETREQ.
+TD57A740 000:574.273   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TD57A740 000:626.714   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:627.177   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:627.612   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD57A740 000:633.249   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD57A740 000:639.555   CPU_WriteMem(4 bytes @ 0xE0002000)
+TD57A740 000:640.090   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TD57A740 000:640.529   CPU_ReadMem(4 bytes @ 0xE0001000)
+TD57A740 000:641.107 - 68.757ms 
+TD57A740 000:641.179 JLINK_GoEx(MaxEmulInsts = 0, Flags = 0x01)
+TD57A740 000:641.194   CPU_ReadMem(4 bytes @ 0xE0001000)
+TD57A740 000:641.631   CPU_WriteMem(4 bytes @ 0xE0001004)
+TD57A740 000:642.905   Memory map 'after startup completion point' is active
+TD57A740 000:642.917 - 1.738ms 
+TD57A740 000:642.943 JLINK_IsOpen()
+TD57A740 000:642.947 - 0.004ms returns 0x01
+TD57A740 000:647.473 JLINK_Close()
+TD57A740 000:655.790 - 8.316ms
+TD57A740 000:655.807   
+TD57A740 000:655.808   Closed

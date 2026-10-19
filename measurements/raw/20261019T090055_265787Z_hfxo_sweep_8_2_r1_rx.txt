@@ -1,0 +1,40 @@
+*** Booting Zephyr OS build v4.2.0-5675-gcb772579f416 ***
+====================================
+MANCHESTER RX TEST
+====================================
+Half bit        = 8 us
+Sample period   = 2 us
+Samples / half  = 4
+Bitrate         = 62500 bit/s
+Frame duration  = 672 us
+Payload size    = 3 bytes
+Acquisition     = 5000 ms
+Timer frequency = 80000000 Hz
+Sample ticks    = 160
+Starting acquisition...
+====================================
+FINAL RESULTS
+====================================
+Duration          : 5001 ms
+Half bit          : 8 us
+Sample period     : 2 us
+Bitrate           : 62500 bit/s
+Expected frames   : 7441
+Complete frames   : 0
+Correct frames    : 0
+Incorrect frames  : 0
+GAP detected      : 0
+Manchester errors : 0
+Preamble errors   : 0
+SFD errors        : 0
+GPIO errors       : 0
+Samples acquired  : 1363687
+Payload bit errors: 0 (complete frames only)
+Goodput           : 0 bit/s
+Success estimate  : 0.0 %
+Accepted estimate : 0.0 %
+====================================
+CSV RESULT
+====================================
+half_bit_us,sample_us,duration_ms,bitrate_bps,expected_frames,complete_frames,correct_frames,incorrect_frames,gap_detected,manchester_errors,preamble_errors,sfd_errors,gpio_errors,samples_acquired,goodput_bps,success_permille,payload_bit_errors
+8,2,5001,62500,7441,0,0,0,0,0,0,0,0,1363687,0,0,0

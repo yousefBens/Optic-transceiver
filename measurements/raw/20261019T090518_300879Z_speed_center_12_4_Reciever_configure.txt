@@ -1,0 +1,23 @@
+Loading Zephyr default modules (Zephyr base (cached)).
+-- Application: /home/yousef/zephyrproject/apps/OPV4COM/Reciever
+-- CMake version: 3.28.3
+-- Cache files will be written to: /home/yousef/zephyrproject/apps/OPV4COM/Reciever/build/.cache
+-- Zephyr version: 4.2.99 (/home/yousef/zephyrproject/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: nucleo_l476rg, qualifiers: stm32l476xx
+-- Found host-tools: zephyr 0.17.4 (/home/yousef/zephyr-sdk-0.17.4)
+-- Found toolchain: zephyr 0.17.4 (/home/yousef/zephyr-sdk-0.17.4)
+-- Found BOARD.dts: /home/yousef/zephyrproject/zephyr/boards/st/nucleo_l476rg/nucleo_l476rg.dts
+-- Found devicetree overlay: boards/nucleo_l476rg.overlay
+-- Generated zephyr.dts: /home/yousef/zephyrproject/apps/OPV4COM/Reciever/build/zephyr/zephyr.dts
+-- Generated pickled edt: /home/yousef/zephyrproject/apps/OPV4COM/Reciever/build/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /home/yousef/zephyrproject/apps/OPV4COM/Reciever/build/zephyr/include/generated/zephyr/devicetree_generated.h
+Parsing /home/yousef/zephyrproject/zephyr/Kconfig
+Loaded configuration '/home/yousef/zephyrproject/apps/OPV4COM/Reciever/build/zephyr/.config'
+No change to configuration in '/home/yousef/zephyrproject/apps/OPV4COM/Reciever/build/zephyr/.config'
+No change to Kconfig header in '/home/yousef/zephyrproject/apps/OPV4COM/Reciever/build/zephyr/include/generated/zephyr/autoconf.h'
+-- Using ccache: /usr/bin/ccache
+-- Found gen_kobject_list: /home/yousef/zephyrproject/zephyr/scripts/build/gen_kobject_list.py
+-- Configuring done (3.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/yousef/zephyrproject/apps/OPV4COM/Reciever/build

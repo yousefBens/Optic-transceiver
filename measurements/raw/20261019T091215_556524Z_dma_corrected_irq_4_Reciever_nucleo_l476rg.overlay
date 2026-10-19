@@ -1,0 +1,51 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    chosen {
+        zephyr,console = &usart2;
+    };
+
+    zephyr,user {
+        data-gpios = <&gpioa 9 GPIO_ACTIVE_HIGH>;
+    };
+
+};
+
+
+&usart2 {
+    compatible = "st,stm32-usart", "st,stm32-uart";
+    reg = <0x40004400 0x400>;
+    clocks = <&rcc STM32_CLOCK(APB1, 17)>;
+    resets = <&rctl STM32_RESET(APB1L, 17)>;
+    interrupts = <38 0>;
+    status = "okay";
+};
+
+&timers2 {
+    compatible = "st,stm32-timers";
+    reg = <0x40000000 0x400>;
+    clocks = <&rcc STM32_CLOCK(APB1, 0)>,
+            <&rcc STM32_SRC_TIMPCLK1 NO_SEL>;
+    resets = <&rctl STM32_RESET(APB1L, 0)>;
+    interrupts = <28 0>;
+    interrupt-names = "global";
+    st,prescaler = <0>;
+    status = "okay";
+
+    pwm {
+        compatible = "st,stm32-pwm";
+        status = "disabled";
+        #pwm-cells = <3>;
+    };
+
+    t_bit: counter {
+        compatible = "st,stm32-counter";
+        status = "okay";
+    };
+
+    qdec {
+        compatible = "st,stm32-qdec";
+        st,input-filter-level = <NO_FILTER>;
+        status = "disabled";
+    };
+};

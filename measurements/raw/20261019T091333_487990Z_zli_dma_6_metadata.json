@@ -1,0 +1,37 @@
+{
+  "args": {
+    "half": 6,
+    "sample": 3,
+    "duration": 5000,
+    "zero_latency": true,
+    "hw_tx": true,
+    "edge_irq": true,
+    "edge_decoder": false,
+    "fast_gpio": false,
+    "hse": false,
+    "diagnostic": 0,
+    "repeat": 1,
+    "label": "zli_dma_6",
+    "baseline": false,
+    "keep_tx": false
+  },
+  "timestamp_utc": "20261019T091333_487990Z",
+  "sources": {
+    "Reciever": "5d085ff9f4c2edd6e36b0156cf2bf09743f093705242da0d9a5861598bc2aff7",
+    "T_test": "2ccbdb5333d0d990262ebfce54778c7c248e7086a56c28340dad952a6fbe2ea4"
+  },
+  "flashed_source_known": true,
+  "note": "",
+  "configuration_sources": {
+    "Reciever/prj.conf": "32c44e71c9d191a04d47e90c02d47534d07d8a9a965f9eee0feedbd6f515b08d",
+    "Reciever/CMakeLists.txt": "c714710650b51dd14abd42f89cddddf69cfbc44978a5fd2be16a4bb2c214fdc1",
+    "Reciever/boards/nucleo_l476rg.overlay": "b09e9eb6286c2a4054062d8a92fdb3eccd50bcea80c353d153b1af2e8bc57348",
+    "T_test/prj.conf": "bb4912c621c2cc8173641c9d7ec8c41b49b0f6634780addaa6ad55613a4d5f61",
+    "T_test/CMakeLists.txt": "c363a4c767929982c9298164c858938e0b92d2c91b9c3169f2e016d21d512a3a",
+    "T_test/boards/nrf52833dk_nrf52833.overlay": "05c5c0dcefa71730ab37eb3cb21ada677cd658a480055a469b006d8649986053"
+  },
+  "images": {
+    "Reciever": "d2552b759b0e33877d14f27a93710aa3fc63aafd44c00644238d1e9032b84bee",
+    "T_test": "c9ba73bc6e47b9dd5938cfb2252f2a9fa1c21814dd448c0e520af79aeff1e18a"
+  }
+}

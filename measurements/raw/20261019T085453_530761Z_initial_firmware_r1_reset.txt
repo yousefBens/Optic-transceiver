@@ -1,0 +1,31 @@
+Open On-Chip Debugger 0.12.0-01018-gb89d626c6 (2025-08-15-10:01)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 4000 kHz
+
+Info : clock speed 4000 kHz
+Info : STLINK V2J33M25 (API v2) VID:PID 0483:374B
+Info : Target voltage: 3.268254
+Warn : target stm32l4x.cpu examination failed
+Info : gdb port disabled
+Error: jtag status contains invalid mode value - communication failure
+Polling target stm32l4x.cpu failed, trying to reexamine
+Examination failed, GDB will be halted. Polling again in 100ms
+Info : Unable to match requested speed 500 kHz, using 480 kHz
+Info : Unable to match requested speed 500 kHz, using 480 kHz
+Error: read_memory: read at 0xe0042004 with width=32 and count=1 failed
+Error executing event examine-end on target stm32l4x.cpu:
+/home/yousef/zephyr-sdk-0.17.4/sysroots/x86_64-pokysdk-linux/usr/share/openocd/scripts/mem_helper.tcl:7: Error: read_memory: failed to read memory
+in procedure 'ocd_process_reset' 
+in procedure 'ocd_process_reset_inner' called at file "embedded:startup.tcl", line 1193
+in procedure 'mmw' called at file "/home/yousef/zephyr-sdk-0.17.4/sysroots/x86_64-pokysdk-linux/usr/share/openocd/scripts/target/stm32l4x.cfg", line 97
+in procedure 'mrw' called at file "/home/yousef/zephyr-sdk-0.17.4/sysroots/x86_64-pokysdk-linux/usr/share/openocd/scripts/mem_helper.tcl", line 32
+at file "/home/yousef/zephyr-sdk-0.17.4/sysroots/x86_64-pokysdk-linux/usr/share/openocd/scripts/mem_helper.tcl", line 7
+Info : Previous state query failed, trying to reconnect
+Polling target stm32l4x.cpu failed, trying to reexamine
+Info : [stm32l4x.cpu] Cortex-M4 r0p1 processor detected
+Info : [stm32l4x.cpu] target has 6 breakpoints, 4 watchpoints
+shutdown command invoked

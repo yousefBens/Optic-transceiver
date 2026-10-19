@@ -1,0 +1,277 @@
+TD67C1740 000:002.037   SEGGER J-Link V8.78 Log File
+TD67C1740 000:002.121   DLL Compiled: Oct 16 2025 08:35:50
+TD67C1740 000:002.123   Logging started @ 2026-10-19 09:12
+TD67C1740 000:002.124   Process: /opt/SEGGER/JLink_V878/JLinkExe
+TD67C1740 000:002.139 - 2.126ms 
+TD67C1740 000:002.173 JLINK_EMU_SelectByUSBSN(SerialNo = 685278459)
+TD67C1740 000:012.751 - 10.578ms returns 0x00
+TD67C1740 000:012.766 JLINK_SetWarnOutHandler(...)
+TD67C1740 000:012.767 - 0.001ms 
+TD67C1740 000:012.792 JLINK_OpenEx(...)
+TD67C1740 000:017.739   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+TD67C1740 000:020.524   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+TD67C1740 000:021.274   Hardware: V1.00
+TD67C1740 000:021.277   S/N: 685278459
+TD67C1740 000:021.279   OEM: SEGGER
+TD67C1740 000:021.280   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+TD67C1740 000:021.566   Bootloader: 2014 Sep 11
+TD67C1740 000:021.794   USB speed mode: High speed (480 MBit/s)
+TD67C1740 000:021.967   TELNET listener socket opened on port 19021
+TD67C1740 000:021.999   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+TD67C1740 000:022.032   WEBSRV Webserver running on local port 19080
+TD67C1740 000:022.040   Looking for J-Link GUI Server exe at: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+TD67C1740 000:022.043   Forking J-Link GUI Server: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+TD67C1740 000:036.716   J-Link GUI Server info: "J-Link GUI server V8.78 "
+TD67C1740 000:037.120 - 24.328ms returns "O.K."
+TD67C1740 000:037.165 JLINK_GetFirmwareString(...)
+TD67C1740 000:037.169 - 0.004ms 
+TD67C1740 000:037.174 JLINK_GetHardwareVersion()
+TD67C1740 000:037.176 - 0.002ms returns 10000
+TD67C1740 000:037.183 JLINK_GetHWInfo(...)
+TD67C1740 000:037.294 - 0.112ms returns 0
+TD67C1740 000:037.300 JLINK_GetSN()
+TD67C1740 000:037.303 - 0.003ms returns 685278459
+TD67C1740 000:037.307 JLINK_GetOEMString(...)
+TD67C1740 000:037.310 JLINK_EMU_GetCurrConnectionInfo()
+TD67C1740 000:037.399 - 0.089ms returns 0
+TD67C1740 000:037.404 JLINK_EMU_HasCapEx(0x00000026)
+TD67C1740 000:037.407 - 0.003ms returns 0
+TD67C1740 000:037.409 JLINK_GetEmuCaps()
+TD67C1740 000:037.410 - 0.001ms returns 0xB8EA5A33
+TD67C1740 000:037.412 JLINK_GetEmuCaps()
+TD67C1740 000:037.414 - 0.002ms returns 0xB8EA5A33
+TD67C1740 000:037.415 JLINK_GetHWStatus(...)
+TD67C1740 000:037.521 - 0.105ms returns 0
+TD67C1740 000:037.527 JLINK_EMU_HasCapEx(0x00000044)
+TD67C1740 000:037.532 - 0.004ms returns 0
+TD67C1740 000:037.560 JLINK_DEVICE_GetIndex(sDeviceName = nRF52833_xxAA)
+TD67C1740 000:047.343 - 9.782ms returns 4297
+TD67C1740 000:047.361 JLINK_ExecCommand("device=nRF52833_xxAA", ...). 
+TD67C1740 000:048.744   Device "NRF52833_XXAA" selected.
+TD67C1740 000:049.948 - 2.585ms returns 0x00
+TD67C1740 000:049.957 JLINK_EnableLog(...)
+TD67C1740 000:049.959 - 0.001ms 
+TD67C1740 000:049.963 JLINK_GetEmuCaps()
+TD67C1740 000:049.967 - 0.004ms returns 0xB8EA5A33
+TD67C1740 000:049.969 JLINK_TIF_GetAvailable(...)
+TD67C1740 000:050.078 - 0.108ms 
+TD67C1740 000:050.102 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+TD67C1740 000:050.401 - 0.300ms returns 0x00
+TD67C1740 000:050.415 JLINK_IsConnected()
+TD67C1740 000:050.419 - 0.003ms returns FALSE
+TD67C1740 000:050.423 JLINK_SetSpeed(4000)
+TD67C1740 000:050.466 - 0.044ms 
+TD67C1740 000:050.472 JLINK_Connect()
+TD67C1740 000:050.601   InitTarget() start
+TD67C1740 000:050.606    J-Link Script File: Executing InitTarget()
+TD67C1740 000:052.778   InitTarget() end - Took 2.16ms
+TD67C1740 000:053.301   Found SW-DP with ID 0x2BA01477
+TD67C1740 000:054.989   DPIDR: 0x2BA01477
+TD67C1740 000:055.015   CoreSight SoC-400 or earlier
+TD67C1740 000:055.034   Scanning AP map to find all available APs
+TD67C1740 000:055.820   AP[2]: Stopped AP scan as end of AP map has been reached
+TD67C1740 000:055.827   AP[0]: AHB-AP (IDR: 0x24770011, ADDR: 0x00000000)
+TD67C1740 000:055.833   AP[1]: JTAG-AP (IDR: 0x02880000, ADDR: 0x01000000)
+TD67C1740 000:055.840   Iterating through AP map to find AHB-AP to use
+TD67C1740 000:056.609   AP[0]: Core found
+TD67C1740 000:056.648   AP[0]: AHB-AP ROM base: 0xE00FF000
+TD67C1740 000:057.073   CPUID register: 0x410FC241. Implementer code: 0x41 (ARM)
+TD67C1740 000:057.093   Found Cortex-M4 r0p1, Little endian.
+TD67C1740 000:057.272   -- Max. mem block: 0x00004CC8
+TD67C1740 000:057.547   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD67C1740 000:057.981   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TD67C1740 000:058.476   CPU_ReadMem(4 bytes @ 0xE0002000)
+TD67C1740 000:058.925   FPUnit: 6 code (BP) slots and 2 literal slots
+TD67C1740 000:058.930   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TD67C1740 000:059.352   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD67C1740 000:059.810   CPU_ReadMem(4 bytes @ 0xE0001000)
+TD67C1740 000:060.249   CPU_WriteMem(4 bytes @ 0xE0001000)
+TD67C1740 000:060.703   CPU_ReadMem(4 bytes @ 0xE000ED88)
+TD67C1740 000:061.164   CPU_WriteMem(4 bytes @ 0xE000ED88)
+TD67C1740 000:061.633   CPU_ReadMem(4 bytes @ 0xE000ED88)
+TD67C1740 000:062.069   CPU_WriteMem(4 bytes @ 0xE000ED88)
+TD67C1740 000:062.512   CoreSight components:
+TD67C1740 000:062.533   ROMTbl[0] @ E00FF000
+TD67C1740 000:062.546   CPU_ReadMem(64 bytes @ 0xE00FF000)
+TD67C1740 000:063.710   CPU_ReadMem(32 bytes @ 0xE000EFE0)
+TD67C1740 000:064.515   [0][0]: E000E000 CID B105E00D PID 000BB00C SCS-M7
+TD67C1740 000:064.528   CPU_ReadMem(32 bytes @ 0xE0001FE0)
+TD67C1740 000:065.277   [0][1]: E0001000 CID B105E00D PID 003BB002 DWT
+TD67C1740 000:065.282   CPU_ReadMem(32 bytes @ 0xE0002FE0)
+TD67C1740 000:066.050   [0][2]: E0002000 CID B105E00D PID 002BB003 FPB
+TD67C1740 000:066.054   CPU_ReadMem(32 bytes @ 0xE0000FE0)
+TD67C1740 000:066.847   [0][3]: E0000000 CID B105E00D PID 003BB001 ITM
+TD67C1740 000:066.859   CPU_ReadMem(32 bytes @ 0xE0040FE0)
+TD67C1740 000:067.683   [0][4]: E0040000 CID B105900D PID 000BB9A1 TPIU
+TD67C1740 000:067.696   CPU_ReadMem(32 bytes @ 0xE0041FE0)
+TD67C1740 000:068.521   [0][5]: E0041000 CID B105900D PID 000BB925 ETM
+TD67C1740 000:068.564 - 18.092ms returns 0x00
+TD67C1740 000:068.573 JLINK_GetIdData(pIdData)
+TD67C1740 000:068.741   pIdData->ScanLen=4
+TD67C1740 000:068.746   pIdData->NumDevices=1
+TD67C1740 000:068.749   pIdData->aId[0]=0x2BA01477
+TD67C1740 000:068.752   pIdData->aIrRead[0]=0
+TD67C1740 000:068.756   pIdData->aScanLen[0]=0
+TD67C1740 000:068.759   pIdData->aScanRead[0]=0
+TD67C1740 000:068.763 - 0.191ms 
+TD67C1740 000:068.768 JLINK_GetMemZones(...)
+TD67C1740 000:068.772 - 0.004ms returns 1
+TD67C1740 000:068.795 JLINK_HasError()
+TD67C1740 000:068.801 JLINK_CORE_GetFound()
+TD67C1740 000:068.803 - 0.003ms returns 0xE0000FF
+TD67C1740 000:068.816 JLINK_SetResetDelay(0)
+TD67C1740 000:068.819 - 0.003ms 
+TD67C1740 000:068.823 JLINK_Reset()
+TD67C1740 000:068.835   JLINK_GetResetTypeDesc
+TD67C1740 000:068.841   - 0.006ms 
+TD67C1740 000:068.846   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TD67C1740 000:068.851   CPU is running
+TD67C1740 000:068.856   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TD67C1740 000:069.306   CPU is running
+TD67C1740 000:069.324   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD67C1740 000:069.822   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TD67C1740 000:070.122   Reset: Reset device via AIRCR.SYSRESETREQ.
+TD67C1740 000:070.126   CPU is running
+TD67C1740 000:070.132   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TD67C1740 000:124.956   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD67C1740 000:125.405   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD67C1740 000:131.861   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD67C1740 000:137.460   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD67C1740 000:143.709   CPU_WriteMem(4 bytes @ 0xE0002000)
+TD67C1740 000:144.151   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TD67C1740 000:144.574   CPU_ReadMem(4 bytes @ 0xE0001000)
+TD67C1740 000:145.000 - 76.176ms 
+TD67C1740 000:145.026 JLINK_Halt()
+TD67C1740 000:145.030 - 0.005ms returns 0x00
+TD67C1740 000:145.035 JLINK_GetDeviceFamily
+TD67C1740 000:145.039 - 0.004ms returns 14
+TD67C1740 000:145.043 JLINK_CORE_GetFound()
+TD67C1740 000:145.048 - 0.004ms returns 0xE0000FF
+TD67C1740 000:145.052 JLINK_GetDebugInfo(0x01 = Unknown)
+TD67C1740 000:145.067   Value=0x00000001
+TD67C1740 000:145.072 - 0.020ms returns 0
+TD67C1740 000:145.077 JLINK_ReadRegs(NumRegs = 28)
+TD67C1740 000:145.100   
+  R0 (0)         = 0x00                 R1 (1)         = 0x00                 R2 (2)         = 0x00                 R3 (3)         = 0x00              
+  R4 (4)         = 0x00                 R5 (5)         = 0x00                 R6 (6)         = 0x00                 R7 (7)         = 0x00              
+  R8 (8)         = 0x00                 R9 (9)         = 0x00                 R10 (10)       = 0x00                 R11 (11)       = 0x00              
+  R12 (12)       = 0x00                 R13 (SP) (13)  = 0x20001240           MSP (17)       = 0x20001240           PSP (18)       = 0x00              
+  R14 (14)       = 0xFFFFFFFF           R15 (PC) (15)  = 0x1294               XPSR (16)      = 0x1000000            APSR (21)      = 0x00              
+  EPSR (22)      = 0x1000000            IPSR (23)      = 0x00                 CFBP (20)      = 0x00                 CONTROL (27)   = 0x00              
+  FAULTMASK (26) = 0x00                 BASEPRI (25)   = 0x00                 PRIMASK (24)   = 0x00                 CycleCnt (65)  = 0x00              
+TD67C1740 000:145.107 - 0.029ms returns 0x00
+TD67C1740 000:145.150 JLINK_ReadRegs(NumRegs = 33)
+TD67C1740 000:154.543   
+  FPS0 (33)  = 0x00                 FPS1 (34)  = 0x00                 FPS2 (35)  = 0x00                 FPS3 (36)  = 0x00              
+  FPS4 (37)  = 0x00                 FPS5 (38)  = 0x00                 FPS6 (39)  = 0x00                 FPS7 (40)  = 0x00              
+  FPS8 (41)  = 0x00                 FPS9 (42)  = 0x00                 FPS10 (43) = 0x00                 FPS11 (44) = 0x00              
+  FPS12 (45) = 0x00                 FPS13 (46) = 0x00                 FPS14 (47) = 0x00                 FPS15 (48) = 0x00              
+  FPS16 (49) = 0x00                 FPS17 (50) = 0x00                 FPS18 (51) = 0x00                 FPS19 (52) = 0x00              
+  FPS20 (53) = 0x00                 FPS21 (54) = 0x00                 FPS22 (55) = 0x00                 FPS23 (56) = 0x00              
+  FPS24 (57) = 0x00                 FPS25 (58) = 0x00                 FPS26 (59) = 0x00                 FPS27 (60) = 0x00              
+  FPS28 (61) = 0x00                 FPS29 (62) = 0x00                 FPS30 (63) = 0x00                 FPS31 (64) = 0x00              
+  FPSCR (32) = 0x00              
+TD67C1740 000:154.550 - 9.400ms returns 0x00
+TD67C1740 000:154.587 JLINK_Reset()
+TD67C1740 000:154.595   JLINK_GetResetTypeDesc
+TD67C1740 000:154.598   - 0.003ms 
+TD67C1740 000:154.605   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TD67C1740 000:154.613   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TD67C1740 000:155.047   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD67C1740 000:155.478   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TD67C1740 000:155.776   Reset: Reset device via AIRCR.SYSRESETREQ.
+TD67C1740 000:155.782   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TD67C1740 000:211.836   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD67C1740 000:212.452   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD67C1740 000:212.973   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD67C1740 000:218.556   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD67C1740 000:224.826   CPU_WriteMem(4 bytes @ 0xE0002000)
+TD67C1740 000:225.281   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TD67C1740 000:225.721   CPU_ReadMem(4 bytes @ 0xE0001000)
+TD67C1740 000:226.155 - 71.567ms 
+TD67C1740 000:226.163 JLINK_Halt()
+TD67C1740 000:226.167 - 0.004ms returns 0x00
+TD67C1740 000:226.182 JLINK_ExecCommand("SetVerifyRAMDownload = 1", ...). 
+TD67C1740 000:226.190 - 0.002ms returns 0x00
+TD67C1740 000:226.199 JLINK_DownloadFile()
+TD67C1740 000:226.806   Data:  40 12 00 20 9D 12 00 00 81 0D 00 00 89 12 00 00 ...
+TD67C1740 000:227.445   completely In flash
+TD67C1740 000:227.458   Data:  03 38 FD D8 70 47 00 00 4F 50 56 34 43 4F 4D 20 ...
+TD67C1740 000:227.464   completely In flash
+TD67C1740 000:227.583   CPU_ReadMem(4 bytes @ 0xE000ED90)
+TD67C1740 000:228.053   CPU_ReadMem(4 bytes @ 0xE000ED94)
+TD67C1740 000:228.498    -- --------------------------------------
+TD67C1740 000:228.514    -- Flash bank @ 0x00000000: Default: L2 verify disabled because algorithm performs L1 verify
+TD67C1740 000:228.522    -- Start of determining dirty areas in flash cache
+TD67C1740 000:228.530    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00000000 if necessary
+TD67C1740 000:228.539    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00001000 if necessary
+TD67C1740 000:228.545    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00002000 if necessary
+TD67C1740 000:228.551    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00003000 if necessary
+TD67C1740 000:228.557    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00004000 if necessary
+TD67C1740 000:228.562    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00005000 if necessary
+TD67C1740 000:228.568    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00006000 if necessary
+TD67C1740 000:228.726    -- End of determining dirty areas
+TD67C1740 000:228.732    -- Start of preparing flash programming
+TD67C1740 000:228.737    -- Calculating RAM usage
+TD67C1740 000:228.752    -- RAM usage = 3732 Bytes
+TD67C1740 000:228.758    -- Preserving CPU registers
+TD67C1740 000:228.778    -- Preparing target
+TD67C1740 000:228.784    -- Preserving target RAM temporarily used for programming
+TD67C1740 000:273.831    -- Downloading RAMCode
+TD67C1740 000:304.327    -- Preparing RAMCode
+TD67C1740 000:314.322    -- End of preparing flash programming
+TD67C1740 000:323.349    -- CPU speed could not be measured.
+TD67C1740 000:323.373    -- Start of comparing flash
+TD67C1740 000:323.378    -- CRC check was estimated as fastest method
+TD67C1740 000:325.935    -- Comparing range 0x0000 - 0x6FFF (7 Sectors, 28 KB), using multi-block CRC calculation
+TD67C1740 000:335.786    -- CRC does not match for sectors 0-6
+TD67C1740 000:335.804    -- End of comparing flash
+TD67C1740 000:335.807    -- Start of erasing sectors
+TD67C1740 000:335.810    -- Erasing range 0x00000000 - 0x00006FFF (  7 Sectors, 28 KB)
+TD67C1740 000:951.528    -- End of erasing sectors
+TD67C1740 000:951.561    -- Start of flash programming
+TD67C1740 000:951.567    -- Programming range 0x00000000 - 0x00006FFF (  7 Sectors, 28 KB)
+TD67C1740 001:375.198    -- End of flash programming
+TD67C1740 001:375.231    -- 0x0000 - 0x6FFF (  7 Sectors, 28 KB)
+TD67C1740 001:375.237    -- Start of restoring
+TD67C1740 001:375.242    -- Restoring RAMCode
+TD67C1740 001:402.141    -- Restoring target memory
+TD67C1740 001:448.263    -- Restore target
+TD67C1740 001:448.296    -- Restoring CPU registers
+TD67C1740 001:448.312    -- End of restoring
+TD67C1740 001:448.323    -- Bank 0 @ 0x00000000: 1 range affected (28672 bytes)
+TD67C1740 001:448.327    -- Total: 1.219s (Prepare: 0.094s, Compare: 0.012s, Erase: 0.615s, Program & Verify: 0.442s, Restore: 0.053s)
+TD67C1740 001:448.332    -- Program & Verify speed: 63 KB/s
+TD67C1740 001:449.355 - 1223.155ms returns 0x00
+TD67C1740 001:449.372 JLINK_ExecCommand("SetVerifyRAMDownload = 0", ...). 
+TD67C1740 001:449.377 - 0.002ms returns 0x01
+TD67C1740 001:449.390 JLINK_SetResetDelay(0)
+TD67C1740 001:449.391 - 0.002ms 
+TD67C1740 001:449.394 JLINK_Reset()
+TD67C1740 001:449.401   JLINK_GetResetTypeDesc
+TD67C1740 001:449.403   - 0.002ms 
+TD67C1740 001:449.406   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TD67C1740 001:449.411   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TD67C1740 001:450.158   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD67C1740 001:450.873   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TD67C1740 001:452.454   Reset: Reset device via AIRCR.SYSRESETREQ.
+TD67C1740 001:452.463   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TD67C1740 001:508.815   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD67C1740 001:509.381   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD67C1740 001:510.480   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TD67C1740 001:516.143   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TD67C1740 001:522.429   CPU_WriteMem(4 bytes @ 0xE0002000)
+TD67C1740 001:522.881   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TD67C1740 001:523.307   CPU_ReadMem(4 bytes @ 0xE0001000)
+TD67C1740 001:523.762 - 74.367ms 
+TD67C1740 001:523.787 JLINK_GoEx(MaxEmulInsts = 0, Flags = 0x01)
+TD67C1740 001:523.798   CPU_ReadMem(4 bytes @ 0xE0001000)
+TD67C1740 001:524.220   CPU_WriteMem(4 bytes @ 0xE0001004)
+TD67C1740 001:525.457   Memory map 'after startup completion point' is active
+TD67C1740 001:525.469 - 1.682ms 
+TD67C1740 001:525.486 JLINK_IsOpen()
+TD67C1740 001:525.488 - 0.003ms returns 0x01
+TD67C1740 001:535.603 JLINK_Close()
+TD67C1740 001:546.039 - 10.434ms
+TD67C1740 001:546.055   
+TD67C1740 001:546.057   Closed

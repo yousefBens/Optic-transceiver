@@ -1,0 +1,279 @@
+T9792740 000:001.351   SEGGER J-Link V8.78 Log File
+T9792740 000:001.426   DLL Compiled: Oct 16 2025 08:35:50
+T9792740 000:001.429   Logging started @ 2026-10-19 09:05
+T9792740 000:001.430   Process: /opt/SEGGER/JLink_V878/JLinkExe
+T9792740 000:001.434 - 1.432ms 
+T9792740 000:001.457 JLINK_EMU_SelectByUSBSN(SerialNo = 685278459)
+T9792740 000:008.552 - 7.095ms returns 0x00
+T9792740 000:008.565 JLINK_SetWarnOutHandler(...)
+T9792740 000:008.566 - 0.001ms 
+T9792740 000:008.590 JLINK_OpenEx(...)
+T9792740 000:010.953   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+T9792740 000:011.283   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+T9792740 000:011.829   Hardware: V1.00
+T9792740 000:011.833   S/N: 685278459
+T9792740 000:011.834   OEM: SEGGER
+T9792740 000:011.836   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+T9792740 000:012.144   Bootloader: 2014 Sep 11
+T9792740 000:012.383   USB speed mode: High speed (480 MBit/s)
+T9792740 000:012.528   TELNET listener socket opened on port 19021
+T9792740 000:012.565   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T9792740 000:012.603   WEBSRV Webserver running on local port 19080
+T9792740 000:012.612   Looking for J-Link GUI Server exe at: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+T9792740 000:012.616   Forking J-Link GUI Server: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+T9792740 000:025.111   J-Link GUI Server info: "J-Link GUI server V8.78 "
+T9792740 000:025.595 - 17.005ms returns "O.K."
+T9792740 000:025.643 JLINK_GetFirmwareString(...)
+T9792740 000:025.649 - 0.006ms 
+T9792740 000:025.657 JLINK_GetHardwareVersion()
+T9792740 000:025.662 - 0.005ms returns 10000
+T9792740 000:025.669 JLINK_GetHWInfo(...)
+T9792740 000:025.802 - 0.133ms returns 0
+T9792740 000:025.810 JLINK_GetSN()
+T9792740 000:025.814 - 0.004ms returns 685278459
+T9792740 000:025.824 JLINK_GetOEMString(...)
+T9792740 000:025.829 JLINK_EMU_GetCurrConnectionInfo()
+T9792740 000:025.920 - 0.092ms returns 0
+T9792740 000:025.927 JLINK_EMU_HasCapEx(0x00000026)
+T9792740 000:025.931 - 0.003ms returns 0
+T9792740 000:025.934 JLINK_GetEmuCaps()
+T9792740 000:025.937 - 0.003ms returns 0xB8EA5A33
+T9792740 000:025.941 JLINK_GetEmuCaps()
+T9792740 000:025.943 - 0.002ms returns 0xB8EA5A33
+T9792740 000:025.947 JLINK_GetHWStatus(...)
+T9792740 000:026.041 - 0.094ms returns 0
+T9792740 000:026.045 JLINK_EMU_HasCapEx(0x00000044)
+T9792740 000:026.047 - 0.002ms returns 0
+T9792740 000:026.065 JLINK_DEVICE_GetIndex(sDeviceName = nRF52833_xxAA)
+T9792740 000:036.246 - 10.179ms returns 4297
+T9792740 000:036.271 JLINK_ExecCommand("device=nRF52833_xxAA", ...). 
+T9792740 000:037.741   Device "NRF52833_XXAA" selected.
+T9792740 000:038.963 - 2.689ms returns 0x00
+T9792740 000:038.974 JLINK_EnableLog(...)
+T9792740 000:038.976 - 0.002ms 
+T9792740 000:038.983 JLINK_GetEmuCaps()
+T9792740 000:038.986 - 0.002ms returns 0xB8EA5A33
+T9792740 000:038.988 JLINK_TIF_GetAvailable(...)
+T9792740 000:039.107 - 0.119ms 
+T9792740 000:039.112 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T9792740 000:039.418 - 0.306ms returns 0x00
+T9792740 000:039.427 JLINK_IsConnected()
+T9792740 000:039.429 - 0.001ms returns FALSE
+T9792740 000:039.431 JLINK_SetSpeed(4000)
+T9792740 000:039.458 - 0.027ms 
+T9792740 000:039.462 JLINK_Connect()
+T9792740 000:039.569   InitTarget() start
+T9792740 000:039.571    J-Link Script File: Executing InitTarget()
+T9792740 000:042.818   InitTarget() end - Took 3.22ms
+T9792740 000:043.346   Found SW-DP with ID 0x2BA01477
+T9792740 000:045.047   DPIDR: 0x2BA01477
+T9792740 000:045.053   CoreSight SoC-400 or earlier
+T9792740 000:045.060   Scanning AP map to find all available APs
+T9792740 000:045.897   AP[2]: Stopped AP scan as end of AP map has been reached
+T9792740 000:045.905   AP[0]: AHB-AP (IDR: 0x24770011, ADDR: 0x00000000)
+T9792740 000:045.913   AP[1]: JTAG-AP (IDR: 0x02880000, ADDR: 0x01000000)
+T9792740 000:045.919   Iterating through AP map to find AHB-AP to use
+T9792740 000:046.695   AP[0]: Core found
+T9792740 000:046.702   AP[0]: AHB-AP ROM base: 0xE00FF000
+T9792740 000:047.149   CPUID register: 0x410FC241. Implementer code: 0x41 (ARM)
+T9792740 000:047.171   Found Cortex-M4 r0p1, Little endian.
+T9792740 000:047.368   -- Max. mem block: 0x00004CC8
+T9792740 000:047.643   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9792740 000:048.063   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T9792740 000:048.494   CPU_ReadMem(4 bytes @ 0xE0002000)
+T9792740 000:048.948   FPUnit: 6 code (BP) slots and 2 literal slots
+T9792740 000:048.956   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T9792740 000:049.401   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9792740 000:049.848   CPU_ReadMem(4 bytes @ 0xE0001000)
+T9792740 000:050.298   CPU_WriteMem(4 bytes @ 0xE0001000)
+T9792740 000:050.756   CPU_ReadMem(4 bytes @ 0xE000ED88)
+T9792740 000:051.186   CPU_WriteMem(4 bytes @ 0xE000ED88)
+T9792740 000:051.622   CPU_ReadMem(4 bytes @ 0xE000ED88)
+T9792740 000:052.048   CPU_WriteMem(4 bytes @ 0xE000ED88)
+T9792740 000:052.499   CoreSight components:
+T9792740 000:052.506   ROMTbl[0] @ E00FF000
+T9792740 000:052.509   CPU_ReadMem(64 bytes @ 0xE00FF000)
+T9792740 000:053.644   CPU_ReadMem(32 bytes @ 0xE000EFE0)
+T9792740 000:054.440   [0][0]: E000E000 CID B105E00D PID 000BB00C SCS-M7
+T9792740 000:054.453   CPU_ReadMem(32 bytes @ 0xE0001FE0)
+T9792740 000:055.270   [0][1]: E0001000 CID B105E00D PID 003BB002 DWT
+T9792740 000:055.283   CPU_ReadMem(32 bytes @ 0xE0002FE0)
+T9792740 000:056.085   [0][2]: E0002000 CID B105E00D PID 002BB003 FPB
+T9792740 000:056.097   CPU_ReadMem(32 bytes @ 0xE0000FE0)
+T9792740 000:056.874   [0][3]: E0000000 CID B105E00D PID 003BB001 ITM
+T9792740 000:056.878   CPU_ReadMem(32 bytes @ 0xE0040FE0)
+T9792740 000:057.651   [0][4]: E0040000 CID B105900D PID 000BB9A1 TPIU
+T9792740 000:057.655   CPU_ReadMem(32 bytes @ 0xE0041FE0)
+T9792740 000:058.444   [0][5]: E0041000 CID B105900D PID 000BB925 ETM
+T9792740 000:058.485 - 19.024ms returns 0x00
+T9792740 000:058.498 JLINK_GetIdData(pIdData)
+T9792740 000:058.677   pIdData->ScanLen=4
+T9792740 000:058.683   pIdData->NumDevices=1
+T9792740 000:058.687   pIdData->aId[0]=0x2BA01477
+T9792740 000:058.691   pIdData->aIrRead[0]=0
+T9792740 000:058.695   pIdData->aScanLen[0]=0
+T9792740 000:058.700   pIdData->aScanRead[0]=0
+T9792740 000:058.704 - 0.205ms 
+T9792740 000:058.710 JLINK_GetMemZones(...)
+T9792740 000:058.714 - 0.005ms returns 1
+T9792740 000:058.722 JLINK_HasError()
+T9792740 000:058.728 JLINK_CORE_GetFound()
+T9792740 000:058.732 - 0.004ms returns 0xE0000FF
+T9792740 000:058.745 JLINK_SetResetDelay(0)
+T9792740 000:058.749 - 0.004ms 
+T9792740 000:058.754 JLINK_Reset()
+T9792740 000:058.769   JLINK_GetResetTypeDesc
+T9792740 000:058.774   - 0.005ms 
+T9792740 000:058.780   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T9792740 000:058.787   CPU is running
+T9792740 000:058.795   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T9792740 000:059.258   CPU is running
+T9792740 000:059.275   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9792740 000:059.775   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T9792740 000:060.068   Reset: Reset device via AIRCR.SYSRESETREQ.
+T9792740 000:060.071   CPU is running
+T9792740 000:060.075   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T9792740 000:115.816   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9792740 000:116.379   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9792740 000:122.824   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9792740 000:128.484   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9792740 000:134.700   CPU_WriteMem(4 bytes @ 0xE0002000)
+T9792740 000:135.160   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T9792740 000:135.625   CPU_ReadMem(4 bytes @ 0xE0001000)
+T9792740 000:136.073 - 77.318ms 
+T9792740 000:136.116 JLINK_Halt()
+T9792740 000:136.122 - 0.007ms returns 0x00
+T9792740 000:136.128 JLINK_GetDeviceFamily
+T9792740 000:136.132 - 0.004ms returns 14
+T9792740 000:136.136 JLINK_CORE_GetFound()
+T9792740 000:136.139 - 0.003ms returns 0xE0000FF
+T9792740 000:136.145 JLINK_GetDebugInfo(0x01 = Unknown)
+T9792740 000:136.149   Value=0x00000001
+T9792740 000:136.152 - 0.008ms returns 0
+T9792740 000:136.155 JLINK_ReadRegs(NumRegs = 28)
+T9792740 000:136.188   
+  R0 (0)         = 0x00                 R1 (1)         = 0x00                 R2 (2)         = 0x00                 R3 (3)         = 0x00              
+  R4 (4)         = 0x00                 R5 (5)         = 0x00                 R6 (6)         = 0x00                 R7 (7)         = 0x00              
+  R8 (8)         = 0x00                 R9 (9)         = 0x00                 R10 (10)       = 0x00                 R11 (11)       = 0x00              
+  R12 (12)       = 0x00                 R13 (SP) (13)  = 0x20001180           MSP (17)       = 0x20001180           PSP (18)       = 0x00              
+  R14 (14)       = 0xFFFFFFFF           R15 (PC) (15)  = 0x1350               XPSR (16)      = 0x1000000            APSR (21)      = 0x00              
+  EPSR (22)      = 0x1000000            IPSR (23)      = 0x00                 CFBP (20)      = 0x00                 CONTROL (27)   = 0x00              
+  FAULTMASK (26) = 0x00                 BASEPRI (25)   = 0x00                 PRIMASK (24)   = 0x00                 CycleCnt (65)  = 0x00              
+T9792740 000:136.194 - 0.039ms returns 0x00
+T9792740 000:136.213 JLINK_ReadRegs(NumRegs = 33)
+T9792740 000:145.774   
+  FPS0 (33)  = 0x00                 FPS1 (34)  = 0x00                 FPS2 (35)  = 0x00                 FPS3 (36)  = 0x00              
+  FPS4 (37)  = 0x00                 FPS5 (38)  = 0x00                 FPS6 (39)  = 0x00                 FPS7 (40)  = 0x00              
+  FPS8 (41)  = 0x00                 FPS9 (42)  = 0x00                 FPS10 (43) = 0x00                 FPS11 (44) = 0x00              
+  FPS12 (45) = 0x00                 FPS13 (46) = 0x00                 FPS14 (47) = 0x00                 FPS15 (48) = 0x00              
+  FPS16 (49) = 0x00                 FPS17 (50) = 0x00                 FPS18 (51) = 0x00                 FPS19 (52) = 0x00              
+  FPS20 (53) = 0x00                 FPS21 (54) = 0x00                 FPS22 (55) = 0x00                 FPS23 (56) = 0x00              
+  FPS24 (57) = 0x00                 FPS25 (58) = 0x00                 FPS26 (59) = 0x00                 FPS27 (60) = 0x00              
+  FPS28 (61) = 0x00                 FPS29 (62) = 0x00                 FPS30 (63) = 0x00                 FPS31 (64) = 0x00              
+  FPSCR (32) = 0x00              
+T9792740 000:145.799 - 9.586ms returns 0x00
+T9792740 000:145.834 JLINK_Reset()
+T9792740 000:145.844   JLINK_GetResetTypeDesc
+T9792740 000:145.847   - 0.003ms 
+T9792740 000:145.851   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T9792740 000:145.856   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T9792740 000:146.388   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9792740 000:146.884   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T9792740 000:147.171   Reset: Reset device via AIRCR.SYSRESETREQ.
+T9792740 000:147.175   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T9792740 000:200.556   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9792740 000:201.138   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9792740 000:201.655   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9792740 000:207.449   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9792740 000:214.031   CPU_WriteMem(4 bytes @ 0xE0002000)
+T9792740 000:214.618   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T9792740 000:215.149   CPU_ReadMem(4 bytes @ 0xE0001000)
+T9792740 000:215.693 - 69.859ms 
+T9792740 000:215.720 JLINK_Halt()
+T9792740 000:215.726 - 0.006ms returns 0x00
+T9792740 000:215.744 JLINK_ExecCommand("SetVerifyRAMDownload = 1", ...). 
+T9792740 000:215.756 - 0.004ms returns 0x00
+T9792740 000:215.770 JLINK_DownloadFile()
+T9792740 000:216.522   Data:  80 11 00 20 51 13 00 00 35 0E 00 00 3D 13 00 00 ...
+T9792740 000:217.332   completely In flash
+T9792740 000:217.351   Data:  03 38 FD D8 70 47 00 00 4F 50 56 34 43 4F 4D 20 ...
+T9792740 000:217.356   completely In flash
+T9792740 000:217.562   CPU_ReadMem(4 bytes @ 0xE000ED90)
+T9792740 000:218.002   CPU_ReadMem(4 bytes @ 0xE000ED94)
+T9792740 000:218.496    -- --------------------------------------
+T9792740 000:218.521    -- Flash bank @ 0x00000000: Default: L2 verify disabled because algorithm performs L1 verify
+T9792740 000:218.536    -- Start of determining dirty areas in flash cache
+T9792740 000:218.545    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00000000 if necessary
+T9792740 000:218.550    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00001000 if necessary
+T9792740 000:218.554    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00002000 if necessary
+T9792740 000:218.558    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00003000 if necessary
+T9792740 000:218.561    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00004000 if necessary
+T9792740 000:218.565    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00005000 if necessary
+T9792740 000:218.569    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00006000 if necessary
+T9792740 000:218.704    -- End of determining dirty areas
+T9792740 000:218.710    -- Start of preparing flash programming
+T9792740 000:218.714    -- Calculating RAM usage
+T9792740 000:218.730    -- RAM usage = 3732 Bytes
+T9792740 000:218.734    -- Preserving CPU registers
+T9792740 000:218.752    -- Preparing target
+T9792740 000:218.756    -- Preserving target RAM temporarily used for programming
+T9792740 000:263.678    -- Downloading RAMCode
+T9792740 000:293.960    -- Preparing RAMCode
+T9792740 000:303.400    -- End of preparing flash programming
+T9792740 000:315.618    -- CPU speed could not be measured.
+T9792740 000:315.647    -- Start of comparing flash
+T9792740 000:315.653    -- CRC check was estimated as fastest method
+T9792740 000:317.463    -- Comparing range 0x0000 - 0x6FFF (7 Sectors, 28 KB), using multi-block CRC calculation
+T9792740 000:335.295    -- CRC does not match for sector 0
+T9792740 000:336.088    -- Comparing range 0x1000 - 0x6FFF (6 Sectors, 24 KB), using alternative multi-block CRC calculation
+T9792740 000:350.166    -- All CRCs match
+T9792740 000:350.196    -- End of comparing flash
+T9792740 000:350.201    -- Start of erasing sectors
+T9792740 000:350.207    -- Erasing range 0x00000000 - 0x00000FFF (  1 Sector, 4 KB)
+T9792740 000:443.090    -- End of erasing sectors
+T9792740 000:443.126    -- Start of flash programming
+T9792740 000:443.133    -- Programming range 0x00000000 - 0x00000FFF (  1 Sector, 4 KB)
+T9792740 000:495.272    -- End of flash programming
+T9792740 000:495.303    -- 0x0000 - 0x0FFF (  1 Sector, 4 KB)
+T9792740 000:495.307    -- Start of restoring
+T9792740 000:495.312    -- Restoring RAMCode
+T9792740 000:524.341    -- Restoring target memory
+T9792740 000:570.259    -- Restore target
+T9792740 000:570.292    -- Restoring CPU registers
+T9792740 000:570.316    -- End of restoring
+T9792740 000:570.333    -- Bank 0 @ 0x00000000: 1 range affected (4096 bytes)
+T9792740 000:570.340    -- Total: 0.351s (Prepare: 0.096s, Compare: 0.034s, Erase: 0.092s, Program & Verify: 0.073s, Restore: 0.053s)
+T9792740 000:570.353    -- Program & Verify speed: 55 KB/s
+T9792740 000:570.887 - 355.117ms returns 0x00
+T9792740 000:570.910 JLINK_ExecCommand("SetVerifyRAMDownload = 0", ...). 
+T9792740 000:570.915 - 0.002ms returns 0x01
+T9792740 000:570.934 JLINK_SetResetDelay(0)
+T9792740 000:570.936 - 0.002ms 
+T9792740 000:570.938 JLINK_Reset()
+T9792740 000:570.946   JLINK_GetResetTypeDesc
+T9792740 000:570.947   - 0.002ms 
+T9792740 000:570.950   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T9792740 000:570.955   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T9792740 000:571.393   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9792740 000:571.834   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T9792740 000:572.102   Reset: Reset device via AIRCR.SYSRESETREQ.
+T9792740 000:572.104   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T9792740 000:624.241   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9792740 000:624.682   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9792740 000:625.144   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T9792740 000:630.742   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T9792740 000:636.983   CPU_WriteMem(4 bytes @ 0xE0002000)
+T9792740 000:637.538   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T9792740 000:637.954   CPU_ReadMem(4 bytes @ 0xE0001000)
+T9792740 000:638.389 - 67.450ms 
+T9792740 000:638.447 JLINK_GoEx(MaxEmulInsts = 0, Flags = 0x01)
+T9792740 000:638.464   CPU_ReadMem(4 bytes @ 0xE0001000)
+T9792740 000:638.890   CPU_WriteMem(4 bytes @ 0xE0001004)
+T9792740 000:640.091   Memory map 'after startup completion point' is active
+T9792740 000:640.098 - 1.651ms 
+T9792740 000:640.114 JLINK_IsOpen()
+T9792740 000:640.118 - 0.005ms returns 0x01
+T9792740 000:647.521 JLINK_Close()
+T9792740 000:656.102 - 8.581ms
+T9792740 000:656.117   
+T9792740 000:656.119   Closed

@@ -1,0 +1,24 @@
+{
+  "args": {
+    "half": 16,
+    "sample": 4,
+    "duration": 5000,
+    "hse": false,
+    "diagnostic": 0,
+    "repeat": 1,
+    "label": "hfxo_sweep_16_4",
+    "baseline": false,
+    "keep_tx": false
+  },
+  "timestamp_utc": "20261019T090023_189095Z",
+  "sources": {
+    "Reciever": "d70ca03fcc95ca38486bc0b5e7a858205d5ed99a073df7d6a447d5d569273264",
+    "T_test": "3de5769f9d1ec5596bfc84061e510cb9686908898f9a326b14a574b988d3aa03"
+  },
+  "flashed_source_known": true,
+  "note": "",
+  "images": {
+    "Reciever": "90ff572c8a34a0710799951a3c83ceb33778dc9a8233ae40a3e1394f581705f0",
+    "T_test": "b16f2d61f305a693522b0885fae8d1f100839ca351efe24173283243fcf80c3d"
+  }
+}

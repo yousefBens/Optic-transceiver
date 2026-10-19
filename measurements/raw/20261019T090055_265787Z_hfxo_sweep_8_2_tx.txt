@@ -1,0 +1,17 @@
+*** Booting Zephyr OS build v4.2.0-5675-gcb772579f416 ***
+
+OPV4COM Manchester TX
+
+TX clock: HFXO crystal
+Timer frequency = 16000000 Hz
+Half bit = 8 us
+Half bit ticks = 128
+Bit period = 16 us
+Bit rate = 62500 bit/s
+Preamble = 0x55
+SFD = 0xD3
+Payload size = 3 bytes
+Payload = FF 16 C1 
+
+Transmitter running
+

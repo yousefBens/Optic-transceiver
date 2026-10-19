@@ -1,0 +1,34 @@
+Open On-Chip Debugger 0.12.0-01018-gb89d626c6 (2025-08-15-10:01)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+srst_only separate srst_nogate srst_open_drain connect_deassert_srst
+
+adapter speed: 4000 kHz
+
+Info : clock speed 4000 kHz
+Info : STLINK V2J33M25 (API v2) VID:PID 0483:374B
+Info : Target voltage: 3.269841
+Info : [stm32l4x.cpu] Cortex-M4 r0p1 processor detected
+Info : [stm32l4x.cpu] target has 6 breakpoints, 4 watchpoints
+Info : gdb port disabled
+Info : Unable to match requested speed 500 kHz, using 480 kHz
+Info : Unable to match requested speed 500 kHz, using 480 kHz
+[stm32l4x.cpu] halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x08001348 msp: 0x20002200
+** Programming Started **
+Info : device idcode = 0x10076415 (STM32L47/L48xx - Rev 4 : 0x1007)
+Info : RDP level 0 (0xAA)
+Info : flash size = 1024 KiB
+Info : flash mode : dual-bank
+Info : Padding image section 2 at 0x08006254 with 4 bytes (bank write end alignment)
+Warn : Adding extra erase range, 0x08006258 .. 0x080067ff
+** Programming Finished **
+** Verify Started **
+** Verified OK **
+** Resetting Target **
+Info : Unable to match requested speed 500 kHz, using 480 kHz
+Info : Unable to match requested speed 500 kHz, using 480 kHz
+shutdown command invoked

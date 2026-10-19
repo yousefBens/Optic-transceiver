@@ -1,0 +1,278 @@
+T5C758740 000:002.649   SEGGER J-Link V8.78 Log File
+T5C758740 000:002.768   DLL Compiled: Oct 16 2025 08:35:50
+T5C758740 000:002.772   Logging started @ 2026-10-19 09:00
+T5C758740 000:002.775   Process: /opt/SEGGER/JLink_V878/JLinkExe
+T5C758740 000:002.782 - 2.778ms 
+T5C758740 000:002.829 JLINK_EMU_SelectByUSBSN(SerialNo = 685278459)
+T5C758740 000:011.009 - 8.180ms returns 0x00
+T5C758740 000:011.026 JLINK_SetWarnOutHandler(...)
+T5C758740 000:011.027 - 0.002ms 
+T5C758740 000:011.054 JLINK_OpenEx(...)
+T5C758740 000:013.468   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+T5C758740 000:013.884   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+T5C758740 000:014.440   Hardware: V1.00
+T5C758740 000:014.447   S/N: 685278459
+T5C758740 000:014.452   OEM: SEGGER
+T5C758740 000:014.457   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+T5C758740 000:014.764   Bootloader: 2014 Sep 11
+T5C758740 000:015.016   USB speed mode: High speed (480 MBit/s)
+T5C758740 000:015.174   TELNET listener socket opened on port 19021
+T5C758740 000:015.203   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T5C758740 000:015.237   WEBSRV Webserver running on local port 19080
+T5C758740 000:015.245   Looking for J-Link GUI Server exe at: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+T5C758740 000:015.249   Forking J-Link GUI Server: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+T5C758740 000:028.226   J-Link GUI Server info: "J-Link GUI server V8.78 "
+T5C758740 000:028.870 - 17.815ms returns "O.K."
+T5C758740 000:028.925 JLINK_GetFirmwareString(...)
+T5C758740 000:028.931 - 0.007ms 
+T5C758740 000:028.941 JLINK_GetHardwareVersion()
+T5C758740 000:028.946 - 0.004ms returns 10000
+T5C758740 000:028.953 JLINK_GetHWInfo(...)
+T5C758740 000:029.070 - 0.116ms returns 0
+T5C758740 000:029.080 JLINK_GetSN()
+T5C758740 000:029.085 - 0.004ms returns 685278459
+T5C758740 000:029.095 JLINK_GetOEMString(...)
+T5C758740 000:029.101 JLINK_EMU_GetCurrConnectionInfo()
+T5C758740 000:029.198 - 0.098ms returns 0
+T5C758740 000:029.211 JLINK_EMU_HasCapEx(0x00000026)
+T5C758740 000:029.217 - 0.006ms returns 0
+T5C758740 000:029.221 JLINK_GetEmuCaps()
+T5C758740 000:029.227 - 0.006ms returns 0xB8EA5A33
+T5C758740 000:029.232 JLINK_GetEmuCaps()
+T5C758740 000:029.237 - 0.004ms returns 0xB8EA5A33
+T5C758740 000:029.243 JLINK_GetHWStatus(...)
+T5C758740 000:029.340 - 0.097ms returns 0
+T5C758740 000:029.345 JLINK_EMU_HasCapEx(0x00000044)
+T5C758740 000:029.348 - 0.003ms returns 0
+T5C758740 000:029.367 JLINK_DEVICE_GetIndex(sDeviceName = nRF52833_xxAA)
+T5C758740 000:044.575 - 15.207ms returns 4297
+T5C758740 000:044.605 JLINK_ExecCommand("device=nRF52833_xxAA", ...). 
+T5C758740 000:046.029   Device "NRF52833_XXAA" selected.
+T5C758740 000:047.210 - 2.602ms returns 0x00
+T5C758740 000:047.218 JLINK_EnableLog(...)
+T5C758740 000:047.219 - 0.001ms 
+T5C758740 000:047.224 JLINK_GetEmuCaps()
+T5C758740 000:047.227 - 0.003ms returns 0xB8EA5A33
+T5C758740 000:047.229 JLINK_TIF_GetAvailable(...)
+T5C758740 000:047.350 - 0.121ms 
+T5C758740 000:047.353 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T5C758740 000:047.639 - 0.286ms returns 0x00
+T5C758740 000:047.645 JLINK_IsConnected()
+T5C758740 000:047.646 - 0.001ms returns FALSE
+T5C758740 000:047.648 JLINK_SetSpeed(4000)
+T5C758740 000:047.680 - 0.032ms 
+T5C758740 000:047.683 JLINK_Connect()
+T5C758740 000:047.792   InitTarget() start
+T5C758740 000:047.794    J-Link Script File: Executing InitTarget()
+T5C758740 000:049.940   InitTarget() end - Took 2.14ms
+T5C758740 000:050.442   Found SW-DP with ID 0x2BA01477
+T5C758740 000:052.131   DPIDR: 0x2BA01477
+T5C758740 000:052.140   CoreSight SoC-400 or earlier
+T5C758740 000:052.151   Scanning AP map to find all available APs
+T5C758740 000:052.971   AP[2]: Stopped AP scan as end of AP map has been reached
+T5C758740 000:052.975   AP[0]: AHB-AP (IDR: 0x24770011, ADDR: 0x00000000)
+T5C758740 000:052.978   AP[1]: JTAG-AP (IDR: 0x02880000, ADDR: 0x01000000)
+T5C758740 000:052.982   Iterating through AP map to find AHB-AP to use
+T5C758740 000:053.752   AP[0]: Core found
+T5C758740 000:053.772   AP[0]: AHB-AP ROM base: 0xE00FF000
+T5C758740 000:054.175   CPUID register: 0x410FC241. Implementer code: 0x41 (ARM)
+T5C758740 000:054.185   Found Cortex-M4 r0p1, Little endian.
+T5C758740 000:054.414   -- Max. mem block: 0x00004CC8
+T5C758740 000:054.672   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:055.105   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:055.567   CPU_ReadMem(4 bytes @ 0xE0002000)
+T5C758740 000:056.006   FPUnit: 6 code (BP) slots and 2 literal slots
+T5C758740 000:056.012   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T5C758740 000:056.449   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T5C758740 000:056.915   CPU_ReadMem(4 bytes @ 0xE0001000)
+T5C758740 000:057.356   CPU_WriteMem(4 bytes @ 0xE0001000)
+T5C758740 000:058.015   CPU_ReadMem(4 bytes @ 0xE000ED88)
+T5C758740 000:058.440   CPU_WriteMem(4 bytes @ 0xE000ED88)
+T5C758740 000:058.891   CPU_ReadMem(4 bytes @ 0xE000ED88)
+T5C758740 000:059.312   CPU_WriteMem(4 bytes @ 0xE000ED88)
+T5C758740 000:059.768   CoreSight components:
+T5C758740 000:059.788   ROMTbl[0] @ E00FF000
+T5C758740 000:059.794   CPU_ReadMem(64 bytes @ 0xE00FF000)
+T5C758740 000:060.949   CPU_ReadMem(32 bytes @ 0xE000EFE0)
+T5C758740 000:061.741   [0][0]: E000E000 CID B105E00D PID 000BB00C SCS-M7
+T5C758740 000:061.747   CPU_ReadMem(32 bytes @ 0xE0001FE0)
+T5C758740 000:062.547   [0][1]: E0001000 CID B105E00D PID 003BB002 DWT
+T5C758740 000:062.556   CPU_ReadMem(32 bytes @ 0xE0002FE0)
+T5C758740 000:063.378   [0][2]: E0002000 CID B105E00D PID 002BB003 FPB
+T5C758740 000:063.394   CPU_ReadMem(32 bytes @ 0xE0000FE0)
+T5C758740 000:064.171   [0][3]: E0000000 CID B105E00D PID 003BB001 ITM
+T5C758740 000:064.176   CPU_ReadMem(32 bytes @ 0xE0040FE0)
+T5C758740 000:064.968   [0][4]: E0040000 CID B105900D PID 000BB9A1 TPIU
+T5C758740 000:064.982   CPU_ReadMem(32 bytes @ 0xE0041FE0)
+T5C758740 000:065.769   [0][5]: E0041000 CID B105900D PID 000BB925 ETM
+T5C758740 000:065.841 - 18.157ms returns 0x00
+T5C758740 000:065.855 JLINK_GetIdData(pIdData)
+T5C758740 000:066.017   pIdData->ScanLen=4
+T5C758740 000:066.023   pIdData->NumDevices=1
+T5C758740 000:066.027   pIdData->aId[0]=0x2BA01477
+T5C758740 000:066.031   pIdData->aIrRead[0]=0
+T5C758740 000:066.034   pIdData->aScanLen[0]=0
+T5C758740 000:066.039   pIdData->aScanRead[0]=0
+T5C758740 000:066.042 - 0.187ms 
+T5C758740 000:066.049 JLINK_GetMemZones(...)
+T5C758740 000:066.053 - 0.004ms returns 1
+T5C758740 000:066.078 JLINK_HasError()
+T5C758740 000:066.086 JLINK_CORE_GetFound()
+T5C758740 000:066.088 - 0.003ms returns 0xE0000FF
+T5C758740 000:066.101 JLINK_SetResetDelay(0)
+T5C758740 000:066.105 - 0.004ms 
+T5C758740 000:066.110 JLINK_Reset()
+T5C758740 000:066.124   JLINK_GetResetTypeDesc
+T5C758740 000:066.130   - 0.007ms 
+T5C758740 000:066.136   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T5C758740 000:066.142   CPU is running
+T5C758740 000:066.147   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:066.608   CPU is running
+T5C758740 000:066.626   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T5C758740 000:067.092   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T5C758740 000:067.396   Reset: Reset device via AIRCR.SYSRESETREQ.
+T5C758740 000:067.401   CPU is running
+T5C758740 000:067.404   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T5C758740 000:120.446   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:121.108   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:127.400   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T5C758740 000:133.058   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:139.308   CPU_WriteMem(4 bytes @ 0xE0002000)
+T5C758740 000:139.747   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T5C758740 000:140.168   CPU_ReadMem(4 bytes @ 0xE0001000)
+T5C758740 000:140.606 - 74.496ms 
+T5C758740 000:140.634 JLINK_Halt()
+T5C758740 000:140.639 - 0.005ms returns 0x00
+T5C758740 000:140.643 JLINK_GetDeviceFamily
+T5C758740 000:140.645 - 0.002ms returns 14
+T5C758740 000:140.648 JLINK_CORE_GetFound()
+T5C758740 000:140.651 - 0.003ms returns 0xE0000FF
+T5C758740 000:140.655 JLINK_GetDebugInfo(0x01 = Unknown)
+T5C758740 000:140.668   Value=0x00000001
+T5C758740 000:140.674 - 0.020ms returns 0
+T5C758740 000:140.679 JLINK_ReadRegs(NumRegs = 28)
+T5C758740 000:140.699   
+  R0 (0)         = 0x00                 R1 (1)         = 0x00                 R2 (2)         = 0x00                 R3 (3)         = 0x00              
+  R4 (4)         = 0x00                 R5 (5)         = 0x00                 R6 (6)         = 0x00                 R7 (7)         = 0x00              
+  R8 (8)         = 0x00                 R9 (9)         = 0x00                 R10 (10)       = 0x00                 R11 (11)       = 0x00              
+  R12 (12)       = 0x00                 R13 (SP) (13)  = 0x20001180           MSP (17)       = 0x20001180           PSP (18)       = 0x00              
+  R14 (14)       = 0xFFFFFFFF           R15 (PC) (15)  = 0xF24                XPSR (16)      = 0x1000000            APSR (21)      = 0x00              
+  EPSR (22)      = 0x1000000            IPSR (23)      = 0x00                 CFBP (20)      = 0x00                 CONTROL (27)   = 0x00              
+  FAULTMASK (26) = 0x00                 BASEPRI (25)   = 0x00                 PRIMASK (24)   = 0x00                 CycleCnt (65)  = 0x00              
+T5C758740 000:140.704 - 0.025ms returns 0x00
+T5C758740 000:140.719 JLINK_ReadRegs(NumRegs = 33)
+T5C758740 000:150.115   
+  FPS0 (33)  = 0x00                 FPS1 (34)  = 0x00                 FPS2 (35)  = 0x00                 FPS3 (36)  = 0x00              
+  FPS4 (37)  = 0x00                 FPS5 (38)  = 0x00                 FPS6 (39)  = 0x00                 FPS7 (40)  = 0x00              
+  FPS8 (41)  = 0x00                 FPS9 (42)  = 0x00                 FPS10 (43) = 0x00                 FPS11 (44) = 0x00              
+  FPS12 (45) = 0x00                 FPS13 (46) = 0x00                 FPS14 (47) = 0x00                 FPS15 (48) = 0x00              
+  FPS16 (49) = 0x00                 FPS17 (50) = 0x00                 FPS18 (51) = 0x00                 FPS19 (52) = 0x00              
+  FPS20 (53) = 0x00                 FPS21 (54) = 0x00                 FPS22 (55) = 0x00                 FPS23 (56) = 0x00              
+  FPS24 (57) = 0x00                 FPS25 (58) = 0x00                 FPS26 (59) = 0x00                 FPS27 (60) = 0x00              
+  FPS28 (61) = 0x00                 FPS29 (62) = 0x00                 FPS30 (63) = 0x00                 FPS31 (64) = 0x00              
+  FPSCR (32) = 0x00              
+T5C758740 000:150.133 - 9.414ms returns 0x00
+T5C758740 000:150.166 JLINK_Reset()
+T5C758740 000:150.176   JLINK_GetResetTypeDesc
+T5C758740 000:150.179   - 0.003ms 
+T5C758740 000:150.182   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T5C758740 000:150.190   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:150.614   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T5C758740 000:151.098   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T5C758740 000:151.398   Reset: Reset device via AIRCR.SYSRESETREQ.
+T5C758740 000:151.403   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T5C758740 000:204.111   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:204.573   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:205.010   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T5C758740 000:210.633   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:216.923   CPU_WriteMem(4 bytes @ 0xE0002000)
+T5C758740 000:217.411   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T5C758740 000:217.864   CPU_ReadMem(4 bytes @ 0xE0001000)
+T5C758740 000:218.306 - 68.140ms 
+T5C758740 000:218.322 JLINK_Halt()
+T5C758740 000:218.330 - 0.008ms returns 0x00
+T5C758740 000:218.364 JLINK_ExecCommand("SetVerifyRAMDownload = 1", ...). 
+T5C758740 000:218.372 - 0.002ms returns 0x00
+T5C758740 000:218.380 JLINK_DownloadFile()
+T5C758740 000:218.795   Data:  80 11 00 20 25 0F 00 00 B7 43 00 00 11 0F 00 00 ...
+T5C758740 000:219.314   completely In flash
+T5C758740 000:219.328   Data:  03 38 FD D8 70 47 00 00 00 00 00 20 00 00 00 00 ...
+T5C758740 000:219.336   completely In flash
+T5C758740 000:219.446   CPU_ReadMem(4 bytes @ 0xE000ED90)
+T5C758740 000:219.887   CPU_ReadMem(4 bytes @ 0xE000ED94)
+T5C758740 000:220.365    -- --------------------------------------
+T5C758740 000:220.399    -- Flash bank @ 0x00000000: Default: L2 verify disabled because algorithm performs L1 verify
+T5C758740 000:220.415    -- Start of determining dirty areas in flash cache
+T5C758740 000:220.425    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00000000 if necessary
+T5C758740 000:220.431    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00001000 if necessary
+T5C758740 000:220.436    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00002000 if necessary
+T5C758740 000:220.440    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00003000 if necessary
+T5C758740 000:220.445    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00004000 if necessary
+T5C758740 000:220.449    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00005000 if necessary
+T5C758740 000:220.563    -- End of determining dirty areas
+T5C758740 000:220.568    -- Start of preparing flash programming
+T5C758740 000:220.572    -- Calculating RAM usage
+T5C758740 000:220.591    -- RAM usage = 3732 Bytes
+T5C758740 000:220.595    -- Preserving CPU registers
+T5C758740 000:220.612    -- Preparing target
+T5C758740 000:220.617    -- Preserving target RAM temporarily used for programming
+T5C758740 000:265.472    -- Downloading RAMCode
+T5C758740 000:295.360    -- Preparing RAMCode
+T5C758740 000:304.638    -- End of preparing flash programming
+T5C758740 000:314.949    -- CPU speed could not be measured.
+T5C758740 000:314.981    -- Start of comparing flash
+T5C758740 000:314.985    -- CRC check was estimated as fastest method
+T5C758740 000:316.840    -- Comparing range 0x0000 - 0x5FFF (6 Sectors, 24 KB), using multi-block CRC calculation
+T5C758740 000:330.870    -- CRC does not match for sector 0
+T5C758740 000:331.381    -- Comparing range 0x1000 - 0x5FFF (5 Sectors, 20 KB), using alternative multi-block CRC calculation
+T5C758740 000:344.113    -- All CRCs match
+T5C758740 000:344.135    -- End of comparing flash
+T5C758740 000:344.139    -- Start of erasing sectors
+T5C758740 000:344.144    -- Erasing range 0x00000000 - 0x00000FFF (  1 Sector, 4 KB)
+T5C758740 000:436.846    -- End of erasing sectors
+T5C758740 000:436.881    -- Start of flash programming
+T5C758740 000:436.888    -- Programming range 0x00000000 - 0x00000FFF (  1 Sector, 4 KB)
+T5C758740 000:487.855    -- End of flash programming
+T5C758740 000:487.891    -- 0x0000 - 0x0FFF (  1 Sector, 4 KB)
+T5C758740 000:487.899    -- Start of restoring
+T5C758740 000:487.906    -- Restoring RAMCode
+T5C758740 000:516.476    -- Restoring target memory
+T5C758740 000:562.515    -- Restore target
+T5C758740 000:562.537    -- Restoring CPU registers
+T5C758740 000:562.563    -- End of restoring
+T5C758740 000:562.582    -- Bank 0 @ 0x00000000: 1 range affected (4096 bytes)
+T5C758740 000:562.592    -- Total: 0.342s (Prepare: 0.094s, Compare: 0.029s, Erase: 0.092s, Program & Verify: 0.071s, Restore: 0.054s)
+T5C758740 000:562.604    -- Program & Verify speed: 56 KB/s
+T5C758740 000:563.681 - 345.300ms returns 0x00
+T5C758740 000:563.708 JLINK_ExecCommand("SetVerifyRAMDownload = 0", ...). 
+T5C758740 000:563.716 - 0.003ms returns 0x01
+T5C758740 000:563.736 JLINK_SetResetDelay(0)
+T5C758740 000:563.740 - 0.004ms 
+T5C758740 000:563.743 JLINK_Reset()
+T5C758740 000:563.752   JLINK_GetResetTypeDesc
+T5C758740 000:563.756   - 0.005ms 
+T5C758740 000:563.763   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+T5C758740 000:563.771   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:564.318   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T5C758740 000:564.908   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+T5C758740 000:565.490   Reset: Reset device via AIRCR.SYSRESETREQ.
+T5C758740 000:565.501   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+T5C758740 000:618.695   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:619.176   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:619.650   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+T5C758740 000:625.279   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+T5C758740 000:631.560   CPU_WriteMem(4 bytes @ 0xE0002000)
+T5C758740 000:632.015   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+T5C758740 000:632.443   CPU_ReadMem(4 bytes @ 0xE0001000)
+T5C758740 000:632.900 - 69.156ms 
+T5C758740 000:632.958 JLINK_GoEx(MaxEmulInsts = 0, Flags = 0x01)
+T5C758740 000:632.976   CPU_ReadMem(4 bytes @ 0xE0001000)
+T5C758740 000:633.426   CPU_WriteMem(4 bytes @ 0xE0001004)
+T5C758740 000:634.656   Memory map 'after startup completion point' is active
+T5C758740 000:634.660 - 1.702ms 
+T5C758740 000:634.673 JLINK_IsOpen()
+T5C758740 000:634.676 - 0.002ms returns 0x01
+T5C758740 000:639.796 JLINK_Close()
+T5C758740 000:648.140 - 8.344ms
+T5C758740 000:648.153   
+T5C758740 000:648.156   Closed

@@ -1,0 +1,277 @@
+TE57C4740 000:002.257   SEGGER J-Link V8.78 Log File
+TE57C4740 000:002.365   DLL Compiled: Oct 16 2025 08:35:50
+TE57C4740 000:002.368   Logging started @ 2026-10-19 09:04
+TE57C4740 000:002.369   Process: /opt/SEGGER/JLink_V878/JLinkExe
+TE57C4740 000:002.375 - 2.371ms 
+TE57C4740 000:002.408 JLINK_EMU_SelectByUSBSN(SerialNo = 685278459)
+TE57C4740 000:016.017 - 13.608ms returns 0x00
+TE57C4740 000:016.040 JLINK_SetWarnOutHandler(...)
+TE57C4740 000:016.042 - 0.002ms 
+TE57C4740 000:016.071 JLINK_OpenEx(...)
+TE57C4740 000:018.419   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+TE57C4740 000:018.745   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+TE57C4740 000:019.275   Hardware: V1.00
+TE57C4740 000:019.278   S/N: 685278459
+TE57C4740 000:019.280   OEM: SEGGER
+TE57C4740 000:019.282   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+TE57C4740 000:019.575   Bootloader: 2014 Sep 11
+TE57C4740 000:019.787   USB speed mode: High speed (480 MBit/s)
+TE57C4740 000:019.976   TELNET listener socket opened on port 19021
+TE57C4740 000:020.020   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+TE57C4740 000:020.055   WEBSRV Webserver running on local port 19080
+TE57C4740 000:020.063   Looking for J-Link GUI Server exe at: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+TE57C4740 000:020.067   Forking J-Link GUI Server: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+TE57C4740 000:037.638   J-Link GUI Server info: "J-Link GUI server V8.78 "
+TE57C4740 000:038.093 - 22.021ms returns "O.K."
+TE57C4740 000:038.130 JLINK_GetFirmwareString(...)
+TE57C4740 000:038.135 - 0.006ms 
+TE57C4740 000:038.142 JLINK_GetHardwareVersion()
+TE57C4740 000:038.147 - 0.005ms returns 10000
+TE57C4740 000:038.154 JLINK_GetHWInfo(...)
+TE57C4740 000:038.257 - 0.104ms returns 0
+TE57C4740 000:038.265 JLINK_GetSN()
+TE57C4740 000:038.268 - 0.004ms returns 685278459
+TE57C4740 000:038.276 JLINK_GetOEMString(...)
+TE57C4740 000:038.281 JLINK_EMU_GetCurrConnectionInfo()
+TE57C4740 000:038.421 - 0.140ms returns 0
+TE57C4740 000:038.429 JLINK_EMU_HasCapEx(0x00000026)
+TE57C4740 000:038.433 - 0.005ms returns 0
+TE57C4740 000:038.436 JLINK_GetEmuCaps()
+TE57C4740 000:038.439 - 0.002ms returns 0xB8EA5A33
+TE57C4740 000:038.441 JLINK_GetEmuCaps()
+TE57C4740 000:038.443 - 0.001ms returns 0xB8EA5A33
+TE57C4740 000:038.446 JLINK_GetHWStatus(...)
+TE57C4740 000:038.551 - 0.104ms returns 0
+TE57C4740 000:038.569 JLINK_EMU_HasCapEx(0x00000044)
+TE57C4740 000:038.572 - 0.003ms returns 0
+TE57C4740 000:038.596 JLINK_DEVICE_GetIndex(sDeviceName = nRF52833_xxAA)
+TE57C4740 000:054.862 - 16.264ms returns 4297
+TE57C4740 000:054.888 JLINK_ExecCommand("device=nRF52833_xxAA", ...). 
+TE57C4740 000:056.361   Device "NRF52833_XXAA" selected.
+TE57C4740 000:057.654 - 2.763ms returns 0x00
+TE57C4740 000:057.665 JLINK_EnableLog(...)
+TE57C4740 000:057.666 - 0.002ms 
+TE57C4740 000:057.671 JLINK_GetEmuCaps()
+TE57C4740 000:057.674 - 0.003ms returns 0xB8EA5A33
+TE57C4740 000:057.677 JLINK_TIF_GetAvailable(...)
+TE57C4740 000:058.839 - 1.161ms 
+TE57C4740 000:058.848 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+TE57C4740 000:059.161 - 0.314ms returns 0x00
+TE57C4740 000:059.169 JLINK_IsConnected()
+TE57C4740 000:059.171 - 0.002ms returns FALSE
+TE57C4740 000:059.174 JLINK_SetSpeed(4000)
+TE57C4740 000:059.201 - 0.028ms 
+TE57C4740 000:059.205 JLINK_Connect()
+TE57C4740 000:059.302   InitTarget() start
+TE57C4740 000:059.305    J-Link Script File: Executing InitTarget()
+TE57C4740 000:061.411   InitTarget() end - Took 2.09ms
+TE57C4740 000:061.910   Found SW-DP with ID 0x2BA01477
+TE57C4740 000:063.590   DPIDR: 0x2BA01477
+TE57C4740 000:063.601   CoreSight SoC-400 or earlier
+TE57C4740 000:063.611   Scanning AP map to find all available APs
+TE57C4740 000:064.435   AP[2]: Stopped AP scan as end of AP map has been reached
+TE57C4740 000:064.446   AP[0]: AHB-AP (IDR: 0x24770011, ADDR: 0x00000000)
+TE57C4740 000:064.455   AP[1]: JTAG-AP (IDR: 0x02880000, ADDR: 0x01000000)
+TE57C4740 000:064.464   Iterating through AP map to find AHB-AP to use
+TE57C4740 000:065.237   AP[0]: Core found
+TE57C4740 000:065.256   AP[0]: AHB-AP ROM base: 0xE00FF000
+TE57C4740 000:065.658   CPUID register: 0x410FC241. Implementer code: 0x41 (ARM)
+TE57C4740 000:065.668   Found Cortex-M4 r0p1, Little endian.
+TE57C4740 000:065.874   -- Max. mem block: 0x00004CC8
+TE57C4740 000:066.124   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TE57C4740 000:066.585   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TE57C4740 000:067.025   CPU_ReadMem(4 bytes @ 0xE0002000)
+TE57C4740 000:067.464   FPUnit: 6 code (BP) slots and 2 literal slots
+TE57C4740 000:067.470   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TE57C4740 000:067.901   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TE57C4740 000:068.379   CPU_ReadMem(4 bytes @ 0xE0001000)
+TE57C4740 000:068.798   CPU_WriteMem(4 bytes @ 0xE0001000)
+TE57C4740 000:069.253   CPU_ReadMem(4 bytes @ 0xE000ED88)
+TE57C4740 000:069.675   CPU_WriteMem(4 bytes @ 0xE000ED88)
+TE57C4740 000:070.129   CPU_ReadMem(4 bytes @ 0xE000ED88)
+TE57C4740 000:070.547   CPU_WriteMem(4 bytes @ 0xE000ED88)
+TE57C4740 000:071.010   CoreSight components:
+TE57C4740 000:071.021   ROMTbl[0] @ E00FF000
+TE57C4740 000:071.026   CPU_ReadMem(64 bytes @ 0xE00FF000)
+TE57C4740 000:072.177   CPU_ReadMem(32 bytes @ 0xE000EFE0)
+TE57C4740 000:073.023   [0][0]: E000E000 CID B105E00D PID 000BB00C SCS-M7
+TE57C4740 000:073.046   CPU_ReadMem(32 bytes @ 0xE0001FE0)
+TE57C4740 000:073.855   [0][1]: E0001000 CID B105E00D PID 003BB002 DWT
+TE57C4740 000:073.870   CPU_ReadMem(32 bytes @ 0xE0002FE0)
+TE57C4740 000:074.653   [0][2]: E0002000 CID B105E00D PID 002BB003 FPB
+TE57C4740 000:074.657   CPU_ReadMem(32 bytes @ 0xE0000FE0)
+TE57C4740 000:075.450   [0][3]: E0000000 CID B105E00D PID 003BB001 ITM
+TE57C4740 000:075.463   CPU_ReadMem(32 bytes @ 0xE0040FE0)
+TE57C4740 000:076.280   [0][4]: E0040000 CID B105900D PID 000BB9A1 TPIU
+TE57C4740 000:076.294   CPU_ReadMem(32 bytes @ 0xE0041FE0)
+TE57C4740 000:077.107   [0][5]: E0041000 CID B105900D PID 000BB925 ETM
+TE57C4740 000:077.150 - 17.945ms returns 0x00
+TE57C4740 000:077.160 JLINK_GetIdData(pIdData)
+TE57C4740 000:077.329   pIdData->ScanLen=4
+TE57C4740 000:077.334   pIdData->NumDevices=1
+TE57C4740 000:077.337   pIdData->aId[0]=0x2BA01477
+TE57C4740 000:077.340   pIdData->aIrRead[0]=0
+TE57C4740 000:077.344   pIdData->aScanLen[0]=0
+TE57C4740 000:077.347   pIdData->aScanRead[0]=0
+TE57C4740 000:077.350 - 0.191ms 
+TE57C4740 000:077.356 JLINK_GetMemZones(...)
+TE57C4740 000:077.360 - 0.004ms returns 1
+TE57C4740 000:077.388 JLINK_HasError()
+TE57C4740 000:077.394 JLINK_CORE_GetFound()
+TE57C4740 000:077.398 - 0.004ms returns 0xE0000FF
+TE57C4740 000:077.417 JLINK_SetResetDelay(0)
+TE57C4740 000:077.421 - 0.003ms 
+TE57C4740 000:077.424 JLINK_Reset()
+TE57C4740 000:077.437   JLINK_GetResetTypeDesc
+TE57C4740 000:077.452   - 0.014ms 
+TE57C4740 000:077.457   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TE57C4740 000:077.463   CPU is running
+TE57C4740 000:077.468   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TE57C4740 000:077.909   CPU is running
+TE57C4740 000:077.927   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TE57C4740 000:078.408   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TE57C4740 000:078.677   Reset: Reset device via AIRCR.SYSRESETREQ.
+TE57C4740 000:078.681   CPU is running
+TE57C4740 000:078.685   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TE57C4740 000:131.735   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TE57C4740 000:132.184   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TE57C4740 000:138.639   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TE57C4740 000:144.335   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TE57C4740 000:150.961   CPU_WriteMem(4 bytes @ 0xE0002000)
+TE57C4740 000:151.460   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TE57C4740 000:152.027   CPU_ReadMem(4 bytes @ 0xE0001000)
+TE57C4740 000:152.564 - 75.139ms 
+TE57C4740 000:152.599 JLINK_Halt()
+TE57C4740 000:152.605 - 0.007ms returns 0x00
+TE57C4740 000:152.611 JLINK_GetDeviceFamily
+TE57C4740 000:152.616 - 0.005ms returns 14
+TE57C4740 000:152.621 JLINK_CORE_GetFound()
+TE57C4740 000:152.626 - 0.004ms returns 0xE0000FF
+TE57C4740 000:152.632 JLINK_GetDebugInfo(0x01 = Unknown)
+TE57C4740 000:152.649   Value=0x00000001
+TE57C4740 000:152.655 - 0.023ms returns 0
+TE57C4740 000:152.659 JLINK_ReadRegs(NumRegs = 28)
+TE57C4740 000:152.677   
+  R0 (0)         = 0x00                 R1 (1)         = 0x00                 R2 (2)         = 0x00                 R3 (3)         = 0x00              
+  R4 (4)         = 0x00                 R5 (5)         = 0x00                 R6 (6)         = 0x00                 R7 (7)         = 0x00              
+  R8 (8)         = 0x00                 R9 (9)         = 0x00                 R10 (10)       = 0x00                 R11 (11)       = 0x00              
+  R12 (12)       = 0x00                 R13 (SP) (13)  = 0x20001180           MSP (17)       = 0x20001180           PSP (18)       = 0x00              
+  R14 (14)       = 0xFFFFFFFF           R15 (PC) (15)  = 0xF30                XPSR (16)      = 0x1000000            APSR (21)      = 0x00              
+  EPSR (22)      = 0x1000000            IPSR (23)      = 0x00                 CFBP (20)      = 0x00                 CONTROL (27)   = 0x00              
+  FAULTMASK (26) = 0x00                 BASEPRI (25)   = 0x00                 PRIMASK (24)   = 0x00                 CycleCnt (65)  = 0x00              
+TE57C4740 000:152.682 - 0.023ms returns 0x00
+TE57C4740 000:152.698 JLINK_ReadRegs(NumRegs = 33)
+TE57C4740 000:162.242   
+  FPS0 (33)  = 0x00                 FPS1 (34)  = 0x00                 FPS2 (35)  = 0x00                 FPS3 (36)  = 0x00              
+  FPS4 (37)  = 0x00                 FPS5 (38)  = 0x00                 FPS6 (39)  = 0x00                 FPS7 (40)  = 0x00              
+  FPS8 (41)  = 0x00                 FPS9 (42)  = 0x00                 FPS10 (43) = 0x00                 FPS11 (44) = 0x00              
+  FPS12 (45) = 0x00                 FPS13 (46) = 0x00                 FPS14 (47) = 0x00                 FPS15 (48) = 0x00              
+  FPS16 (49) = 0x00                 FPS17 (50) = 0x00                 FPS18 (51) = 0x00                 FPS19 (52) = 0x00              
+  FPS20 (53) = 0x00                 FPS21 (54) = 0x00                 FPS22 (55) = 0x00                 FPS23 (56) = 0x00              
+  FPS24 (57) = 0x00                 FPS25 (58) = 0x00                 FPS26 (59) = 0x00                 FPS27 (60) = 0x00              
+  FPS28 (61) = 0x00                 FPS29 (62) = 0x00                 FPS30 (63) = 0x00                 FPS31 (64) = 0x00              
+  FPSCR (32) = 0x00              
+TE57C4740 000:162.263 - 9.565ms returns 0x00
+TE57C4740 000:162.297 JLINK_Reset()
+TE57C4740 000:162.307   JLINK_GetResetTypeDesc
+TE57C4740 000:162.312   - 0.005ms 
+TE57C4740 000:162.319   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TE57C4740 000:162.328   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TE57C4740 000:162.893   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TE57C4740 000:163.454   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TE57C4740 000:163.903   Reset: Reset device via AIRCR.SYSRESETREQ.
+TE57C4740 000:163.909   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TE57C4740 000:217.261   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TE57C4740 000:217.887   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TE57C4740 000:218.421   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TE57C4740 000:224.207   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TE57C4740 000:230.510   CPU_WriteMem(4 bytes @ 0xE0002000)
+TE57C4740 000:230.974   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TE57C4740 000:231.424   CPU_ReadMem(4 bytes @ 0xE0001000)
+TE57C4740 000:231.878 - 69.581ms 
+TE57C4740 000:231.902 JLINK_Halt()
+TE57C4740 000:231.911 - 0.008ms returns 0x00
+TE57C4740 000:231.956 JLINK_ExecCommand("SetVerifyRAMDownload = 1", ...). 
+TE57C4740 000:231.968 - 0.003ms returns 0x00
+TE57C4740 000:231.980 JLINK_DownloadFile()
+TE57C4740 000:232.620   Data:  80 11 00 20 51 13 00 00 35 0E 00 00 3D 13 00 00 ...
+TE57C4740 000:233.291   completely In flash
+TE57C4740 000:233.305   Data:  03 38 FD D8 70 47 00 00 4F 50 56 34 43 4F 4D 20 ...
+TE57C4740 000:233.313   completely In flash
+TE57C4740 000:233.431   CPU_ReadMem(4 bytes @ 0xE000ED90)
+TE57C4740 000:233.858   CPU_ReadMem(4 bytes @ 0xE000ED94)
+TE57C4740 000:234.315    -- --------------------------------------
+TE57C4740 000:234.348    -- Flash bank @ 0x00000000: Default: L2 verify disabled because algorithm performs L1 verify
+TE57C4740 000:234.361    -- Start of determining dirty areas in flash cache
+TE57C4740 000:234.369    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00000000 if necessary
+TE57C4740 000:234.376    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00001000 if necessary
+TE57C4740 000:234.380    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00002000 if necessary
+TE57C4740 000:234.385    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00003000 if necessary
+TE57C4740 000:234.390    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00004000 if necessary
+TE57C4740 000:234.394    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00005000 if necessary
+TE57C4740 000:234.399    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00006000 if necessary
+TE57C4740 000:234.528    -- End of determining dirty areas
+TE57C4740 000:234.534    -- Start of preparing flash programming
+TE57C4740 000:234.538    -- Calculating RAM usage
+TE57C4740 000:234.555    -- RAM usage = 3732 Bytes
+TE57C4740 000:234.560    -- Preserving CPU registers
+TE57C4740 000:234.578    -- Preparing target
+TE57C4740 000:234.583    -- Preserving target RAM temporarily used for programming
+TE57C4740 000:279.565    -- Downloading RAMCode
+TE57C4740 000:309.798    -- Preparing RAMCode
+TE57C4740 000:319.431    -- End of preparing flash programming
+TE57C4740 000:330.003    -- CPU speed could not be measured.
+TE57C4740 000:330.025    -- Start of comparing flash
+TE57C4740 000:330.029    -- CRC check was estimated as fastest method
+TE57C4740 000:331.923    -- Comparing range 0x0000 - 0x6FFF (7 Sectors, 28 KB), using multi-block CRC calculation
+TE57C4740 000:340.713    -- CRC does not match for sectors 0-6
+TE57C4740 000:340.740    -- End of comparing flash
+TE57C4740 000:340.745    -- Start of erasing sectors
+TE57C4740 000:340.750    -- Erasing range 0x00000000 - 0x00006FFF (  7 Sectors, 28 KB)
+TE57C4740 000:957.835    -- End of erasing sectors
+TE57C4740 000:957.867    -- Start of flash programming
+TE57C4740 000:957.873    -- Programming range 0x00000000 - 0x00006FFF (  7 Sectors, 28 KB)
+TE57C4740 001:375.063    -- End of flash programming
+TE57C4740 001:375.094    -- 0x0000 - 0x6FFF (  7 Sectors, 28 KB)
+TE57C4740 001:375.099    -- Start of restoring
+TE57C4740 001:375.104    -- Restoring RAMCode
+TE57C4740 001:402.036    -- Restoring target memory
+TE57C4740 001:448.031    -- Restore target
+TE57C4740 001:448.067    -- Restoring CPU registers
+TE57C4740 001:448.097    -- End of restoring
+TE57C4740 001:448.114    -- Bank 0 @ 0x00000000: 1 range affected (28672 bytes)
+TE57C4740 001:448.125    -- Total: 1.213s (Prepare: 0.095s, Compare: 0.010s, Erase: 0.617s, Program & Verify: 0.436s, Restore: 0.053s)
+TE57C4740 001:448.134    -- Program & Verify speed: 63 KB/s
+TE57C4740 001:449.383 - 1217.402ms returns 0x00
+TE57C4740 001:449.413 JLINK_ExecCommand("SetVerifyRAMDownload = 0", ...). 
+TE57C4740 001:449.423 - 0.003ms returns 0x01
+TE57C4740 001:449.930 JLINK_SetResetDelay(0)
+TE57C4740 001:449.962 - 0.030ms 
+TE57C4740 001:449.973 JLINK_Reset()
+TE57C4740 001:449.985   JLINK_GetResetTypeDesc
+TE57C4740 001:449.990   - 0.004ms 
+TE57C4740 001:449.999   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TE57C4740 001:450.008   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TE57C4740 001:450.697   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TE57C4740 001:451.338   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TE57C4740 001:451.898   Reset: Reset device via AIRCR.SYSRESETREQ.
+TE57C4740 001:451.913   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TE57C4740 001:507.298   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TE57C4740 001:507.763   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TE57C4740 001:508.683   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TE57C4740 001:514.305   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TE57C4740 001:520.573   CPU_WriteMem(4 bytes @ 0xE0002000)
+TE57C4740 001:521.047   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TE57C4740 001:521.523   CPU_ReadMem(4 bytes @ 0xE0001000)
+TE57C4740 001:522.004 - 72.030ms 
+TE57C4740 001:522.059 JLINK_GoEx(MaxEmulInsts = 0, Flags = 0x01)
+TE57C4740 001:522.069   CPU_ReadMem(4 bytes @ 0xE0001000)
+TE57C4740 001:522.527   CPU_WriteMem(4 bytes @ 0xE0001004)
+TE57C4740 001:523.751   Memory map 'after startup completion point' is active
+TE57C4740 001:523.755 - 1.696ms 
+TE57C4740 001:523.768 JLINK_IsOpen()
+TE57C4740 001:523.771 - 0.002ms returns 0x01
+TE57C4740 001:531.072 JLINK_Close()
+TE57C4740 001:547.964 - 16.890ms
+TE57C4740 001:547.995   
+TE57C4740 001:547.997   Closed

@@ -1,0 +1,19 @@
+[1/124] Generating misc/generated/syscalls.json, misc/generated/struct_tags.json
+[2/9] Generating linker_zephyr_pre0.cmd
+[3/9] Building C object CMakeFiles/app.dir/src/main.c.obj
+/home/yousef/zephyrproject/apps/OPV4COM/Reciever/src/main.c:79:16: warning: 'center_level' defined but not used [-Wunused-variable]
+   79 | static uint8_t center_level = 0;
+      |                ^~~~~~~~~~~~
+[4/9] Linking C static library app/libapp.a
+[5/9] Linking C executable zephyr/zephyr_pre0.elf
+[6/9] Generating linker.cmd
+[7/9] Generating isr_tables.c, isr_tables_vt.ld, isr_tables_swi.ld
+[8/9] Building C object zephyr/CMakeFiles/zephyr_final.dir/isr_tables.c.obj
+[9/9] Linking C executable zephyr/zephyr.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:       28040 B         1 MB      2.67%
+             RAM:        6720 B        96 KB      6.84%
+           SRAM0:          0 GB        96 KB      0.00%
+           SRAM1:          0 GB        32 KB      0.00%
+        IDT_LIST:          0 GB        32 KB      0.00%
+Generating files from /home/yousef/zephyrproject/apps/OPV4COM/Reciever/build/zephyr/zephyr.elf for board: nucleo_l476rg

@@ -1,0 +1,16 @@
+{
+  "args": {
+    "half": 48,
+    "sample": 12,
+    "duration": 10000,
+    "repeat": 1,
+    "label": "initial_firmware",
+    "baseline": true,
+    "keep_tx": false
+  },
+  "timestamp_utc": "20261019T085453_530761Z",
+  "sources": {
+    "Reciever": "8ada9804abf1d17039b08cf0a5fe57e99b11bfff67d10e5d393ff213d62f1f28",
+    "T_test": "c4fa491d6201ee249edbf8fb8e679d87b862ee3f56a52b8868fc971663fc8ac4"
+  }
+}

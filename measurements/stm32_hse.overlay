@@ -1,0 +1,13 @@
+/* Nucleo L476RG: 8 MHz MCO from the onboard ST-Link, with factory wiring. */
+&clk_hse {
+    clock-frequency = <8000000>;
+    hse-bypass;
+    status = "okay";
+};
+
+&pll {
+    clocks = <&clk_hse>;
+    div-m = <1>;
+    mul-n = <20>;
+    div-r = <2>;
+};

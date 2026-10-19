@@ -1,0 +1,2 @@
+timestamp_utc,source,label,repeat,port,half_bit_us,sample_us,duration_ms,bitrate_bps,expected_frames,complete_frames,correct_frames,incorrect_frames,gap_detected,manchester_errors,preamble_errors,sfd_errors,gpio_errors,samples_acquired,goodput_bps,success_permille,payload_bit_errors
+20261019T090702_121689Z,hardware,edge_16_4,1,/dev/ttyACM0,16,4,10001,31250,7441,7417,7417,0,7419,2,0,0,0,2492783,17799,996,0

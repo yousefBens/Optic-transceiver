@@ -1,0 +1,23 @@
+{
+  "args": {
+    "half": 40,
+    "sample": 10,
+    "duration": 5000,
+    "diagnostic": 0,
+    "repeat": 1,
+    "label": "hfxo_sweep_40_10",
+    "baseline": false,
+    "keep_tx": false
+  },
+  "timestamp_utc": "20261019T085935_218933Z",
+  "sources": {
+    "Reciever": "d70ca03fcc95ca38486bc0b5e7a858205d5ed99a073df7d6a447d5d569273264",
+    "T_test": "3de5769f9d1ec5596bfc84061e510cb9686908898f9a326b14a574b988d3aa03"
+  },
+  "flashed_source_known": true,
+  "note": "",
+  "images": {
+    "Reciever": "5b3c19eaeb15f1ea774b6e8533c9907f925b59955333eb37d32f7e3cb8a95e20",
+    "T_test": "3afca5ff20aaf186bdb6e275e75ec9fda5659d5d3b7d50f22004ee161628d3c8"
+  }
+}

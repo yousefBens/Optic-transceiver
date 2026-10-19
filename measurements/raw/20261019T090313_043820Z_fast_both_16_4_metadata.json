@@ -1,0 +1,25 @@
+{
+  "args": {
+    "half": 16,
+    "sample": 4,
+    "duration": 5000,
+    "fast_gpio": true,
+    "hse": false,
+    "diagnostic": 2048,
+    "repeat": 2,
+    "label": "fast_both_16_4",
+    "baseline": false,
+    "keep_tx": false
+  },
+  "timestamp_utc": "20261019T090313_043820Z",
+  "sources": {
+    "Reciever": "241fc1d49db4eae1a92d10f8b0ebb86369b7e624ceec967a0e515f368109672e",
+    "T_test": "da59b9f2427c9f77a1de2dcbe6c805bfa6402b0932e6d848b16cf84b35fd6041"
+  },
+  "flashed_source_known": true,
+  "note": "",
+  "images": {
+    "Reciever": "826d037ca5e92514de82891a882825ec78049bd4d610e2d40ccbaa2899e2f459",
+    "T_test": "aeae2c40105bf24cbebebf8397b4b6d61dfa0205ccbd82f4484e1b1721f7b3a0"
+  }
+}

@@ -1,0 +1,279 @@
+TBA5A4740 000:002.646   SEGGER J-Link V8.78 Log File
+TBA5A4740 000:002.733   DLL Compiled: Oct 16 2025 08:35:50
+TBA5A4740 000:002.737   Logging started @ 2026-10-19 09:07
+TBA5A4740 000:002.739   Process: /opt/SEGGER/JLink_V878/JLinkExe
+TBA5A4740 000:002.746 - 2.742ms 
+TBA5A4740 000:002.780 JLINK_EMU_SelectByUSBSN(SerialNo = 685278459)
+TBA5A4740 000:010.486 - 7.706ms returns 0x00
+TBA5A4740 000:010.499 JLINK_SetWarnOutHandler(...)
+TBA5A4740 000:010.501 - 0.001ms 
+TBA5A4740 000:010.528 JLINK_OpenEx(...)
+TBA5A4740 000:013.532   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+TBA5A4740 000:013.895   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+TBA5A4740 000:014.449   Hardware: V1.00
+TBA5A4740 000:014.453   S/N: 685278459
+TBA5A4740 000:014.455   OEM: SEGGER
+TBA5A4740 000:014.457   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+TBA5A4740 000:014.756   Bootloader: 2014 Sep 11
+TBA5A4740 000:014.941   USB speed mode: High speed (480 MBit/s)
+TBA5A4740 000:015.120   TELNET listener socket opened on port 19021
+TBA5A4740 000:015.172   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+TBA5A4740 000:015.203   WEBSRV Webserver running on local port 19080
+TBA5A4740 000:015.210   Looking for J-Link GUI Server exe at: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+TBA5A4740 000:015.214   Forking J-Link GUI Server: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+TBA5A4740 000:030.153   J-Link GUI Server info: "J-Link GUI server V8.78 "
+TBA5A4740 000:030.618 - 20.090ms returns "O.K."
+TBA5A4740 000:030.667 JLINK_GetFirmwareString(...)
+TBA5A4740 000:030.676 - 0.011ms 
+TBA5A4740 000:030.685 JLINK_GetHardwareVersion()
+TBA5A4740 000:030.690 - 0.004ms returns 10000
+TBA5A4740 000:030.696 JLINK_GetHWInfo(...)
+TBA5A4740 000:030.957 - 0.260ms returns 0
+TBA5A4740 000:030.982 JLINK_GetSN()
+TBA5A4740 000:030.991 - 0.009ms returns 685278459
+TBA5A4740 000:031.004 JLINK_GetOEMString(...)
+TBA5A4740 000:031.011 JLINK_EMU_GetCurrConnectionInfo()
+TBA5A4740 000:031.232 - 0.221ms returns 0
+TBA5A4740 000:031.258 JLINK_EMU_HasCapEx(0x00000026)
+TBA5A4740 000:031.266 - 0.009ms returns 0
+TBA5A4740 000:031.270 JLINK_GetEmuCaps()
+TBA5A4740 000:031.276 - 0.005ms returns 0xB8EA5A33
+TBA5A4740 000:031.281 JLINK_GetEmuCaps()
+TBA5A4740 000:031.285 - 0.005ms returns 0xB8EA5A33
+TBA5A4740 000:031.290 JLINK_GetHWStatus(...)
+TBA5A4740 000:031.489 - 0.199ms returns 0
+TBA5A4740 000:031.507 JLINK_EMU_HasCapEx(0x00000044)
+TBA5A4740 000:031.513 - 0.006ms returns 0
+TBA5A4740 000:031.548 JLINK_DEVICE_GetIndex(sDeviceName = nRF52833_xxAA)
+TBA5A4740 000:045.344 - 13.794ms returns 4297
+TBA5A4740 000:045.372 JLINK_ExecCommand("device=nRF52833_xxAA", ...). 
+TBA5A4740 000:046.851   Device "NRF52833_XXAA" selected.
+TBA5A4740 000:048.077 - 2.701ms returns 0x00
+TBA5A4740 000:048.088 JLINK_EnableLog(...)
+TBA5A4740 000:048.090 - 0.002ms 
+TBA5A4740 000:048.095 JLINK_GetEmuCaps()
+TBA5A4740 000:048.098 - 0.003ms returns 0xB8EA5A33
+TBA5A4740 000:048.100 JLINK_TIF_GetAvailable(...)
+TBA5A4740 000:048.318 - 0.217ms 
+TBA5A4740 000:048.330 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+TBA5A4740 000:048.616 - 0.286ms returns 0x00
+TBA5A4740 000:048.625 JLINK_IsConnected()
+TBA5A4740 000:048.628 - 0.003ms returns FALSE
+TBA5A4740 000:048.631 JLINK_SetSpeed(4000)
+TBA5A4740 000:048.673 - 0.042ms 
+TBA5A4740 000:048.676 JLINK_Connect()
+TBA5A4740 000:048.787   InitTarget() start
+TBA5A4740 000:048.790    J-Link Script File: Executing InitTarget()
+TBA5A4740 000:050.886   InitTarget() end - Took 2.09ms
+TBA5A4740 000:051.372   Found SW-DP with ID 0x2BA01477
+TBA5A4740 000:053.068   DPIDR: 0x2BA01477
+TBA5A4740 000:053.077   CoreSight SoC-400 or earlier
+TBA5A4740 000:053.086   Scanning AP map to find all available APs
+TBA5A4740 000:053.911   AP[2]: Stopped AP scan as end of AP map has been reached
+TBA5A4740 000:053.920   AP[0]: AHB-AP (IDR: 0x24770011, ADDR: 0x00000000)
+TBA5A4740 000:053.928   AP[1]: JTAG-AP (IDR: 0x02880000, ADDR: 0x01000000)
+TBA5A4740 000:053.937   Iterating through AP map to find AHB-AP to use
+TBA5A4740 000:054.707   AP[0]: Core found
+TBA5A4740 000:054.725   AP[0]: AHB-AP ROM base: 0xE00FF000
+TBA5A4740 000:055.114   CPUID register: 0x410FC241. Implementer code: 0x41 (ARM)
+TBA5A4740 000:055.119   Found Cortex-M4 r0p1, Little endian.
+TBA5A4740 000:055.286   -- Max. mem block: 0x00004CC8
+TBA5A4740 000:055.536   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:055.954   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:056.412   CPU_ReadMem(4 bytes @ 0xE0002000)
+TBA5A4740 000:056.837   FPUnit: 6 code (BP) slots and 2 literal slots
+TBA5A4740 000:056.842   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TBA5A4740 000:057.264   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TBA5A4740 000:057.705   CPU_ReadMem(4 bytes @ 0xE0001000)
+TBA5A4740 000:058.131   CPU_WriteMem(4 bytes @ 0xE0001000)
+TBA5A4740 000:058.558   CPU_ReadMem(4 bytes @ 0xE000ED88)
+TBA5A4740 000:058.984   CPU_WriteMem(4 bytes @ 0xE000ED88)
+TBA5A4740 000:059.449   CPU_ReadMem(4 bytes @ 0xE000ED88)
+TBA5A4740 000:059.867   CPU_WriteMem(4 bytes @ 0xE000ED88)
+TBA5A4740 000:060.313   CoreSight components:
+TBA5A4740 000:060.323   ROMTbl[0] @ E00FF000
+TBA5A4740 000:060.327   CPU_ReadMem(64 bytes @ 0xE00FF000)
+TBA5A4740 000:061.490   CPU_ReadMem(32 bytes @ 0xE000EFE0)
+TBA5A4740 000:062.276   [0][0]: E000E000 CID B105E00D PID 000BB00C SCS-M7
+TBA5A4740 000:062.282   CPU_ReadMem(32 bytes @ 0xE0001FE0)
+TBA5A4740 000:063.056   [0][1]: E0001000 CID B105E00D PID 003BB002 DWT
+TBA5A4740 000:063.059   CPU_ReadMem(32 bytes @ 0xE0002FE0)
+TBA5A4740 000:063.851   [0][2]: E0002000 CID B105E00D PID 002BB003 FPB
+TBA5A4740 000:063.857   CPU_ReadMem(32 bytes @ 0xE0000FE0)
+TBA5A4740 000:064.625   [0][3]: E0000000 CID B105E00D PID 003BB001 ITM
+TBA5A4740 000:064.631   CPU_ReadMem(32 bytes @ 0xE0040FE0)
+TBA5A4740 000:065.424   [0][4]: E0040000 CID B105900D PID 000BB9A1 TPIU
+TBA5A4740 000:065.429   CPU_ReadMem(32 bytes @ 0xE0041FE0)
+TBA5A4740 000:066.215   [0][5]: E0041000 CID B105900D PID 000BB925 ETM
+TBA5A4740 000:066.248 - 17.571ms returns 0x00
+TBA5A4740 000:066.257 JLINK_GetIdData(pIdData)
+TBA5A4740 000:066.409   pIdData->ScanLen=4
+TBA5A4740 000:066.412   pIdData->NumDevices=1
+TBA5A4740 000:066.413   pIdData->aId[0]=0x2BA01477
+TBA5A4740 000:066.416   pIdData->aIrRead[0]=0
+TBA5A4740 000:066.417   pIdData->aScanLen[0]=0
+TBA5A4740 000:066.420   pIdData->aScanRead[0]=0
+TBA5A4740 000:066.421 - 0.164ms 
+TBA5A4740 000:066.425 JLINK_GetMemZones(...)
+TBA5A4740 000:066.427 - 0.002ms returns 1
+TBA5A4740 000:066.443 JLINK_HasError()
+TBA5A4740 000:066.447 JLINK_CORE_GetFound()
+TBA5A4740 000:066.448 - 0.001ms returns 0xE0000FF
+TBA5A4740 000:066.455 JLINK_SetResetDelay(0)
+TBA5A4740 000:066.457 - 0.002ms 
+TBA5A4740 000:066.460 JLINK_Reset()
+TBA5A4740 000:066.466   JLINK_GetResetTypeDesc
+TBA5A4740 000:066.469   - 0.003ms 
+TBA5A4740 000:066.473   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TBA5A4740 000:066.476   CPU is running
+TBA5A4740 000:066.478   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:066.913   CPU is running
+TBA5A4740 000:066.919   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TBA5A4740 000:067.372   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TBA5A4740 000:067.662   Reset: Reset device via AIRCR.SYSRESETREQ.
+TBA5A4740 000:067.667   CPU is running
+TBA5A4740 000:067.671   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TBA5A4740 000:123.303   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:123.869   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:130.307   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TBA5A4740 000:135.944   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:142.194   CPU_WriteMem(4 bytes @ 0xE0002000)
+TBA5A4740 000:142.640   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TBA5A4740 000:143.080   CPU_ReadMem(4 bytes @ 0xE0001000)
+TBA5A4740 000:143.515 - 77.055ms 
+TBA5A4740 000:143.539 JLINK_Halt()
+TBA5A4740 000:143.544 - 0.004ms returns 0x00
+TBA5A4740 000:143.548 JLINK_GetDeviceFamily
+TBA5A4740 000:143.553 - 0.005ms returns 14
+TBA5A4740 000:143.557 JLINK_CORE_GetFound()
+TBA5A4740 000:143.561 - 0.003ms returns 0xE0000FF
+TBA5A4740 000:143.566 JLINK_GetDebugInfo(0x01 = Unknown)
+TBA5A4740 000:143.578   Value=0x00000001
+TBA5A4740 000:143.583 - 0.017ms returns 0
+TBA5A4740 000:143.588 JLINK_ReadRegs(NumRegs = 28)
+TBA5A4740 000:143.611   
+  R0 (0)         = 0x00                 R1 (1)         = 0x00                 R2 (2)         = 0x00                 R3 (3)         = 0x00              
+  R4 (4)         = 0x00                 R5 (5)         = 0x00                 R6 (6)         = 0x00                 R7 (7)         = 0x00              
+  R8 (8)         = 0x00                 R9 (9)         = 0x00                 R10 (10)       = 0x00                 R11 (11)       = 0x00              
+  R12 (12)       = 0x00                 R13 (SP) (13)  = 0x20001180           MSP (17)       = 0x20001180           PSP (18)       = 0x00              
+  R14 (14)       = 0xFFFFFFFF           R15 (PC) (15)  = 0x1350               XPSR (16)      = 0x1000000            APSR (21)      = 0x00              
+  EPSR (22)      = 0x1000000            IPSR (23)      = 0x00                 CFBP (20)      = 0x00                 CONTROL (27)   = 0x00              
+  FAULTMASK (26) = 0x00                 BASEPRI (25)   = 0x00                 PRIMASK (24)   = 0x00                 CycleCnt (65)  = 0x00              
+TBA5A4740 000:143.617 - 0.029ms returns 0x00
+TBA5A4740 000:143.648 JLINK_ReadRegs(NumRegs = 33)
+TBA5A4740 000:153.055   
+  FPS0 (33)  = 0x00                 FPS1 (34)  = 0x00                 FPS2 (35)  = 0x00                 FPS3 (36)  = 0x00              
+  FPS4 (37)  = 0x00                 FPS5 (38)  = 0x00                 FPS6 (39)  = 0x00                 FPS7 (40)  = 0x00              
+  FPS8 (41)  = 0x00                 FPS9 (42)  = 0x00                 FPS10 (43) = 0x00                 FPS11 (44) = 0x00              
+  FPS12 (45) = 0x00                 FPS13 (46) = 0x00                 FPS14 (47) = 0x00                 FPS15 (48) = 0x00              
+  FPS16 (49) = 0x00                 FPS17 (50) = 0x00                 FPS18 (51) = 0x00                 FPS19 (52) = 0x00              
+  FPS20 (53) = 0x00                 FPS21 (54) = 0x00                 FPS22 (55) = 0x00                 FPS23 (56) = 0x00              
+  FPS24 (57) = 0x00                 FPS25 (58) = 0x00                 FPS26 (59) = 0x00                 FPS27 (60) = 0x00              
+  FPS28 (61) = 0x00                 FPS29 (62) = 0x00                 FPS30 (63) = 0x00                 FPS31 (64) = 0x00              
+  FPSCR (32) = 0x00              
+TBA5A4740 000:153.065 - 9.417ms returns 0x00
+TBA5A4740 000:153.097 JLINK_Reset()
+TBA5A4740 000:153.106   JLINK_GetResetTypeDesc
+TBA5A4740 000:153.111   - 0.004ms 
+TBA5A4740 000:153.116   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TBA5A4740 000:153.124   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:153.562   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TBA5A4740 000:154.012   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TBA5A4740 000:154.290   Reset: Reset device via AIRCR.SYSRESETREQ.
+TBA5A4740 000:154.297   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TBA5A4740 000:208.182   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:208.742   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:209.343   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TBA5A4740 000:215.244   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:221.920   CPU_WriteMem(4 bytes @ 0xE0002000)
+TBA5A4740 000:222.532   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TBA5A4740 000:223.125   CPU_ReadMem(4 bytes @ 0xE0001000)
+TBA5A4740 000:223.665 - 70.567ms 
+TBA5A4740 000:223.686 JLINK_Halt()
+TBA5A4740 000:223.691 - 0.004ms returns 0x00
+TBA5A4740 000:223.704 JLINK_ExecCommand("SetVerifyRAMDownload = 1", ...). 
+TBA5A4740 000:223.711 - 0.003ms returns 0x00
+TBA5A4740 000:223.719 JLINK_DownloadFile()
+TBA5A4740 000:224.234   Data:  80 11 00 20 51 13 00 00 35 0E 00 00 3D 13 00 00 ...
+TBA5A4740 000:224.862   completely In flash
+TBA5A4740 000:224.875   Data:  03 38 FD D8 70 47 00 00 4F 50 56 34 43 4F 4D 20 ...
+TBA5A4740 000:224.881   completely In flash
+TBA5A4740 000:225.110   CPU_ReadMem(4 bytes @ 0xE000ED90)
+TBA5A4740 000:225.679   CPU_ReadMem(4 bytes @ 0xE000ED94)
+TBA5A4740 000:226.210    -- --------------------------------------
+TBA5A4740 000:226.243    -- Flash bank @ 0x00000000: Default: L2 verify disabled because algorithm performs L1 verify
+TBA5A4740 000:226.253    -- Start of determining dirty areas in flash cache
+TBA5A4740 000:226.263    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00000000 if necessary
+TBA5A4740 000:226.271    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00001000 if necessary
+TBA5A4740 000:226.278    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00002000 if necessary
+TBA5A4740 000:226.285    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00003000 if necessary
+TBA5A4740 000:226.291    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00004000 if necessary
+TBA5A4740 000:226.297    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00005000 if necessary
+TBA5A4740 000:226.303    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00006000 if necessary
+TBA5A4740 000:226.471    -- End of determining dirty areas
+TBA5A4740 000:226.478    -- Start of preparing flash programming
+TBA5A4740 000:226.484    -- Calculating RAM usage
+TBA5A4740 000:226.512    -- RAM usage = 3732 Bytes
+TBA5A4740 000:226.525    -- Preserving CPU registers
+TBA5A4740 000:226.566    -- Preparing target
+TBA5A4740 000:226.572    -- Preserving target RAM temporarily used for programming
+TBA5A4740 000:271.513    -- Downloading RAMCode
+TBA5A4740 000:301.722    -- Preparing RAMCode
+TBA5A4740 000:311.300    -- End of preparing flash programming
+TBA5A4740 000:319.008    -- CPU speed could not be measured.
+TBA5A4740 000:319.020    -- Start of comparing flash
+TBA5A4740 000:319.023    -- CRC check was estimated as fastest method
+TBA5A4740 000:321.421    -- Comparing range 0x0000 - 0x6FFF (7 Sectors, 28 KB), using multi-block CRC calculation
+TBA5A4740 000:338.787    -- CRC does not match for sector 0
+TBA5A4740 000:339.839    -- Comparing range 0x1000 - 0x6FFF (6 Sectors, 24 KB), using alternative multi-block CRC calculation
+TBA5A4740 000:354.749    -- All CRCs match
+TBA5A4740 000:354.768    -- End of comparing flash
+TBA5A4740 000:354.771    -- Start of erasing sectors
+TBA5A4740 000:354.775    -- Erasing range 0x00000000 - 0x00000FFF (  1 Sector, 4 KB)
+TBA5A4740 000:446.902    -- End of erasing sectors
+TBA5A4740 000:446.945    -- Start of flash programming
+TBA5A4740 000:446.953    -- Programming range 0x00000000 - 0x00000FFF (  1 Sector, 4 KB)
+TBA5A4740 000:498.668    -- End of flash programming
+TBA5A4740 000:498.695    -- 0x0000 - 0x0FFF (  1 Sector, 4 KB)
+TBA5A4740 000:498.704    -- Start of restoring
+TBA5A4740 000:498.708    -- Restoring RAMCode
+TBA5A4740 000:526.693    -- Restoring target memory
+TBA5A4740 000:572.554    -- Restore target
+TBA5A4740 000:572.573    -- Restoring CPU registers
+TBA5A4740 000:572.590    -- End of restoring
+TBA5A4740 000:572.604    -- Bank 0 @ 0x00000000: 1 range affected (4096 bytes)
+TBA5A4740 000:572.611    -- Total: 0.346s (Prepare: 0.092s, Compare: 0.035s, Erase: 0.092s, Program & Verify: 0.072s, Restore: 0.053s)
+TBA5A4740 000:572.624    -- Program & Verify speed: 55 KB/s
+TBA5A4740 000:573.104 - 349.384ms returns 0x00
+TBA5A4740 000:573.126 JLINK_ExecCommand("SetVerifyRAMDownload = 0", ...). 
+TBA5A4740 000:573.133 - 0.002ms returns 0x01
+TBA5A4740 000:573.151 JLINK_SetResetDelay(0)
+TBA5A4740 000:573.154 - 0.003ms 
+TBA5A4740 000:573.156 JLINK_Reset()
+TBA5A4740 000:573.163   JLINK_GetResetTypeDesc
+TBA5A4740 000:573.166   - 0.003ms 
+TBA5A4740 000:573.171   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TBA5A4740 000:573.177   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:573.729   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TBA5A4740 000:574.305   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TBA5A4740 000:575.810   Reset: Reset device via AIRCR.SYSRESETREQ.
+TBA5A4740 000:575.816   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TBA5A4740 000:628.431   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:628.903   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:629.320   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TBA5A4740 000:635.007   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TBA5A4740 000:641.314   CPU_WriteMem(4 bytes @ 0xE0002000)
+TBA5A4740 000:641.788   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TBA5A4740 000:642.226   CPU_ReadMem(4 bytes @ 0xE0001000)
+TBA5A4740 000:642.682 - 69.524ms 
+TBA5A4740 000:642.750 JLINK_GoEx(MaxEmulInsts = 0, Flags = 0x01)
+TBA5A4740 000:642.767   CPU_ReadMem(4 bytes @ 0xE0001000)
+TBA5A4740 000:643.211   CPU_WriteMem(4 bytes @ 0xE0001004)
+TBA5A4740 000:644.444   Memory map 'after startup completion point' is active
+TBA5A4740 000:644.448 - 1.699ms 
+TBA5A4740 000:644.461 JLINK_IsOpen()
+TBA5A4740 000:644.464 - 0.003ms returns 0x01
+TBA5A4740 000:650.469 JLINK_Close()
+TBA5A4740 000:666.845 - 16.374ms
+TBA5A4740 000:666.874   
+TBA5A4740 000:666.877   Closed

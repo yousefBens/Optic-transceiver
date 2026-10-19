@@ -1,0 +1,277 @@
+TFCEBD740 000:002.025   SEGGER J-Link V8.78 Log File
+TFCEBD740 000:002.165   DLL Compiled: Oct 16 2025 08:35:50
+TFCEBD740 000:002.169   Logging started @ 2026-10-19 09:13
+TFCEBD740 000:002.172   Process: /opt/SEGGER/JLink_V878/JLinkExe
+TFCEBD740 000:002.180 - 2.175ms 
+TFCEBD740 000:002.220 JLINK_EMU_SelectByUSBSN(SerialNo = 685278459)
+TFCEBD740 000:011.224 - 9.003ms returns 0x00
+TFCEBD740 000:011.235 JLINK_SetWarnOutHandler(...)
+TFCEBD740 000:011.236 - 0.001ms 
+TFCEBD740 000:011.260 JLINK_OpenEx(...)
+TFCEBD740 000:013.543   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+TFCEBD740 000:013.880   Firmware: J-Link OB-SAM3U128-V2-NordicSemi compiled Jul  8 2025 10:14:41
+TFCEBD740 000:014.419   Hardware: V1.00
+TFCEBD740 000:014.423   S/N: 685278459
+TFCEBD740 000:014.425   OEM: SEGGER
+TFCEBD740 000:014.426   Feature(s): RDI, FlashBP, FlashDL, JFlash, GDB
+TFCEBD740 000:014.709   Bootloader: 2014 Sep 11
+TFCEBD740 000:014.921   USB speed mode: High speed (480 MBit/s)
+TFCEBD740 000:015.083   TELNET listener socket opened on port 19021
+TFCEBD740 000:015.112   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+TFCEBD740 000:015.147   WEBSRV Webserver running on local port 19080
+TFCEBD740 000:015.154   Looking for J-Link GUI Server exe at: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+TFCEBD740 000:015.158   Forking J-Link GUI Server: /opt/SEGGER/JLink_V878/JLinkGUIServerExe
+TFCEBD740 000:028.032   J-Link GUI Server info: "J-Link GUI server V8.78 "
+TFCEBD740 000:028.807 - 17.546ms returns "O.K."
+TFCEBD740 000:028.871 JLINK_GetFirmwareString(...)
+TFCEBD740 000:028.882 - 0.011ms 
+TFCEBD740 000:028.896 JLINK_GetHardwareVersion()
+TFCEBD740 000:028.900 - 0.004ms returns 10000
+TFCEBD740 000:028.906 JLINK_GetHWInfo(...)
+TFCEBD740 000:029.166 - 0.260ms returns 0
+TFCEBD740 000:029.189 JLINK_GetSN()
+TFCEBD740 000:029.197 - 0.007ms returns 685278459
+TFCEBD740 000:029.211 JLINK_GetOEMString(...)
+TFCEBD740 000:029.217 JLINK_EMU_GetCurrConnectionInfo()
+TFCEBD740 000:029.401 - 0.184ms returns 0
+TFCEBD740 000:029.417 JLINK_EMU_HasCapEx(0x00000026)
+TFCEBD740 000:029.422 - 0.005ms returns 0
+TFCEBD740 000:029.426 JLINK_GetEmuCaps()
+TFCEBD740 000:029.431 - 0.005ms returns 0xB8EA5A33
+TFCEBD740 000:029.437 JLINK_GetEmuCaps()
+TFCEBD740 000:029.442 - 0.005ms returns 0xB8EA5A33
+TFCEBD740 000:029.449 JLINK_GetHWStatus(...)
+TFCEBD740 000:029.665 - 0.216ms returns 0
+TFCEBD740 000:029.679 JLINK_EMU_HasCapEx(0x00000044)
+TFCEBD740 000:029.683 - 0.005ms returns 0
+TFCEBD740 000:029.718 JLINK_DEVICE_GetIndex(sDeviceName = nRF52833_xxAA)
+TFCEBD740 000:046.746 - 17.028ms returns 4297
+TFCEBD740 000:046.771 JLINK_ExecCommand("device=nRF52833_xxAA", ...). 
+TFCEBD740 000:048.920   Device "NRF52833_XXAA" selected.
+TFCEBD740 000:050.949 - 4.174ms returns 0x00
+TFCEBD740 000:050.962 JLINK_EnableLog(...)
+TFCEBD740 000:050.964 - 0.003ms 
+TFCEBD740 000:050.973 JLINK_GetEmuCaps()
+TFCEBD740 000:050.977 - 0.004ms returns 0xB8EA5A33
+TFCEBD740 000:050.981 JLINK_TIF_GetAvailable(...)
+TFCEBD740 000:052.157 - 1.175ms 
+TFCEBD740 000:052.178 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+TFCEBD740 000:052.587 - 0.409ms returns 0x00
+TFCEBD740 000:052.606 JLINK_IsConnected()
+TFCEBD740 000:052.611 - 0.005ms returns FALSE
+TFCEBD740 000:052.615 JLINK_SetSpeed(4000)
+TFCEBD740 000:052.739 - 0.124ms 
+TFCEBD740 000:052.752 JLINK_Connect()
+TFCEBD740 000:052.960   InitTarget() start
+TFCEBD740 000:052.966    J-Link Script File: Executing InitTarget()
+TFCEBD740 000:056.761   InitTarget() end - Took 3.78ms
+TFCEBD740 000:057.304   Found SW-DP with ID 0x2BA01477
+TFCEBD740 000:058.963   DPIDR: 0x2BA01477
+TFCEBD740 000:058.984   CoreSight SoC-400 or earlier
+TFCEBD740 000:058.999   Scanning AP map to find all available APs
+TFCEBD740 000:059.797   AP[2]: Stopped AP scan as end of AP map has been reached
+TFCEBD740 000:059.805   AP[0]: AHB-AP (IDR: 0x24770011, ADDR: 0x00000000)
+TFCEBD740 000:059.811   AP[1]: JTAG-AP (IDR: 0x02880000, ADDR: 0x01000000)
+TFCEBD740 000:059.819   Iterating through AP map to find AHB-AP to use
+TFCEBD740 000:060.639   AP[0]: Core found
+TFCEBD740 000:060.654   AP[0]: AHB-AP ROM base: 0xE00FF000
+TFCEBD740 000:061.071   CPUID register: 0x410FC241. Implementer code: 0x41 (ARM)
+TFCEBD740 000:061.091   Found Cortex-M4 r0p1, Little endian.
+TFCEBD740 000:061.289   -- Max. mem block: 0x00004CC8
+TFCEBD740 000:061.542   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 000:061.963   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 000:062.429   CPU_ReadMem(4 bytes @ 0xE0002000)
+TFCEBD740 000:062.875   FPUnit: 6 code (BP) slots and 2 literal slots
+TFCEBD740 000:062.879   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TFCEBD740 000:063.293   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TFCEBD740 000:063.924   CPU_ReadMem(4 bytes @ 0xE0001000)
+TFCEBD740 000:064.339   CPU_WriteMem(4 bytes @ 0xE0001000)
+TFCEBD740 000:064.768   CPU_ReadMem(4 bytes @ 0xE000ED88)
+TFCEBD740 000:065.194   CPU_WriteMem(4 bytes @ 0xE000ED88)
+TFCEBD740 000:065.634   CPU_ReadMem(4 bytes @ 0xE000ED88)
+TFCEBD740 000:066.076   CPU_WriteMem(4 bytes @ 0xE000ED88)
+TFCEBD740 000:066.542   CoreSight components:
+TFCEBD740 000:066.562   ROMTbl[0] @ E00FF000
+TFCEBD740 000:066.572   CPU_ReadMem(64 bytes @ 0xE00FF000)
+TFCEBD740 000:067.750   CPU_ReadMem(32 bytes @ 0xE000EFE0)
+TFCEBD740 000:068.546   [0][0]: E000E000 CID B105E00D PID 000BB00C SCS-M7
+TFCEBD740 000:068.559   CPU_ReadMem(32 bytes @ 0xE0001FE0)
+TFCEBD740 000:069.364   [0][1]: E0001000 CID B105E00D PID 003BB002 DWT
+TFCEBD740 000:069.377   CPU_ReadMem(32 bytes @ 0xE0002FE0)
+TFCEBD740 000:070.193   [0][2]: E0002000 CID B105E00D PID 002BB003 FPB
+TFCEBD740 000:070.206   CPU_ReadMem(32 bytes @ 0xE0000FE0)
+TFCEBD740 000:071.017   [0][3]: E0000000 CID B105E00D PID 003BB001 ITM
+TFCEBD740 000:071.030   CPU_ReadMem(32 bytes @ 0xE0040FE0)
+TFCEBD740 000:071.823   [0][4]: E0040000 CID B105900D PID 000BB9A1 TPIU
+TFCEBD740 000:071.828   CPU_ReadMem(32 bytes @ 0xE0041FE0)
+TFCEBD740 000:072.613   [0][5]: E0041000 CID B105900D PID 000BB925 ETM
+TFCEBD740 000:072.651 - 19.899ms returns 0x00
+TFCEBD740 000:072.660 JLINK_GetIdData(pIdData)
+TFCEBD740 000:072.792   pIdData->ScanLen=4
+TFCEBD740 000:072.797   pIdData->NumDevices=1
+TFCEBD740 000:072.800   pIdData->aId[0]=0x2BA01477
+TFCEBD740 000:072.803   pIdData->aIrRead[0]=0
+TFCEBD740 000:072.807   pIdData->aScanLen[0]=0
+TFCEBD740 000:072.810   pIdData->aScanRead[0]=0
+TFCEBD740 000:072.813 - 0.153ms 
+TFCEBD740 000:072.818 JLINK_GetMemZones(...)
+TFCEBD740 000:072.822 - 0.004ms returns 1
+TFCEBD740 000:072.845 JLINK_HasError()
+TFCEBD740 000:072.851 JLINK_CORE_GetFound()
+TFCEBD740 000:072.854 - 0.002ms returns 0xE0000FF
+TFCEBD740 000:072.865 JLINK_SetResetDelay(0)
+TFCEBD740 000:072.869 - 0.004ms 
+TFCEBD740 000:072.873 JLINK_Reset()
+TFCEBD740 000:072.886   JLINK_GetResetTypeDesc
+TFCEBD740 000:072.891   - 0.005ms 
+TFCEBD740 000:072.897   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TFCEBD740 000:072.901   CPU is running
+TFCEBD740 000:072.905   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 000:073.349   CPU is running
+TFCEBD740 000:073.365   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TFCEBD740 000:073.822   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TFCEBD740 000:074.126   Reset: Reset device via AIRCR.SYSRESETREQ.
+TFCEBD740 000:074.132   CPU is running
+TFCEBD740 000:074.143   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TFCEBD740 000:127.107   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 000:127.655   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 000:134.180   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TFCEBD740 000:139.953   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 000:146.453   CPU_WriteMem(4 bytes @ 0xE0002000)
+TFCEBD740 000:146.979   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TFCEBD740 000:147.531   CPU_ReadMem(4 bytes @ 0xE0001000)
+TFCEBD740 000:148.093 - 75.220ms 
+TFCEBD740 000:148.134 JLINK_Halt()
+TFCEBD740 000:148.140 - 0.005ms returns 0x00
+TFCEBD740 000:148.145 JLINK_GetDeviceFamily
+TFCEBD740 000:148.149 - 0.003ms returns 14
+TFCEBD740 000:148.153 JLINK_CORE_GetFound()
+TFCEBD740 000:148.156 - 0.003ms returns 0xE0000FF
+TFCEBD740 000:148.161 JLINK_GetDebugInfo(0x01 = Unknown)
+TFCEBD740 000:148.182   Value=0x00000001
+TFCEBD740 000:148.187 - 0.026ms returns 0
+TFCEBD740 000:148.192 JLINK_ReadRegs(NumRegs = 28)
+TFCEBD740 000:148.215   
+  R0 (0)         = 0x00                 R1 (1)         = 0x00                 R2 (2)         = 0x00                 R3 (3)         = 0x00              
+  R4 (4)         = 0x00                 R5 (5)         = 0x00                 R6 (6)         = 0x00                 R7 (7)         = 0x00              
+  R8 (8)         = 0x00                 R9 (9)         = 0x00                 R10 (10)       = 0x00                 R11 (11)       = 0x00              
+  R12 (12)       = 0x00                 R13 (SP) (13)  = 0x20001240           MSP (17)       = 0x20001240           PSP (18)       = 0x00              
+  R14 (14)       = 0xFFFFFFFF           R15 (PC) (15)  = 0x1294               XPSR (16)      = 0x1000000            APSR (21)      = 0x00              
+  EPSR (22)      = 0x1000000            IPSR (23)      = 0x00                 CFBP (20)      = 0x00                 CONTROL (27)   = 0x00              
+  FAULTMASK (26) = 0x00                 BASEPRI (25)   = 0x00                 PRIMASK (24)   = 0x00                 CycleCnt (65)  = 0x00              
+TFCEBD740 000:148.227 - 0.035ms returns 0x00
+TFCEBD740 000:148.256 JLINK_ReadRegs(NumRegs = 33)
+TFCEBD740 000:157.914   
+  FPS0 (33)  = 0x00                 FPS1 (34)  = 0x00                 FPS2 (35)  = 0x00                 FPS3 (36)  = 0x00              
+  FPS4 (37)  = 0x00                 FPS5 (38)  = 0x00                 FPS6 (39)  = 0x00                 FPS7 (40)  = 0x00              
+  FPS8 (41)  = 0x00                 FPS9 (42)  = 0x00                 FPS10 (43) = 0x00                 FPS11 (44) = 0x00              
+  FPS12 (45) = 0x00                 FPS13 (46) = 0x00                 FPS14 (47) = 0x00                 FPS15 (48) = 0x00              
+  FPS16 (49) = 0x00                 FPS17 (50) = 0x00                 FPS18 (51) = 0x00                 FPS19 (52) = 0x00              
+  FPS20 (53) = 0x00                 FPS21 (54) = 0x00                 FPS22 (55) = 0x00                 FPS23 (56) = 0x00              
+  FPS24 (57) = 0x00                 FPS25 (58) = 0x00                 FPS26 (59) = 0x00                 FPS27 (60) = 0x00              
+  FPS28 (61) = 0x00                 FPS29 (62) = 0x00                 FPS30 (63) = 0x00                 FPS31 (64) = 0x00              
+  FPSCR (32) = 0x00              
+TFCEBD740 000:157.923 - 9.667ms returns 0x00
+TFCEBD740 000:157.957 JLINK_Reset()
+TFCEBD740 000:157.967   JLINK_GetResetTypeDesc
+TFCEBD740 000:157.971   - 0.004ms 
+TFCEBD740 000:157.977   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TFCEBD740 000:157.986   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 000:158.473   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TFCEBD740 000:159.034   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TFCEBD740 000:159.440   Reset: Reset device via AIRCR.SYSRESETREQ.
+TFCEBD740 000:159.446   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TFCEBD740 000:212.189   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 000:212.733   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 000:213.258   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TFCEBD740 000:219.077   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 000:225.776   CPU_WriteMem(4 bytes @ 0xE0002000)
+TFCEBD740 000:226.357   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TFCEBD740 000:226.913   CPU_ReadMem(4 bytes @ 0xE0001000)
+TFCEBD740 000:227.460 - 69.503ms 
+TFCEBD740 000:227.498 JLINK_Halt()
+TFCEBD740 000:227.510 - 0.011ms returns 0x00
+TFCEBD740 000:227.524 JLINK_ExecCommand("SetVerifyRAMDownload = 1", ...). 
+TFCEBD740 000:227.536 - 0.004ms returns 0x00
+TFCEBD740 000:227.549 JLINK_DownloadFile()
+TFCEBD740 000:228.289   Data:  40 12 00 20 9D 12 00 00 81 0D 00 00 89 12 00 00 ...
+TFCEBD740 000:228.921   completely In flash
+TFCEBD740 000:228.933   Data:  03 38 FD D8 70 47 00 00 4F 50 56 34 43 4F 4D 20 ...
+TFCEBD740 000:228.944   completely In flash
+TFCEBD740 000:229.192   CPU_ReadMem(4 bytes @ 0xE000ED90)
+TFCEBD740 000:229.720   CPU_ReadMem(4 bytes @ 0xE000ED94)
+TFCEBD740 000:230.254    -- --------------------------------------
+TFCEBD740 000:230.285    -- Flash bank @ 0x00000000: Default: L2 verify disabled because algorithm performs L1 verify
+TFCEBD740 000:230.294    -- Start of determining dirty areas in flash cache
+TFCEBD740 000:230.302    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00000000 if necessary
+TFCEBD740 000:230.309    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00001000 if necessary
+TFCEBD740 000:230.315    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00002000 if necessary
+TFCEBD740 000:230.321    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00003000 if necessary
+TFCEBD740 000:230.327    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00004000 if necessary
+TFCEBD740 000:230.333    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00005000 if necessary
+TFCEBD740 000:230.338    -- Filling invalid ranges in sector buffer (flash cache) for sector @ 0x00006000 if necessary
+TFCEBD740 000:230.497    -- End of determining dirty areas
+TFCEBD740 000:230.504    -- Start of preparing flash programming
+TFCEBD740 000:230.509    -- Calculating RAM usage
+TFCEBD740 000:230.524    -- RAM usage = 3732 Bytes
+TFCEBD740 000:230.529    -- Preserving CPU registers
+TFCEBD740 000:230.550    -- Preparing target
+TFCEBD740 000:230.557    -- Preserving target RAM temporarily used for programming
+TFCEBD740 000:275.559    -- Downloading RAMCode
+TFCEBD740 000:305.752    -- Preparing RAMCode
+TFCEBD740 000:315.479    -- End of preparing flash programming
+TFCEBD740 000:323.672    -- CPU speed could not be measured.
+TFCEBD740 000:323.693    -- Start of comparing flash
+TFCEBD740 000:323.698    -- CRC check was estimated as fastest method
+TFCEBD740 000:324.978    -- Comparing range 0x0000 - 0x6FFF (7 Sectors, 28 KB), using multi-block CRC calculation
+TFCEBD740 000:335.029    -- CRC does not match for sectors 0-6
+TFCEBD740 000:335.053    -- End of comparing flash
+TFCEBD740 000:335.059    -- Start of erasing sectors
+TFCEBD740 000:335.066    -- Erasing range 0x00000000 - 0x00006FFF (  7 Sectors, 28 KB)
+TFCEBD740 000:951.168    -- End of erasing sectors
+TFCEBD740 000:951.206    -- Start of flash programming
+TFCEBD740 000:951.216    -- Programming range 0x00000000 - 0x00006FFF (  7 Sectors, 28 KB)
+TFCEBD740 001:386.065    -- End of flash programming
+TFCEBD740 001:386.099    -- 0x0000 - 0x6FFF (  7 Sectors, 28 KB)
+TFCEBD740 001:386.105    -- Start of restoring
+TFCEBD740 001:386.110    -- Restoring RAMCode
+TFCEBD740 001:413.781    -- Restoring target memory
+TFCEBD740 001:459.862    -- Restore target
+TFCEBD740 001:459.889    -- Restoring CPU registers
+TFCEBD740 001:459.912    -- End of restoring
+TFCEBD740 001:459.928    -- Bank 0 @ 0x00000000: 1 range affected (28672 bytes)
+TFCEBD740 001:459.940    -- Total: 1.229s (Prepare: 0.093s, Compare: 0.011s, Erase: 0.616s, Program & Verify: 0.454s, Restore: 0.053s)
+TFCEBD740 001:459.949    -- Program & Verify speed: 62 KB/s
+TFCEBD740 001:460.740 - 1233.190ms returns 0x00
+TFCEBD740 001:460.773 JLINK_ExecCommand("SetVerifyRAMDownload = 0", ...). 
+TFCEBD740 001:460.786 - 0.004ms returns 0x01
+TFCEBD740 001:460.814 JLINK_SetResetDelay(0)
+TFCEBD740 001:460.820 - 0.005ms 
+TFCEBD740 001:460.825 JLINK_Reset()
+TFCEBD740 001:460.839   JLINK_GetResetTypeDesc
+TFCEBD740 001:460.846   - 0.006ms 
+TFCEBD740 001:460.853   Reset type: NORMAL (https://wiki.segger.com/J-Link_Reset_Strategies)
+TFCEBD740 001:460.864   CPU_WriteMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 001:461.647   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TFCEBD740 001:462.241   Reset: Halt core after reset via DEMCR.VC_CORERESET.
+TFCEBD740 001:462.652   Reset: Reset device via AIRCR.SYSRESETREQ.
+TFCEBD740 001:462.662   CPU_WriteMem(4 bytes @ 0xE000ED0C)
+TFCEBD740 001:517.032   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 001:517.610   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 001:518.727   CPU_WriteMem(4 bytes @ 0xE000EDFC)
+TFCEBD740 001:524.407   CPU_ReadMem(4 bytes @ 0xE000EDF0)
+TFCEBD740 001:530.722   CPU_WriteMem(4 bytes @ 0xE0002000)
+TFCEBD740 001:531.202   CPU_ReadMem(4 bytes @ 0xE000EDFC)
+TFCEBD740 001:531.654   CPU_ReadMem(4 bytes @ 0xE0001000)
+TFCEBD740 001:532.198 - 71.372ms 
+TFCEBD740 001:533.499 JLINK_GoEx(MaxEmulInsts = 0, Flags = 0x01)
+TFCEBD740 001:533.526   CPU_ReadMem(4 bytes @ 0xE0001000)
+TFCEBD740 001:534.052   CPU_WriteMem(4 bytes @ 0xE0001004)
+TFCEBD740 001:535.437   Memory map 'after startup completion point' is active
+TFCEBD740 001:535.451 - 1.952ms 
+TFCEBD740 001:535.482 JLINK_IsOpen()
+TFCEBD740 001:535.486 - 0.004ms returns 0x01
+TFCEBD740 001:536.883 JLINK_Close()
+TFCEBD740 001:554.787 - 17.903ms
+TFCEBD740 001:554.804   
+TFCEBD740 001:554.805   Closed
