@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.20.0)
+set(USER_CACHE_DIR "${CMAKE_CURRENT_BINARY_DIR}/.cache" CACHE PATH "Local Zephyr cache" FORCE)
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+project(ook_stm32_rx)
+target_sources(app PRIVATE src/main.c)

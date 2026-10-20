@@ -1,0 +1,163 @@
+west build -p always -b nrf52833dk/nrf52833 -- -DDTC_OVERLAY_FILE=boards/nrf52833dk_nrf52833.overlay
+west flash -r jlink
+python -m serial.tools.miniterm "/dev/ttyACM0" 115200
+
+
+# if you use a specific .conf to your board you ca add a file .conf in boards folder and mention this path in the buil command
+west build -p always -b zest_core_stm32l4a6rg -- -DDTC_OVERLAY_FILE=boards/zest_core_stm32l4a6rg.overlay -- -DEXTRA_CONF_FILE=boards/zest_core_stm32l4a6rg.conf
+
+# open jlink to do connect
+/opt/SEGGER/JLink_V878/JLinkExe
+
+
+
+west flash -r jlink
+source ../../.venv/bin/activate
+
+
+# (une seule fois) clé SSH + config globale
+ssh-keygen -t ed25519 -C "youssef.ben73@gmail.com"
+eval "$(ssh-agent -s)"; ssh-add ~/.ssh/id_ed25519
+# -> ajouter ~/.ssh/id_ed25519.pub dans GitHub
+git config --global user.name "yousefBens"
+git config --global user.email "youssef.ben73@gmail.com"
+git config --global init.defaultBranch main
+
+# nouveau projet
+cd /chemin/projet
+git init
+git branch -M main
+git add .
+git commit -m "feat: initial commit"
+git remote add origin git@github.com:<TonCompte>/<NomRepo>.git
+git push -u origin main
+
+# quotidien
+git add .
+git commit -m "feat: ..."
+git push
+git pull --rebase
+
+
+
+
+/ {
+    chosen {
+        zephyr,console = &usart3;
+    };
+};
+
+&usart3 {
+    pinctrl-0 = <&usart3_tx_pc10 &usart3_rx_pc11>;
+    pinctrl-names = "default";
+    current-speed = <115200>;
+    status = "okay";
+};
+
+&spi1 {
+    /* SPI1: PA5 SCK, PA6 MISO, PA7 MOSI */
+    pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
+    pinctrl-names = "default";
+    status = "okay";
+};
+
+
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+    chosen {
+        zephyr,console = &uart0;
+    };
+
+    leds {
+        compatible = "gpio-leds";
+
+        led1: led_1 {
+            gpios = <&gpio0 14 GPIO_ACTIVE_LOW>;
+            label = "Green LED 1";
+        };
+    };
+    zephyr,user {
+        
+        signal-gpios = <&gpio0 11 GPIO_ACTIVE_HIGH>,
+                       <&gpio0 12 GPIO_ACTIVE_HIGH>,
+                       <&gpio0 13 GPIO_ACTIVE_HIGH>;
+    };
+
+    aliases {
+        user-gpio  = &led1;
+
+        my-spi0-01 = &spidev00;
+        my-spi0-02 = &spidev01;
+
+        my-spi1-01 = &spidev10;
+        my-spi1-02 = &spidev11;
+    };
+};
+
+/* UART0 pour la console */
+&uart0 {
+    compatible = "nordic,nrf-uarte";
+    status = "okay";
+    current-speed = <115200>;
+    pinctrl-0 = <&uart0_default>;
+    pinctrl-1 = <&uart0_sleep>;
+    pinctrl-names = "default", "sleep";
+};
+
+/* ================= SPI0 : 2 CS ================= */
+
+&spi0 {
+    status = "okay";
+
+    /* Deux lignes de Chip Select pour spi0 */
+    cs-gpios = <&gpio0 4 GPIO_ACTIVE_LOW>,   /* index 0 */
+               <&gpio0 28 GPIO_ACTIVE_LOW>;   /* index 1 */
+
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    /* Device sur CS0 (index 0 de cs-gpios) */
+    spidev00: spidev@0 {
+        compatible = "zephyr,spi-device";
+        reg = <0>;                    /* -> utilise cs-gpios[0] (P0.03) */
+        spi-max-frequency = <4000000>;
+        /* tu peux ajouter mode, etc. */
+    };
+
+    /* Device sur CS1 (index 1 de cs-gpios) */
+    spidev01: spidev@1 {
+        compatible = "zephyr,spi-device";
+        reg = <1>;                    /* -> utilise cs-gpios[1] (P0.04) */
+        spi-max-frequency = <4000000>;
+    };
+};
+
+/* ================= SPI1 : 2 CS ================= */
+
+&spi1 {
+    status = "okay";
+
+    /* Deux lignes de Chip Select pour spi1 */
+    cs-gpios = <&gpio0 15 GPIO_ACTIVE_LOW>,  /* index 0 */
+               <&gpio0 16 GPIO_ACTIVE_LOW>;  /* index 1 */
+
+    pinctrl-0 = <&spi1_default>;
+    pinctrl-1 = <&spi1_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    /* Device sur CS0 de spi1 */
+    spidev10: spidev@0 {
+        compatible = "zephyr,spi-device";
+        reg = <0>;                    /* -> cs-gpios[0] (P0.15) */
+        spi-max-frequency = <4000000>;
+    };
+
+    /* Device sur CS1 de spi1 */
+    spidev11: spidev@1 {
+        compatible = "zephyr,spi-device";
+        reg = <1>;                    /* -> cs-gpios[1] (P0.16) */
+        spi-max-frequency = <4000000>;
+    };
+};
